@@ -103,6 +103,12 @@ M2/M3 的卡内顺序由我按关键路径重排（文档罗列顺序不同）�
 | 2026-10-23 14:46 | TC-001 | 交付 → `status_2` → 验收通过 → `status_3` → `resolved`（comments 分别贴报告路径与验收证据） | TAPD 回读 status=resolved, completed=14:46:46 |
 | 2026-10-23 14:50 | — | 按 TC-001 核对结论修计划包：K1 任务分工 TC-002 补 assets（11 目录）／K2 执行规范 §6 速查补 assets／K3 TC-014 补 FR-AI-010／K4 加章节级映射说明／K5 TC-015 增 verify:release／K6 §3 区分"真人提供"与"自造样本"／K7 TC-017 收窄 FR-SEC-005／K10 CONTRACT §1 加"未定义任何端点" | 本文件 + 两处基线文档 |
 | — | — | **K9（git 嵌套仓库）升级为 A12 阻塞项，等 Amor 三选一后才能派 TC-002** | 待裁决 |
+| 2026-10-23 14:54 | — | **A12 按方案① 解决**：家目录新建 `.gitignore` 排除 `WorkBuddy/简历项目开发/`（`git check-ignore` 命中、父仓库 status 归零）；`corepack enable pnpm` → pnpm 12.15.0 | 命令实测 |
+| 2026-10-23 14:56 | TC-002 | 转 `developing`（owner 郭涛）+ 派单评论；拆 A/B 两段，A 段派 `fe-foundation` | TAPD 回读 |
+| 2026-10-23 15:30 | TC-002 | **A 段验收通过**（四门 0 错、verify 三连打印 PLACEHOLDER、11 目录、远端 main=2cb6ec9）；TAPD 保持 `developing` + 标签「阻塞」，卡点＝等 Amor 选组件库 | 本文件 + handoff 验收记录 |
+| 2026-10-23 16:00 | — | Amor 拍板 **Element Plus**；暗色不进 P0（阿U 裁决）；解除 TC-002 阻塞标签 | 对话 + 项目记忆 |
+| 2026-10-23 16:37 | TC-002 | **B 段验收通过 → 全卡关闭**：`developing → status_2 → status_3 → resolved`（completed 16:37:39）。Element Plus 2.14.7 按需引入 + 桥接层（零 hex/rgb）+ vendor 已删；远端 main=`cdd4956` | TAPD 回读 + handoff B 段验收记录 |
+| 2026-10-23 16:37 | — | 备注：PRD 13.1#3 / 13.2#6 已于 15:41 由外部会话回写（V1.3b）、15:49 同步资料库，阿U 核对一致未重复改 | 文件 mtime + 资料库 updatedAt |
 
 ---
 
