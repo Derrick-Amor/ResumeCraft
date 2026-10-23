@@ -1,0 +1,8 @@
+# 依赖与产物
+node_modules/
+dist/
+coverage/
+pnpm-lock.yaml
+
+# 文档目录：含基线文档（不由本卡维护）与离线小样的 UMD 快照，不参与格式化
+docs/

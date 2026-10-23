@@ -1,0 +1,5 @@
+# pnpm 12 起，原 package.json 的 pnpm.* 配置迁到本文件，构建脚本白名单键名改为 allowBuilds。
+# esbuild 需要执行安装脚本获取平台二进制（Vite 依赖），故显式放行；
+# 其余依赖的构建脚本保持默认禁用（pnpm 12 默认拦截未批准的 postinstall）。
+allowBuilds:
+  esbuild: true
