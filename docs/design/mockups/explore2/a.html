@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>A · ResumeCraft</title>
+<link rel="stylesheet" href="../../../src/design/tokens.css">
+<link rel="stylesheet" href="../mockup.css">
+<style>
+:root{--p:#191a1c;--bg:#f4f3ef;--line:#d8d6cf;--line2:#b4b1a8;--meta:#6e747c;--mark:#b02a20}
+body{background:var(--bg);color:var(--p);font-family:"Inter","Noto Sans SC",sans-serif}
+.shell{height:100vh;display:grid;grid-template-columns:56px 1fr 272px;grid-template-rows:44px 1fr 26px;
+  grid-template-areas:'top top top' 'rail stage panel' 'rail foot foot'}
+.top{grid-area:top;display:flex;align-items:center;gap:14px;padding:0 18px;border-bottom:1px solid var(--line)}
+.serif{font-family:"Noto Serif SC","Source Serif 4",serif;font-weight:600;letter-spacing:-.01em}
+.fname{font-size:14px}
+.mono{font-family:"JetBrains Mono",Consolas,monospace;font-variant-numeric:tabular-nums}
+.sp{flex:1}
+.tb{height:28px;padding:0 10px;border:1px solid var(--line2);background:#fff;border-radius:2px;font-size:12px;font-family:inherit;cursor:pointer}
+.solid{height:28px;padding:0 14px;border:0;background:var(--p);color:#fff;border-radius:2px;font-size:12px;font-family:inherit;cursor:pointer}
+.rail{grid-area:rail;border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding-top:10px;gap:2px}
+.rail b{width:36px;height:36px;display:grid;place-items:center;color:#8b8b86;border-radius:2px;cursor:pointer;font-weight:400}
+.rail b.on{color:var(--p);border:1px solid var(--p)}
+.stage{grid-area:stage;overflow:auto;display:flex;justify-content:center;padding:34px 24px 48px}
+.paper-wrap{position:relative}
+.ruler{position:absolute;top:-20px;left:0;right:0;height:16px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between;font-size:9px;color:var(--meta);font-family:"JetBrains Mono",monospace}
+.crop{position:absolute;inset:-10px;pointer-events:none}
+.crop i{position:absolute;width:10px;height:10px;border:1px solid var(--mark)}
+.crop i:nth-child(1){top:0;left:0;border-right:0;border-bottom:0}
+.crop i:nth-child(2){top:0;right:0;border-left:0;border-bottom:0}
+.crop i:nth-child(3){bottom:0;left:0;border-right:0;border-top:0}
+.crop i:nth-child(4){bottom:0;right:0;border-left:0;border-top:0}
+.note{margin-top:14px;font-size:11px;color:var(--meta);display:flex;gap:10px;align-items:center}
+.note b{color:var(--mark);font-weight:400;font-family:"JetBrains Mono",monospace}
+.panel{grid-area:panel;border-left:1px solid var(--line);background:#fff;overflow:auto}
+.ph{height:34px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid var(--line);
+  font-size:12px;letter-spacing:.06em;text-transform:none;color:var(--meta)}
+.pr{display:grid;grid-template-columns:1fr auto;align-items:center;height:28px;padding:0 14px;border-bottom:1px solid #efece6;font-size:12px}
+.pr b{font-weight:400;font-family:"JetBrains Mono",monospace;font-size:11px}
+.foot{grid-area:foot;display:flex;align-items:center;gap:16px;padding:0 14px;border-top:1px solid var(--line);
+  font-size:11px;color:var(--meta);font-family:"JetBrains Mono",monospace}
+</style></head>
+<body>
+
+<div class="shell">
+  <header class="top">
+    <span class="serif" style="font-size:15px">ResumeCraft</span>
+    <span class="fname">张明 — 后端开发工程师</span>
+    <span class="sp"></span>
+    <span class="mono" style="font-size:11px;color:var(--meta)">已保存 14:32</span>
+    <button class="tb">预览</button>
+    <button class="solid">导出</button>
+  </header>
+  <nav class="rail">
+    <b class="on"><svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M3.5 10h17M9.5 10v9.5"/></svg></b>
+    <b><svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg></b>
+    <b><svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 11h16M4 16h9"/></svg></b>
+    <b><svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01"/></svg></b>
+  </nav>
+  <main class="stage">
+    <div>
+      <div class="paper-wrap">
+        <div class="ruler"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70mm</span></div>
+        <div class="crop"><i></i><i></i><i></i><i></i></div>
+        <article class="page">
+        <div class="page__guide" aria-hidden="true"></div>
+
+        <header>
+          <h1 class="r-name">张&nbsp;明</h1>
+          <p class="r-target">求职意向：后端开发工程师（2026 届校招）· 深圳</p>
+          <div class="r-contact">
+            <span>138-0013-8000</span>
+            <span>zhangming@example.com</span>
+            <span>github.com/zhangming</span>
+            <span>华南理工大学 · 软件工程</span>
+          </div>
+        </header>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">教育经历</h2>
+          <div class="r-item page__selected">
+            <div class="r-item__row">
+              <span class="r-item__title">华南理工大学</span>
+              <span class="r-item__meta">2022.09 – 2026.06</span>
+            </div>
+            <div class="r-item__sub">软件工程 · 本科 · GPA 3.7/4.0（专业前 12%）</div>
+            <ul class="r-bullets">
+              <li>主修课程：数据结构与算法、操作系统、数据库系统、计算机网络</li>
+              <li>连续三年获校级二等奖学金；2024 年校级程序设计竞赛二等奖</li>
+            </ul>
+            <span class="handle handle--tl"></span>
+            <span class="handle handle--tr"></span>
+            <span class="handle handle--bl"></span>
+            <span class="handle handle--br"></span>
+          </div>
+        </section>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">实习经历</h2>
+          <div class="r-item">
+            <div class="r-item__row">
+              <span class="r-item__title">腾讯 · 微信事业群　后台开发实习生</span>
+              <span class="r-item__meta">2025.07 – 2025.09</span>
+            </div>
+            <ul class="r-bullets">
+              <li>维护日活 30 万的校园招聘投递服务，将简历解析链路 P99 由 820ms 降至 310ms</li>
+              <li>补齐 46 个接口的错误码映射，线上 5xx 由日均 18 次降至 2 次以内</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">项目经历</h2>
+          <div class="r-item">
+            <div class="r-item__row">
+              <span class="r-item__title">ResumeCraft 简历排版引擎（个人项目）</span>
+              <span class="r-item__meta">2025.03 – 2025.09</span>
+            </div>
+            <ul class="r-bullets">
+              <li>用 TypeScript 实现 A4 分页与溢出检测，支持 4 套模板热切换且内容零丢失</li>
+              <li>设计基于脏区重排的增量布局算法，800 个内容块重排耗时由 240ms 降至 38ms</li>
+              <li>自建 120 页比对样本，导出 PDF 与浏览器打印的版式一致率 99.2%</li>
+            </ul>
+          </div>
+
+          <div class="insert-line" aria-hidden="true"></div>
+
+          <div class="r-item">
+            <div class="r-item__row">
+              <span class="r-item__title">校园二手书交易平台（课程项目 · 5 人团队）</span>
+              <span class="r-item__meta">2024.09 – 2024.12</span>
+            </div>
+            <ul class="r-bullets">
+              <li>负责订单与支付模块：Go + PostgreSQL，压测 QPS 1200，重复下单率为 0</li>
+              <li>用 Redis 做库存预扣，三轮回归后超卖清零；上线两个月成交 1.4 万单</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">专业技能</h2>
+          <dl class="r-kv">
+            <dt>语言</dt><dd>TypeScript / Go / Python / SQL（可独立排障与写测试）</dd>
+            <dt>框架</dt><dd>Vue 3、Gin、PostgreSQL、Redis、Docker</dd>
+            <dt>工程</dt><dd>Git 工作流、单元测试（Vitest / go test）、Linux 常用排查</dd>
+            <dt>语言能力</dt><dd>英语 CET-6（582），可读写英文技术文档</dd>
+          </dl>
+        </section>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">荣誉奖项</h2>
+          <ul class="r-bullets">
+            <li>2024 年中国大学生计算机设计大赛 · 省级一等奖（作品：多端自适应排版工具）</li>
+            <li>2023–2024 学年校级二等奖学金（连续两年，专业前 12%）</li>
+          </ul>
+        </section>
+      </article>
+      </div>
+      <div class="note"><b>01</b> 教育经历 · 12.5pt / 1.65 / 段前 12pt　<b style="color:var(--mark)">↑ 2 处溢出</b></div>
+    </div>
+  </main>
+  <aside class="panel">
+    <div class="ph">规格 · 文本</div>
+    <div class="pr"><span>字号</span><b>12.5 pt</b></div>
+    <div class="pr"><span>行高</span><b>1.65</b></div>
+    <div class="pr"><span>字重</span><b>500</b></div>
+    <div class="pr"><span>段前</span><b>12 pt</b></div>
+    <div class="pr"><span>段后</span><b>4 pt</b></div>
+    <div class="pr"><span>对齐</span><b>左</b></div>
+    <div class="ph">分页</div>
+    <div class="pr"><span>标题不孤行</span><b>开</b></div>
+    <div class="pr"><span>允许拆分</span><b>开</b></div>
+  </aside>
+  <footer class="foot"><span>第 1 / 2 页</span><span>100%</span><span>1,286 字</span><span>A4 · 20mm</span></footer>
+</div>
+
+</body></html>
