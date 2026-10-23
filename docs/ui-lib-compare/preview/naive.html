@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Naive UI 小样 · ResumeCraft</title>
     <!--
-      离线可打开的小样：使用官方发行包里的 UMD 快照（未安装进主工程）。
-        vue@3.5.44        dist/vue.global.prod.js
-        naive-ui@2.45.3   dist/index.prod.js     全局变量 naive，样式为 CSS-in-JS，无独立 css 文件
-      若改用 CDN，对应地址：
-        https://unpkg.com/vue@3.5.44/dist/vue.global.prod.js
-        https://unpkg.com/naive-ui@2.45.3/dist/index.prod.js
+      CDN 版小样（TC-002 B 段收尾：已删除本地 vendor 快照，改为在线引用）。
+        vue@3.5.44        https://unpkg.com/vue@3.5.44/dist/vue.global.prod.js
+        naive-ui@2.45.3   https://unpkg.com/naive-ui@2.45.3/dist/index.prod.js
+                          （全局变量 naive，样式为 CSS-in-JS，无独立 css 文件）
+      ⚠ 需联网打开；离线请看同目录截图 naive.png（#dialog 状态，900×1000）。
+      恢复本地快照的方案见 docs/ui-lib-compare.md §6「最终裁决」。
       审阅便利：URL 末尾加 #dialog 可直接打开确认对话框（预填演示数据）。
     -->
     <style>
@@ -85,8 +85,8 @@
   <body>
     <div id="app"></div>
 
-    <script src="./vendor/vue-3.5.44.global.prod.js"></script>
-    <script src="./vendor/naive-ui-2.45.3.prod.js"></script>
+    <script src="https://unpkg.com/vue@3.5.44/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/naive-ui@2.45.3/dist/index.prod.js"></script>
     <script>
       const { createApp, h, ref, reactive } = Vue
       const {

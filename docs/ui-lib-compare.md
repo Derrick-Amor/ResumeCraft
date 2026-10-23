@@ -10,12 +10,12 @@
 
 | 方式 | 操作 | 说明 |
 |---|---|---|
-| 直接双击 | `docs/ui-lib-compare/preview/naive.html`、`docs/ui-lib-compare/preview/element-plus.html` | 无需安装、无需构建，离线可打开（UMD 快照已放在 `preview/vendor/`） |
+| 直接双击 | `docs/ui-lib-compare/preview/naive.html`、`docs/ui-lib-compare/preview/element-plus.html` | 无需安装、无需构建，但**需联网**（2026-10-23 已删除本地 UMD 快照，改为 unpkg CDN 引用） |
 | 只看确认框 | 在地址后加 `#dialog`，如 `naive.html#dialog` | 预填演示数据并直接打开确认对话框 |
-| 截图 | `preview/naive.png`、`preview/element-plus.png` | 无头 Chrome（900×1000）对 `#dialog` 状态的截图 |
+| 截图 | `preview/naive.png`、`preview/element-plus.png` | 无头 Chrome（900×1000）对 `#dialog` 状态的截图；离线看这份 |
 
-> 两个 HTML 都通过 `file://` 打开验证过（Chrome headless 渲染 + DOM 文本核对），未安装进主工程 `package.json`。
-> `vendor/` 内是 npm 官方发行包中的 UMD 构建快照，来源与 CDN 备选地址写在每个 HTML 的头部注释里。
+> 两个 HTML 原通过本地 UMD 快照离线打开验证过；TC-002 B 段清理了 3.7 MB 的 `preview/vendor/`，改为 CDN 引用，并用无头 Chrome 重新渲染核对过 DOM 文本（见 §6）。
+
 
 ---
 
@@ -134,3 +134,50 @@
 - 未做真实业务组件（画布、图层、属性面板）的适配试验——按任务边界归 TC-004/TC-008。
 - 未做性能压测（长表单、批量渲染）——UMD 全量包下的体感不具参考性，留待 TC-004 用真实构建复测。
 - 未验证 SSR/SSG 兼容性——本项目为纯静态 SPA，不涉及。
+
+---
+
+## 6. 最终裁决（2026-10-23）
+
+**选型：Element Plus `2.14.7`**（Amor 2026-10-23 拍板；暗色主题不进 P0 由阿U 裁决，本节不含暗色结论）
+
+### 6.1 理由（按权重）
+
+| 权重 | 理由 | 依据 |
+|---|---|---|
+| 1 | **token 机制与 PRD 13.1#4 同源** | Element Plus 的定制入口就是公开的 CSS 变量（`--el-*`），可直接以 `var(--rc-*)` 赋值，`tokens.css` 保持唯一事实源；Naive UI 需 `tokens.css` + JS `themeOverrides` 双写（§2.1、§2.5） |
+| 2 | **按需引入后体积可控**（实测见 6.2） | 只引入 6 个组件时，EP 相关产物 CSS 7.48 KB(gzip)、JS 增量 51.24 KB(gzip)，约为全量 UMD 包 gzip 的 1/7–1/6 |
+| 3 | **中文文档与团队上手成本** | 原生中文文档 + Vue3 生态最大社区；表单/对话框用法与团队既有经验重合（§2.2、§2.4） |
+
+> 代价已接受：默认观感不如 Naive 现代，视觉基调需 TC-016 用 token 拉回来；深定制样式细节时要和 EP 默认样式缠斗。
+
+### 6.2 接入方式与实测体积
+
+**接入方式（只做按需，不做全量注册）**
+
+| 项 | 内容 |
+|---|---|
+| 组件库 | `element-plus@2.14.7`（`dependencies`） |
+| 按需插件 | `unplugin-vue-components@32.1.0` + `ElementPlusResolver()`，配置在 `vite.config.ts` 的 `plugins` |
+| 自动生成的类型声明 | `src/ui/controls/components.d.ts`（`Components({ dts })`），已在 `tsconfig.app.json` 的 `src/**/*.ts` 覆盖范围内 |
+| 未使用 | `app.use(ElementPlus)` 全量注册、`element-plus/dist/index.css` 全量样式、`unplugin-auto-import`（避免多一个隐式全局来源） |
+| token 桥接层 | `src/design/element-plus-bridge.css`：`--el-*` → `var(--rc-*)` 纯映射，文件内 **0 个色值字面量**；在 `src/main.ts` 中排在 Element Plus 组件样式之后引入 |
+
+**构建体积对比**（同一台机器，`vite build`，Node 侧同一 `node_modules`；基线用 `git worktree` 检出 `2cb6ec9` 单独构建）
+
+| 产物 | 基线 `2cb6ec9`（无组件库） | 接入后（验证页：el-form 三字段 + el-dialog + el-card） | 增量 |
+|---|---|---|---|
+| JS | 64.74 KB（gzip 25.80） | 208.35 KB（gzip 77.04） | +143.61 KB（gzip +51.24） |
+| CSS | —（无 CSS 产物） | 51.13 KB（gzip 7.48） | +51.13 KB（gzip +7.48） |
+| HTML | 0.32 KB（gzip 0.24） | 0.40 KB（gzip 0.27） | +0.08 KB |
+| **合计** | **65.06 KB（gzip 26.04）** | **259.88 KB（gzip 84.79）** | **+194.82 KB（gzip +58.75）** |
+| 模块数 | 19 | 1627 | — |
+
+对照 §2.3 的全量 UMD 包（EP 合计 gzip 341.6 KB）：按需后 CSS 只取到全量的 15.5%（7.48 / 48.2），JS 增量约为全量 gzip 的 17.5%（51.24 / 293.4）。验证页只用了 6 个组件，真实业务页会用到更多，但增量仍随组件数线性增长，不会跳到全量。
+
+### 6.3 边界声明
+
+- **PRD 13.1#3 由主控阿U 回写**；本文件仅记录对比事实与裁决过程，**不作为 PRD 变更依据**。
+- §3「倾向性意见（非裁决）」保留原文，用于决策过程留痕；最终结论以本节为准。
+- 暗色主题：P0 不做。桥接层只映射语义变量、不绑定主题，将来加暗色只需在 `[data-theme='dark']` 下重定义同一批 `--rc-*`。
+- 本节的体积数据来自临时验证页（TC-008 会替换），**不代表最终业务包体**；TC-004 落地 `tokens.css` 后应复测一次。

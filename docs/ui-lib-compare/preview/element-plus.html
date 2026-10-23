@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Element Plus 小样 · ResumeCraft</title>
     <!--
-      离线可打开的小样：使用官方发行包里的 UMD 快照（未安装进主工程）。
-        vue@3.5.44            dist/vue.global.prod.js
-        element-plus@2.14.7   dist/index.full.min.js   全局变量 ElementPlus
-        element-plus@2.14.7   dist/index.css
-      若改用 CDN，对应地址：
-        https://unpkg.com/vue@3.5.44/dist/vue.global.prod.js
-        https://unpkg.com/element-plus@2.14.7/dist/index.full.min.js
-        https://unpkg.com/element-plus@2.14.7/dist/index.css
+      CDN 版小样（TC-002 B 段收尾：已删除本地 vendor 快照，改为在线引用）。
+        vue@3.5.44            https://unpkg.com/vue@3.5.44/dist/vue.global.prod.js
+        element-plus@2.14.7   https://unpkg.com/element-plus@2.14.7/dist/index.full.min.js  （全局变量 ElementPlus）
+        element-plus@2.14.7   https://unpkg.com/element-plus@2.14.7/dist/index.css
+      ⚠ 需联网打开；离线请看同目录截图 element-plus.png（#dialog 状态，900×1000）。
+      审阅便利：URL 末尾加 #dialog 可直接打开确认对话框（预填演示数据）。
     -->
-    <link rel="stylesheet" href="./vendor/element-plus-2.14.7.index.css" />
+    <link rel="stylesheet" href="https://unpkg.com/element-plus@2.14.7/dist/index.css" />
     <style>
       /* Element Plus 的 token 就是 CSS 变量，直接在 :root 覆写即可与设计 token 对齐 */
       :root {
@@ -93,8 +91,8 @@
   <body>
     <div id="app"></div>
 
-    <script src="./vendor/vue-3.5.44.global.prod.js"></script>
-    <script src="./vendor/element-plus-2.14.7.full.min.js"></script>
+    <script src="https://unpkg.com/vue@3.5.44/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/element-plus@2.14.7/dist/index.full.min.js"></script>
     <script>
       const { createApp, h, ref, reactive } = Vue
       const { ElForm, ElFormItem, ElInput, ElButton, ElDialog, ElAlert } = ElementPlus
