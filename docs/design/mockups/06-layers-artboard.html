@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>06 图层面板与画板工具条 · ResumeCraft 视觉稿</title>
+<link rel="stylesheet" href="../../../src/design/tokens.css">
+<link rel="stylesheet" href="mockup.css">
+</head>
+<body>
+
+<div class="mock-nav">
+  <a href="index.html">视觉稿目录</a>
+  <a href="01-editor.html">01 主编辑器</a>
+  <a href="02-templates.html">02 模板选择</a>
+  <a href="03-import-wizard.html">03 导入向导</a>
+  <a href="04-export-check.html">04 导出前检查</a>
+  <a href="05-empty-state.html">05 空状态</a>
+  <a href="06-layers-artboard.html" class="is-current">06 图层与画板</a>
+  <a href="07-overflow-dialog.html">07 溢出三阶段</a>
+  <a href="08-overflow-badge.html">08 溢出角标</a>
+</div>
+
+<div class="demo-stage">
+
+  <!-- ============ 左：图层面板 ============ -->
+  <div class="demo-col">
+    <div class="demo-cap">
+      <b>图层面板</b>
+      <span>· FR-EDT-002 · 三层结构：背景 / 插图 / 组件</span>
+    </div>
+
+    <div class="panel" style="width:320px">
+      <div class="panel__h">
+        <span>图层</span>
+        <span class="flex gap-4">
+          <button class="layer-toggle" title="折叠全部"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h14M5 15h14"/></svg></button>
+          <button class="layer-toggle" title="图层排序"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16M7 4 4.5 7M7 4l2.5 3"/><path d="M17 20V4M17 20l-2.5-3M17 20l2.5-3"/></svg></button>
+        </span>
+      </div>
+
+      <div class="panel__body">
+        <div class="layers">
+
+          <!-- 背景层 -->
+          <div class="layer-group">
+            <div class="layer-group__h">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M3.5 15l5-5 4 4 3-3 5 5"/></svg>
+              <span>背景</span>
+              <span class="tag tag--warning">默认锁定</span>
+              <span class="count">1</span>
+            </div>
+
+            <div class="layer-row layer-row--locked">
+              <button class="layer-toggle is-on" title="可见">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              </button>
+              <button class="layer-toggle is-locked" title="已锁定，点击解锁">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>
+              </button>
+              <span class="layer-thumb layer-thumb--bg">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 6v12M16 6v12"/></svg>
+              </span>
+              <span class="layer-row__name">米色网格底纹</span>
+              <span class="layer-row__type">bg</span>
+            </div>
+          </div>
+
+          <div class="layer-divider"></div>
+
+          <!-- 插图层 -->
+          <div class="layer-group">
+            <div class="layer-group__h">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="1.5"/><circle cx="9" cy="10" r="1.5"/><path d="m5 17 4.5-4.5 3.5 3.5 2.5-2.5L20 17"/></svg>
+              <span>插图</span>
+              <span class="count">2</span>
+            </div>
+
+            <div class="layer-row">
+              <button class="layer-toggle is-on" title="可见">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              </button>
+              <button class="layer-toggle" title="未锁定">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 6.6-1.6"/></svg>
+              </button>
+              <span class="layer-thumb layer-thumb--img">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="m5 17 4.5-4.5 3.5 3.5 2.5-2.5L20 17"/></svg>
+              </span>
+              <span class="layer-row__name">页眉装饰线</span>
+              <span class="layer-row__type">img</span>
+            </div>
+
+            <div class="layer-row">
+              <button class="layer-toggle" title="已隐藏">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 6.2A9.7 9.7 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3.4 4"/><path d="M6.4 7.9A16.6 16.6 0 0 0 2.5 12S6 18 12 18a9.6 9.6 0 0 0 3.5-.65"/></svg>
+              </button>
+              <button class="layer-toggle" title="未锁定">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 6.6-1.6"/></svg>
+              </button>
+              <span class="layer-thumb layer-thumb--img">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="m5 17 4.5-4.5 3.5 3.5 2.5-2.5L20 17"/></svg>
+              </span>
+              <span class="layer-row__name">项目截图-分页算法</span>
+              <span class="layer-row__type">img</span>
+            </div>
+          </div>
+
+          <div class="layer-divider"></div>
+
+          <!-- 组件层 -->
+          <div class="layer-group">
+            <div class="layer-group__h">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="7" height="6" rx="1"/><rect x="13.5" y="4.5" width="7" height="6" rx="1"/><rect x="3.5" y="13.5" width="7" height="6" rx="1"/><rect x="13.5" y="13.5" width="7" height="6" rx="1"/></svg>
+              <span>组件</span>
+              <span class="count">5</span>
+            </div>
+
+            <div class="layer-row layer-row--active">
+              <button class="layer-toggle is-on" title="可见">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              </button>
+              <button class="layer-toggle" title="未锁定">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 6.6-1.6"/></svg>
+              </button>
+              <span class="layer-thumb layer-thumb--text">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2"/><path d="M12 5v14M9 19h6"/></svg>
+              </span>
+              <span class="layer-row__name">教育经历</span>
+              <span class="layer-row__type">text</span>
+            </div>
+
+            <div class="layer-row">
+              <button class="layer-toggle is-on" title="可见">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              </button>
+              <button class="layer-toggle" title="未锁定">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 6.6-1.6"/></svg>
+              </button>
+              <span class="layer-thumb layer-thumb--text">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2"/><path d="M12 5v14M9 19h6"/></svg>
+              </span>
+              <span class="layer-row__name">实习经历</span>
+              <span class="layer-row__type">text</span>
+            </div>
+
+            <div class="layer-row">
+              <button class="layer-toggle is-on" title="可见">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              </button>
+              <button class="layer-toggle" title="未锁定">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 6.6-1.6"/></svg>
+              </button>
+              <span class="layer-thumb layer-thumb--text">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2"/><path d="M12 5v14M9 19h6"/></svg>
+              </span>
+              <span class="layer-row__name">项目经历</span>
+              <span class="layer-row__type">text</span>
+            </div>
+
+            <div class="layer-row layer-row--locked">
+              <button class="layer-toggle is-on" title="可见">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              </button>
+              <button class="layer-toggle is-locked" title="已锁定，锁定后不可拖动">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>
+              </button>
+              <span class="layer-thumb layer-thumb--text">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="M4 10h16M10 10v9"/></svg>
+              </span>
+              <span class="layer-row__name">技能矩阵</span>
+              <span class="layer-row__type">table</span>
+            </div>
+
+            <div class="layer-row">
+              <button class="layer-toggle is-on" title="可见">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              </button>
+              <button class="layer-toggle" title="未锁定">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 6.6-1.6"/></svg>
+              </button>
+              <span class="layer-thumb layer-thumb--text">
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2"/><path d="M12 5v14M9 19h6"/></svg>
+              </span>
+              <span class="layer-row__name">荣誉奖项</span>
+              <span class="layer-row__type">text</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="banner banner--warning mt-12">
+          <svg class="i banner__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 2.8 20h18.4z"/><path d="M12 10v4.2"/><path d="M12 17.2h.01"/></svg>
+          <div class="banner__body">
+            背景层默认锁定，避免拖动整页时误移动底纹。要换背景先解锁，或直接用画板工具条。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiny" style="max-width:320px;line-height:var(--rc-line-height-relaxed)">
+      锁定态：行文字与图标降为三级灰，拖拽手柄消失，右键菜单里「删除」置灰。
+      当前选中层（教育经历）用主色描边 + 主色浅底标识，不只靠颜色——左侧多一个 2px 主色竖条。
+    </div>
+  </div>
+
+  <!-- ============ 右：画布 + 画板工具条 ============ -->
+  <div class="demo-col">
+    <div class="demo-cap">
+      <b>画板工具条</b>
+      <span>· FR-EDT-003 · 图钉式浮动，吸附在画布顶部</span>
+    </div>
+
+    <div style="position:relative;width:640px;margin-top:56px">
+      <div class="artboard-bar" style="position:absolute;top:-52px;left:50%">
+        <button class="ab-btn ab-btn--active">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="m8 8 4-4 4 4"/><path d="M4 20h16"/></svg>
+          背景上传
+        </button>
+        <button class="ab-btn">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5s6 6.4 6 10.2a6 6 0 0 1-12 0C6 9.9 12 3.5 12 3.5z"/></svg>
+          背景色
+        </button>
+        <button class="ab-btn">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 10h16M4 16h16M10 4v16M16 4v16"/></svg>
+          纹理
+        </button>
+        <span class="ab-sep"></span>
+        <button class="ab-btn">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="1.5"/><circle cx="9" cy="10" r="1.5"/><path d="m5 17 4.5-4.5 3.5 3.5 2.5-2.5L20 17"/></svg>
+          插图
+        </button>
+        <button class="ab-btn">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14v13H5z"/><path d="M5 6V4h10v2"/><path d="M12 10v5M9.5 12.5 12 15l2.5-2.5"/></svg>
+          存为背景模板
+        </button>
+        <span class="ab-sep"></span>
+        <button class="ab-btn" title="固定在画布顶部">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6l-1 6 3 3H7l3-3z"/><path d="M12 13v7"/></svg>
+        </button>
+      </div>
+
+      <div class="page" style="width:640px;min-height:820px;padding:48px">
+        <div class="page__guide" style="inset:48px"></div>
+
+        <!-- 背景层锁定标识 -->
+        <div style="position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:4px"
+             class="tag tag--warning">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>
+          背景层已锁定
+        </div>
+
+        <div style="height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 23px,var(--rc-color-border-lighter) 23px,var(--rc-color-border-lighter) 24px),repeating-linear-gradient(90deg,transparent,transparent 23px,var(--rc-color-border-lighter) 23px,var(--rc-color-border-lighter) 24px);border-radius:var(--rc-radius-sm);padding:24px">
+          <div style="background:var(--rc-color-paper);height:100%;padding:20px;border-radius:var(--rc-radius-sm)">
+            <div class="r-name" style="font-size:20px">张&nbsp;明</div>
+            <div class="r-target" style="font-size:11px;margin-bottom:6px">求职意向：后端开发工程师（2026 届校招）· 深圳</div>
+            <div class="r-contact" style="font-size:10px;gap:10px;padding-bottom:8px">
+              <span>138-0013-8000</span><span>zhangming@example.com</span><span>github.com/zhangming</span>
+            </div>
+            <div class="r-sec" style="margin-top:12px">
+              <div class="r-sec__h" style="font-size:12px;margin-bottom:6px">教育经历</div>
+              <div class="r-item__row"><span class="r-item__title" style="font-size:11px">华南理工大学</span><span class="r-item__meta" style="font-size:9.5px">2022.09 – 2026.06</span></div>
+              <div class="r-item__sub" style="font-size:10px">软件工程 · 本科 · GPA 3.7/4.0（专业前 12%）</div>
+            </div>
+            <div class="r-sec" style="margin-top:12px">
+              <div class="r-sec__h" style="font-size:12px;margin-bottom:6px">项目经历</div>
+              <div class="r-item__row"><span class="r-item__title" style="font-size:11px">ResumeCraft 简历排版引擎</span><span class="r-item__meta" style="font-size:9.5px">2025.03 – 2025.09</span></div>
+              <ul class="r-bullets" style="font-size:10px;line-height:1.6">
+                <li>用 TypeScript 实现 A4 分页与溢出检测，支持 4 套模板热切换</li>
+                <li>增量布局算法：800 个内容块重排耗时由 240ms 降至 38ms</li>
+              </ul>
+            </div>
+            <div class="tiny" style="margin-top:16px">
+              背景为「米色网格底纹」；网格线由背景层渲染，导出时随页面一起栅格化。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-cap mt-8">
+      <b>背景色 token 色板</b>
+      <span>· 只给 token 派生色，不给自由取色（保证导出与屏幕一致）</span>
+    </div>
+    <div class="panel" style="width:640px">
+      <div class="panel__body">
+        <div class="flex gap-8 flex-center" style="flex-wrap:wrap">
+          <span class="tag tag--outline">--rc-color-paper</span>
+          <span class="tag tag--outline">--rc-neutral-50</span>
+          <span class="tag tag--outline">--rc-primary-light-9</span>
+          <span class="tag tag--outline">--rc-warning-subtle</span>
+          <span class="tag tag--outline">--rc-success-subtle</span>
+          <span class="grow"></span>
+          <span class="tiny">当前：米色网格底纹（纹理）</span>
+        </div>
+        <div class="flex gap-8 mt-12">
+          <span class="swatch" style="width:40px;height:40px;background:var(--rc-color-paper)" title="纸白"></span>
+          <span class="swatch" style="width:40px;height:40px;background:var(--rc-neutral-50)" title="页面灰"></span>
+          <span class="swatch" style="width:40px;height:40px;background:var(--rc-color-primary-light-9)" title="主色浅底"></span>
+          <span class="swatch" style="width:40px;height:40px;background:var(--rc-color-warning-subtle)" title="暖米"></span>
+          <span class="swatch" style="width:40px;height:40px;background:var(--rc-color-success-subtle)" title="冷绿"></span>
+          <span class="swatch" style="width:40px;height:40px;background:var(--rc-neutral-100)" title="浅灰"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

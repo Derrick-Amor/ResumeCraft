@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>ResumeCraft 视觉稿 · 目录</title>
+<link rel="stylesheet" href="../../../src/design/tokens.css">
+<link rel="stylesheet" href="mockup.css">
+</head>
+<body>
+
+<div class="gallery">
+
+  <header class="gal-head" style="gap:var(--rc-space-lg)">
+    <span class="brand__mark">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 12h5M10 16h5"/></svg>
+    </span>
+    <div>
+      <h1 class="gal-head__title">ResumeCraft 视觉稿</h1>
+      <div class="gal-head__sub">TC-016 · 8 张静态界面稿 · 全部共用 src/design/tokens.css</div>
+    </div>
+    <div class="grow"></div>
+    <span class="tag tag--outline">A4 · 210×297mm</span>
+    <span class="tag tag--outline">桌面优先 · ≥1440px</span>
+    <span class="tag tag--primary">主色：--rc-color-primary（墨青蓝）</span>
+  </header>
+
+  <main class="gal-main">
+
+    <div class="banner banner--info mb-16">
+      <svg class="i banner__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><path d="M12 7.8h.01"/></svg>
+      <div class="banner__body">
+        八张稿子<b>没有一行自带颜色</b>：所有色值、圆角、阴影、间距都来自 <code>src/design/tokens.css</code>。
+        把那个文件里的 <code>--rc-color-primary</code> 改掉，这八页会一起变色——这就是 token 单一事实源的自证。
+        稿中文案取自一份真实的中文技术岗简历，不是占位文字。
+      </div>
+    </div>
+
+    <div class="empty__entries" style="grid-template-columns:repeat(2,1fr);max-width:none">
+
+      <a class="entry entry--primary" href="01-editor.html">
+        <div class="flex-center gap-8">
+          <span class="entry__icon">
+            <svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 8h18M8 8v12M16 8v12"/></svg>
+          </span>
+          <span class="tiny">01</span>
+        </div>
+        <span class="entry__title">主编辑器 · 五区域</span>
+        <span class="entry__desc">顶部工具栏分组 · 左侧 Tab（模板/组件/素材/页面）· A4 纸面与页边距辅助线 · 右侧属性面板（含校验失败态）· 底部状态栏（页码/缩放/保存/警告数/导出状态）。附带拖拽插入线与组件选中态。</span>
+        <span class="entry__go">打开
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></svg>
+        </span>
+      </a>
+
+      <a class="entry" href="02-templates.html">
+        <div class="flex-center gap-8">
+          <span class="entry__icon">
+            <svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="7" height="15" rx="1"/><rect x="13.5" y="4.5" width="7" height="15" rx="1"/></svg>
+          </span>
+          <span class="tiny">02</span>
+        </div>
+        <span class="entry__title">模板选择面板</span>
+        <span class="entry__desc">4 套内置模板的卡片（缩略图 + 名称 + 适用场景 + 语言轨 + 页数标签）· 搜索与三维筛选 · 悬停大图预览浮层 · 右侧应用预览栏显示「内容保留 12 项 / 待处理 3 项」。</span>
+        <span class="entry__go">打开
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></svg>
+        </span>
+      </a>
+
+      <a class="entry" href="03-import-wizard.html">
+        <div class="flex-center gap-8">
+          <span class="entry__icon">
+            <svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11"/><path d="m7.5 9.5 4.5 4.5 4.5-4.5"/><path d="M4 19.5h16"/></svg>
+          </span>
+          <span class="tiny">03</span>
+        </div>
+        <span class="entry__title">导入向导 · 人工对照</span>
+        <span class="entry__desc">分步条（选文件 → 解析 → 预览确认 → 生成）· 第三方 DOCX 的分层承诺明示 · 左右对照（左原文件高亮、右识别块 + 置信度）· 待处理项的就地操作 · 生成按钮因待处理而禁用。</span>
+        <span class="entry__go">打开
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></svg>
+        </span>
+      </a>
+
+      <a class="entry" href="04-export-check.html">
+        <div class="flex-center gap-8">
+          <span class="entry__icon">
+            <svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>
+          </span>
+          <span class="tiny">04</span>
+        </div>
+        <span class="entry__title">导出前检查对话框</span>
+        <span class="entry__desc">四级清单（阻断 1 / 警告 2 / 建议 2 / 通过 14）· 阻断项默认拦截并给出定位 · 强制导出复选框在阻断未处理时不可用 · 禁用按钮附原因 tooltip。</span>
+        <span class="entry__go">打开
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></svg>
+        </span>
+      </a>
+
+      <a class="entry" href="05-empty-state.html">
+        <div class="flex-center gap-8">
+          <span class="entry__icon">
+            <svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </span>
+          <span class="tiny">05</span>
+        </div>
+        <span class="entry__title">空状态 / 首次引导</span>
+        <span class="entry__desc">三个入口（从模板开始 / 导入已有简历 / 空白画板）+ 最近打开列表 · 空画布时的左侧资源栏与右侧属性栏联动提示 · 导出按钮禁用并解释原因。</span>
+        <span class="entry__go">打开
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></svg>
+        </span>
+      </a>
+
+      <a class="entry" href="06-layers-artboard.html">
+        <div class="flex-center gap-8">
+          <span class="entry__icon">
+            <svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5"/></svg>
+          </span>
+          <span class="tiny">06</span>
+        </div>
+        <span class="entry__title">图层面板 + 画板工具条</span>
+        <span class="entry__desc">三层结构（背景 1 / 插图 2 / 组件 5）· 可见性与锁定双开关 · 背景层默认锁定并置灰不可拖 · 当前层用主色描边 + 左侧竖条双标识 · 工具条：背景上传 / 背景色 / 纹理 / 插图 / 存为背景模板。</span>
+        <span class="entry__go">打开
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></svg>
+        </span>
+      </a>
+
+      <a class="entry" href="07-overflow-dialog.html">
+        <div class="flex-center gap-8">
+          <span class="entry__icon">
+            <svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 2.8 20h18.4z"/><path d="M12 10v4.2"/><path d="M12 17.2h.01"/></svg>
+          </span>
+          <span class="tiny">07</span>
+        </div>
+        <span class="entry__title">溢出三阶段弹窗</span>
+        <span class="entry__desc">三个选项（压缩该组件 / 压缩本页全部 / 不压缩进入下一阶段）· 每个选项给出预计收回高度 ·「整体下移将导致空白 62mm」的警告样式 · 稍后处理收缩为角标。</span>
+        <span class="entry__go">打开
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></svg>
+        </span>
+      </a>
+
+      <a class="entry" href="08-overflow-badge.html">
+        <div class="flex-center gap-8">
+          <span class="entry__icon">
+            <svg class="i i-md" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5"/><path d="M12 16h.01"/></svg>
+          </span>
+          <span class="tiny">08</span>
+        </div>
+        <span class="entry__title">溢出角标状态</span>
+        <span class="entry__desc">右上角 20px 圆形角标（SVG 感叹号，非 emoji）· 多处溢出叠加数量 · 悬浮摘要浮层列出 3 条待处理 · 三种状态对照（单处 / 多处 / 处理完消失）。</span>
+        <span class="entry__go">打开
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></svg>
+        </span>
+      </a>
+
+    </div>
+
+    <div class="panel mt-16" style="width:100%">
+      <div class="panel__h">
+        <span>token 速览（全部取自 tokens.css，非手工取色）</span>
+        <span class="tiny">改 tokens.css → 本页与八张稿同时变</span>
+      </div>
+      <div class="panel__body">
+        <div class="flex gap-8 mb-12" style="flex-wrap:wrap">
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-primary)" title="--rc-color-primary"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-primary-hover)" title="--rc-color-primary-hover"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-primary-light-3)" title="--rc-color-primary-light-3"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-primary-light-5)" title="--rc-color-primary-light-5"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-primary-light-7)" title="--rc-color-primary-light-7"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-primary-light-9)" title="--rc-color-primary-light-9"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-primary-subtle)" title="--rc-color-primary-subtle"></span>
+        </div>
+
+        <div class="flex gap-8 mb-12" style="flex-wrap:wrap">
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-neutral-50)" title="N50"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-neutral-100)" title="N100"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-neutral-200)" title="N200"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-neutral-400)" title="N400"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-neutral-600)" title="N600"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-neutral-800)" title="N800"></span>
+          <span class="st__sep"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-info)" title="info"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-success)" title="success"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-warning)" title="warning"></span>
+          <span class="swatch" style="width:56px;height:36px;background:var(--rc-color-danger)" title="danger"></span>
+        </div>
+
+        <div class="flex gap-12" style="flex-wrap:wrap;align-items:center">
+          <span class="tag tag--outline">圆角 2 / 4 / 8 / 12</span>
+          <span class="tag tag--outline">间距 2 / 4 / 8 / 12 / 16 / 24 / 32</span>
+          <span class="tag tag--outline">字号 12 / 14 / 16 / 20 / 24 / 28</span>
+          <span class="tag tag--outline">动效 100 / 150 / 200 / 300ms</span>
+          <span class="tag tag--outline">阴影 2 / 4 / 8 / 16</span>
+          <span class="tag tag--outline">图标 16 / 20 / 24</span>
+        </div>
+
+        <div class="blocked-note mt-16">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--rc-color-danger);flex:none">
+            <path d="M12 4 2.8 20h18.4z"/><path d="M12 10v4.2"/><path d="M12 17.2h.01"/>
+          </svg>
+          <div>
+            视觉稿里的字号、间距只表达层级关系，不是最终实现值；实现以 <code>docs/design/token-values.md</code> 与
+            <code>src/design/tokens.css</code> 为准。
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

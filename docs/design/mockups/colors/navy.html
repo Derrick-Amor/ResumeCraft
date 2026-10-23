@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="zh-CN" data-palette="navy">
+<head>
+<meta charset="utf-8">
+<title>藏蓝候选版 · ResumeCraft 主编辑器</title>
+<link rel="stylesheet" href="../../../../src/design/tokens.css">
+<link rel="stylesheet" href="../mockup.css">
+<link rel="stylesheet" href="palettes.css">
+</head>
+<body>
+<div class="mock-nav"><a href="compare.html">六色对比</a><a href="royal.html">宝蓝</a><a href="navy.html" is-current>藏蓝</a><a href="ultramarine.html">群青</a><a href="violet.html">墨紫</a><a href="graphite.html">石墨</a><a href="cocoa.html">深咖</a></div>
+
+
+<div class="app">
+
+  <!-- ================= 顶部工具栏 ================= -->
+  <header class="toolbar">
+    <div class="brand">
+      <span class="brand__mark">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 12h5M10 16h5"/></svg>
+      </span>
+      <span class="brand__name">ResumeCraft</span>
+    </div>
+
+    <div class="tb-group">
+      <button class="tb-btn tb-btn--icon" title="新建简历">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5z"/><path d="M13.5 3v4.5H18"/><path d="M12 11v6M9 14h6"/></svg>
+      </button>
+      <button class="tb-btn tb-btn--icon" title="打开本地文件">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h4l2 2.5h7A1.5 1.5 0 0 1 19 10v7.5A1.5 1.5 0 0 1 17.5 19h-13A1.5 1.5 0 0 1 3 17.5z"/></svg>
+      </button>
+      <button class="tb-btn" title="保存（Ctrl+S）">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h7"/></svg>
+        <span class="tb-btn__label">保存</span>
+      </button>
+    </div>
+
+    <div class="tb-group">
+      <button class="tb-btn tb-btn--icon" disabled title="没有可撤销的操作">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a5.5 5.5 0 0 1 0 11h-3"/></svg>
+      </button>
+      <button class="tb-btn tb-btn--icon" disabled title="没有可重做的操作">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H10a5.5 5.5 0 0 0 0 11h3"/></svg>
+      </button>
+    </div>
+
+    <div class="tb-group">
+      <button class="tb-btn">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M3.5 10h17M9.5 10v9.5"/></svg>
+        <span class="tb-btn__label">组件</span>
+      </button>
+      <button class="tb-btn">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="1.5"/><circle cx="9" cy="10" r="1.5"/><path d="m5 17 4.5-4.5 3.5 3.5 2.5-2.5L20 17"/></svg>
+        <span class="tb-btn__label">图片</span>
+      </button>
+    </div>
+
+    <div class="tb-group">
+      <button class="tb-btn">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+        <span class="tb-btn__label">页面设置</span>
+      </button>
+    </div>
+
+    <!-- 文件名居中 -->
+    <div class="tb-filename" title="点击重命名">
+      <span>张明-后端开发工程师-2026届</span>
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+
+    <div class="tb-right">
+      <button class="tb-btn tb-btn--icon" title="预览（Esc 退出）">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+      </button>
+      <button class="tb-btn" aria-pressed="false">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l1.8 5.2L19 11l-5.2 1.8L12 18l-1.8-5.2L5 11l5.2-1.8z"/><path d="M18.5 4v2.5M17.25 5.25h2.5"/></svg>
+        <span class="tb-btn__label">AI 建议</span>
+      </button>
+      <button class="btn btn--primary btn--sm">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3"/><path d="m7.5 7.5 4.5-4.5 4.5 4.5"/><path d="M4 15v4.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V15"/></svg>
+        导出 PDF
+      </button>
+      <button class="tb-btn tb-btn--icon" title="更多操作">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="18.5" cy="12" r="1"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= 左侧资源栏 ================= -->
+  <aside class="side">
+    <nav class="tabs">
+      <button class="tab">模板</button>
+      <button class="tab tab--active">组件</button>
+      <button class="tab">素材</button>
+      <button class="tab">页面</button>
+    </nav>
+
+    <div class="side__body">
+      <div class="search">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+        <span class="search__ph">搜索组件</span>
+      </div>
+
+      <div class="side__title">基础内容 <span>6</span></div>
+      <div class="el-item">
+        <svg class="i el-item__grip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></svg>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2"/><path d="M12 5v14M9 19h6"/></svg>
+        <span>标题</span>
+      </div>
+      <div class="el-item">
+        <svg class="i el-item__grip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></svg>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        <span>段落</span>
+      </div>
+      <div class="el-item el-item--dragging">
+        <svg class="i el-item__grip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></svg>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="7" height="14" rx="1"/><rect x="13.5" y="5" width="7" height="14" rx="1"/></svg>
+        <span>分栏容器</span>
+      </div>
+      <div class="el-item">
+        <svg class="i el-item__grip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></svg>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M8 6v3M16 6v3"/><path d="M4 12h16M4 16.5h16M4 19h9"/></svg>
+        <span>列表</span>
+      </div>
+      <div class="el-item">
+        <svg class="i el-item__grip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></svg>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="M4 10h16M10 10v9"/></svg>
+        <span>信息表格</span>
+      </div>
+      <div class="el-item">
+        <svg class="i el-item__grip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></svg>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18"/></svg>
+        <span>分隔线</span>
+      </div>
+
+      <div class="side__title">常用组合 <span>3</span></div>
+      <div class="el-item">
+        <svg class="i el-item__grip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></svg>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 11h16M4 16h9"/><circle cx="18.5" cy="16" r="2.5"/></svg>
+        <span>教育经历</span>
+      </div>
+      <div class="el-item">
+        <svg class="i el-item__grip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></svg>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4.5" width="16" height="15" rx="1.5"/><path d="M8 9h8M8 12.5h8M8 16h5"/></svg>
+        <span>项目经历</span>
+      </div>
+      <div class="el-item">
+        <svg class="i el-item__grip" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></svg>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 9.5h16M4 14h6M14 14h6M4 18.5h6M14 18.5h6"/></svg>
+        <span>技能矩阵</span>
+      </div>
+
+      <div class="banner banner--info mt-16">
+        <svg class="i banner__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><path d="M12 7.8h.01"/></svg>
+        <div class="banner__body">拖到画布时会出现蓝色插入线；拖到页边距以外不会落位。</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= 中央画布 ================= -->
+  <main class="canvas">
+    <div class="page-wrap">
+      <div class="canvas__ruler">
+        <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span>
+      </div>
+
+      <article class="page">
+        <div class="page__guide" aria-hidden="true"></div>
+
+        <header>
+          <h1 class="r-name">张&nbsp;明</h1>
+          <p class="r-target">求职意向：后端开发工程师（2026 届校招）· 深圳</p>
+          <div class="r-contact">
+            <span>138-0013-8000</span>
+            <span>zhangming@example.com</span>
+            <span>github.com/zhangming</span>
+            <span>华南理工大学 · 软件工程</span>
+          </div>
+        </header>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">教育经历</h2>
+          <div class="r-item page__selected">
+            <div class="r-item__row">
+              <span class="r-item__title">华南理工大学</span>
+              <span class="r-item__meta">2022.09 – 2026.06</span>
+            </div>
+            <div class="r-item__sub">软件工程 · 本科 · GPA 3.7/4.0（专业前 12%）</div>
+            <ul class="r-bullets">
+              <li>主修课程：数据结构与算法、操作系统、数据库系统、计算机网络</li>
+              <li>连续三年获校级二等奖学金；2024 年校级程序设计竞赛二等奖</li>
+            </ul>
+            <span class="handle handle--tl"></span>
+            <span class="handle handle--tr"></span>
+            <span class="handle handle--bl"></span>
+            <span class="handle handle--br"></span>
+          </div>
+        </section>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">实习经历</h2>
+          <div class="r-item">
+            <div class="r-item__row">
+              <span class="r-item__title">腾讯 · 微信事业群　后台开发实习生</span>
+              <span class="r-item__meta">2025.07 – 2025.09</span>
+            </div>
+            <ul class="r-bullets">
+              <li>维护日活 30 万的校园招聘投递服务，将简历解析链路 P99 由 820ms 降至 310ms</li>
+              <li>补齐 46 个接口的错误码映射，线上 5xx 由日均 18 次降至 2 次以内</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">项目经历</h2>
+          <div class="r-item">
+            <div class="r-item__row">
+              <span class="r-item__title">ResumeCraft 简历排版引擎（个人项目）</span>
+              <span class="r-item__meta">2025.03 – 2025.09</span>
+            </div>
+            <ul class="r-bullets">
+              <li>用 TypeScript 实现 A4 分页与溢出检测，支持 4 套模板热切换且内容零丢失</li>
+              <li>设计基于脏区重排的增量布局算法，800 个内容块重排耗时由 240ms 降至 38ms</li>
+              <li>自建 120 页比对样本，导出 PDF 与浏览器打印的版式一致率 99.2%</li>
+            </ul>
+          </div>
+
+          <div class="insert-line" aria-hidden="true"></div>
+
+          <div class="r-item">
+            <div class="r-item__row">
+              <span class="r-item__title">校园二手书交易平台（课程项目 · 5 人团队）</span>
+              <span class="r-item__meta">2024.09 – 2024.12</span>
+            </div>
+            <ul class="r-bullets">
+              <li>负责订单与支付模块：Go + PostgreSQL，压测 QPS 1200，重复下单率为 0</li>
+              <li>用 Redis 做库存预扣，三轮回归后超卖清零；上线两个月成交 1.4 万单</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">专业技能</h2>
+          <dl class="r-kv">
+            <dt>语言</dt><dd>TypeScript / Go / Python / SQL（可独立排障与写测试）</dd>
+            <dt>框架</dt><dd>Vue 3、Gin、PostgreSQL、Redis、Docker</dd>
+            <dt>工程</dt><dd>Git 工作流、单元测试（Vitest / go test）、Linux 常用排查</dd>
+            <dt>语言能力</dt><dd>英语 CET-6（582），可读写英文技术文档</dd>
+          </dl>
+        </section>
+
+        <section class="r-sec">
+          <h2 class="r-sec__h">荣誉奖项</h2>
+          <ul class="r-bullets">
+            <li>2024 年中国大学生计算机设计大赛 · 省级一等奖（作品：多端自适应排版工具）</li>
+            <li>2023–2024 学年校级二等奖学金（连续两年，专业前 12%）</li>
+          </ul>
+        </section>
+      </article>
+    </div>
+
+    <div class="canvas__zoom">
+      <button class="icon-btn" title="缩小">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+      </button>
+      <span class="zoom-val">85%</span>
+      <button class="icon-btn" title="放大">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button class="icon-btn" title="适应页宽">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5.5h16V8"/><path d="M4 16v2.5h16V16"/><path d="M8 12h8"/></svg>
+      </button>
+    </div>
+  </main>
+
+  <!-- ================= 右侧属性面板 ================= -->
+  <aside class="inspector">
+    <div class="inspector__head">
+      <span>属性</span>
+      <button class="icon-btn" title="折叠面板">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <div class="inspector__target">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7V5h14v2"/><path d="M12 5v14M9 19h6"/></svg>
+      <span>文本组件 · 教育经历</span>
+      <svg class="i" style="margin-left:auto" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+
+    <section class="sec">
+      <div class="sec__h">
+        <span>文字</span>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+      </div>
+      <div class="sec__body">
+        <div class="field">
+          <label class="field__label">字体</label>
+          <div class="select">
+            <span>思源黑体（简历默认）</span>
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="field__hint">字体资产由 TC-006 托管，此处只切换字族</div>
+        </div>
+
+        <div class="field field--error">
+          <label class="field__label">字号</label>
+          <div class="input input--mono">
+            <span class="input__value">26</span>
+            <span class="input__unit">pt</span>
+            <span class="stepper"><button tabindex="-1">+</button><button tabindex="-1">−</button></span>
+          </div>
+          <div class="field__error">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v6"/><path d="M12 16.6h.01"/></svg>
+            字号范围 8–24 pt，已恢复为 12.5 pt
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label">行高</label>
+          <div class="input input--mono">
+            <span class="input__value">1.65</span>
+            <span class="input__unit">倍</span>
+            <span class="stepper"><button tabindex="-1">+</button><button tabindex="-1">−</button></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label">字重</label>
+          <div class="segmented">
+            <button>常规</button>
+            <button class="is-on">中黑</button>
+            <button>加粗</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label">颜色</label>
+          <div class="color-field">
+            <span class="swatch swatch--ink"></span>
+            <span>正文墨色</span>
+            <span style="margin-left:auto">--rc-neutral-800</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__h">
+        <span>段落与间距</span>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+      </div>
+      <div class="sec__body">
+        <div class="row-between">
+          <span class="row-between__label">段前</span>
+          <div class="input input--mono" style="width:104px">
+            <span class="input__value">12</span><span class="input__unit">pt</span>
+          </div>
+        </div>
+        <div class="row-between">
+          <span class="row-between__label">段后</span>
+          <div class="input input--mono" style="width:104px">
+            <span class="input__value">4</span><span class="input__unit">pt</span>
+          </div>
+        </div>
+        <div class="row-between">
+          <span class="row-between__label">对齐</span>
+          <div class="segmented" style="width:132px">
+            <button class="is-on" title="左对齐">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 11h10M4 16h16M4 21h10"/></svg>
+            </button>
+            <button title="居中">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 11h10M4 16h16M7 21h10"/></svg>
+            </button>
+            <button title="两端对齐">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 11h16M4 16h16M4 21h10"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__h">
+        <span>分页规则</span>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+      </div>
+      <div class="sec__body">
+        <div class="row-between">
+          <span class="row-between__label">段前分页</span>
+          <span class="switch" role="switch" aria-checked="false"></span>
+        </div>
+        <div class="row-between">
+          <span class="row-between__label">标题不孤行</span>
+          <span class="switch is-on" role="switch" aria-checked="true"></span>
+        </div>
+        <div class="row-between">
+          <span class="row-between__label">允许跨页拆分</span>
+          <span class="switch is-on" role="switch" aria-checked="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" style="border-bottom:0">
+      <div class="sec__h">
+        <span>可见性</span>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+      </div>
+      <div class="sec__body">
+        <div class="row-between">
+          <span class="row-between__label">导出时包含此组件</span>
+          <span class="switch is-on" role="switch" aria-checked="true"></span>
+        </div>
+      </div>
+    </section>
+  </aside>
+
+  <!-- ================= 底部状态栏 ================= -->
+  <footer class="statusbar">
+    <span class="st st--mono">第 1 / 2 页</span>
+    <span class="st__sep"></span>
+    <span class="st">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+      <span class="st--mono">85%</span>
+      <span class="st-zoom"><span class="st-zoom__knob"></span></span>
+    </span>
+    <span class="st__sep"></span>
+    <span class="st st--ok">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.5 9 17.5 19 7"/></svg>
+      已自动保存 14:32
+    </span>
+    <span class="st__sep"></span>
+    <span class="st st--warn st--link">
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 2.8 20h18.4z"/><path d="M12 10v4.2"/><path d="M12 17.2h.01"/></svg>
+      2 条布局提示
+    </span>
+    <span class="statusbar__right">
+      <span class="st st--mono">正文 1,286 字</span>
+      <span class="st__sep"></span>
+      <span class="st">导出状态：未导出</span>
+      <span class="st__sep"></span>
+      <span class="st">简体中文</span>
+    </span>
+  </footer>
+</div>
+
+</body>
+</html>

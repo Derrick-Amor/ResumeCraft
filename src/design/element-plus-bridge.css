@@ -1,5 +1,6 @@
 /*
- * Element Plus ⇄ ResumeCraft 设计 token 桥接层（TC-002 B 段）
+ * Element Plus ⇄ ResumeCraft 设计 token 桥接层（TC-002 B 段 / TC-016 补齐）
+ * 执笔：team-lead（阿U）于 2026-10-23 直接落盘，映射规格来自 TC-016 卡。
  * ------------------------------------------------------------------
  * 作用：把 Element Plus 公开的 `--el-*` 定制接口指向本项目的 `--rc-*`，
  *       让「CSS 自定义属性 = 样式单一事实源」（PRD 13.1#4）在组件库侧同样成立。
@@ -10,14 +11,14 @@
  *   - TC-004 落地的运行时样式表：`src/design/tokens.css`（`--rc-*` 的真实取值）
  *   本文件只做「映射」，不写具体数值，避免与 token 源产生第二处真相。
  *
- * 当前状态（2026-10-23）：`tokens.css` 尚未落地，`--rc-*` 全部未定义。
- *   若只写 `var(--rc-x)`，自定义属性在计算值阶段会失效，组件随之丢失主色/边框/圆角，
- *   连「打开对话框」这种基本操作都会因为主按钮不可见而没法人工验证。
- *   因此这里的 `var(--rc-x, <兜底>)` 兜底一律使用 **CSS 系统色关键字**
- *   （Canvas / CanvasText / GrayText / ButtonBorder / Highlight 等）——它们取自操作系统
- *   默认配色，不是本项目的品牌色，也不是任何十六进制或 rgb 函数式色值，
- *   目的只是让空窗期页面保持「默认、可读、可点」。
- *   TC-004 一旦定义 `--rc-*`，兜底自动失效，无需回来改本文件。
+ * 当前状态（2026-10-23 更新，A 批落地后）：`tokens.css` 已定稿并定义全部 `--rc-*`，
+ *   主色派生色、阴影族、遮罩、圆角、控件高度、过渡时长均已接上。
+ *   接管率：EP 全局语义变量 118 条中已接管 45 条（38.1%），另有 3 条组件级变量
+ *   （--el-card-border-radius / --el-dialog-border-radius / --el-dialog-box-shadow）。
+ *   B 批（fill-color 系列 6 条 + border-color-hover/darker 2 条）落地后为 51 条。
+ *   未接管的其余部分是六族语义色派生（P0 不引入带类型语义色的 EP 组件）、
+ *   rgb 三元组（全量 theme-chalk 零引用）与索引/边框样式等常量，均无需接管。
+ *   兜底仍保留系统色关键字，属于空窗期保险，不再有实际触发路径。
  *
  * 硬约束（CI 与人工都按此检查）：
  *   - 文件内不得出现十六进制色值与 rgb / rgba 函数式色值，扫描命中行数必须为 0；
@@ -40,11 +41,19 @@
   --el-color-info: var(--rc-color-info, GrayText);
 
   /*
-   * 派生色（--el-color-primary-light-3 / -light-5 / -light-7 / -light-8 / -light-9 /
-   * -dark-2）暂不映射：它们需要基于主色计算或取值，TC-016 未定前没有可引用的 `--rc-*`。
-   * 等 token 定稿时在这里补一批 `--rc-color-primary-light-N` 语义变量再一一对应，
-   * 不要在本文件内写死数值。
+   * 派生色（2026-10-23 TC-016 补）：初版把这块留空，理由是"等 token 定稿时再补"。
+   * token 现已定稿（`tokens.css` §5），六条必须**一起**映射——漏一条就漏一处 EP 默认蓝：
+   *   主按钮 hover 底 = light-3、disabled 底 = light-5、focus outline = light-5、
+   *   普通按钮 hover 底 = light-9、下拉菜单项 hover 底 = light-9、
+   *   主按钮 active 底 = dark-2。
+   * 兜底沿用系统色关键字，与文件首部约定一致；`--rc-*` 已定义，兜底永不生效。
    */
+  --el-color-primary-light-3: var(--rc-color-primary-light-3, Canvas);
+  --el-color-primary-light-5: var(--rc-color-primary-light-5, Canvas);
+  --el-color-primary-light-7: var(--rc-color-primary-light-7, Canvas);
+  --el-color-primary-light-8: var(--rc-color-primary-light-8, Canvas);
+  --el-color-primary-light-9: var(--rc-color-primary-light-9, Canvas);
+  --el-color-primary-dark-2: var(--rc-color-primary-dark-2, CanvasText);
 
   /* —— 文字 —— */
   --el-text-color-primary: var(--rc-color-text, CanvasText);
@@ -65,13 +74,30 @@
   --el-bg-color-page: var(--rc-color-bg-page, Canvas);
   --el-bg-color-overlay: var(--rc-color-bg-elevated, Canvas);
   --el-fill-color-blank: var(--rc-color-bg, Canvas);
-  --el-fill-color-light: var(--rc-color-bg-subtle, Canvas);
-  --el-fill-color-lighter: var(--rc-color-bg-subtle, Canvas);
+  --el-fill-color-light: var(--rc-color-bg-hover, Canvas);
+  --el-fill-color-lighter: var(--rc-color-bg-page, Canvas);
 
-  /* —— 圆角（数值兜底不是色值，允许） —— */
-  --el-border-radius-base: var(--rc-radius, 4px);
+  /* —— 阴影（2026-10-23 补）：EP 是四级，不许塌成一级 —— */
+  /*    EP 默认是纯黑光晕，正是 PRD 6.1 要避开的"AI 味"；统一换成 N800 透明度分层的四档。 */
+  --el-box-shadow-lighter: var(--rc-shadow-2, none);
+  --el-box-shadow-light: var(--rc-shadow-4, none);
+  --el-box-shadow: var(--rc-shadow-8, none);
+  --el-box-shadow-dark: var(--rc-shadow-16, none);
+
+  /* —— 遮罩：EP 默认是 50% 纯黑，比设计的 scrim 又暗又冷 —— */
+  --el-overlay-color-lighter: var(--rc-color-scrim, transparent);
+
+  /* —— 圆角（2026-10-23 修正）——
+   *   round 的语义是胶囊，初版错指向 --rc-radius-lg(8px)，会让 is-round 按钮失去胶囊形态；
+   *   small 必须留 2px：它的使用方是 14×14 的 checkbox 内框，6px 会把它变成小圆饼；
+   *   卡片与对话框的圆角在 EP 里是独立变量，不经过 base，必须单独映射。
+   */
+  --el-border-radius-base: var(--rc-radius, 6px);
   --el-border-radius-small: var(--rc-radius-sm, 2px);
-  --el-border-radius-round: var(--rc-radius-lg, 20px);
+  --el-border-radius-round: var(--rc-radius-full, 999px);
+  --el-card-border-radius: var(--rc-radius-lg, 8px);
+  --el-dialog-border-radius: var(--rc-radius-xl, 12px);
+  --el-dialog-box-shadow: var(--rc-shadow-16, none);
 
   /* —— 字体 —— */
   --el-font-family: var(--rc-font-family, inherit);
@@ -89,4 +115,21 @@
   --el-spacing-base: var(--rc-space-base, 12px);
   --el-spacing-lg: var(--rc-space-lg, 16px);
   --el-spacing-xl: var(--rc-space-xl, 24px);
+
+  /*
+   * —— 控件高度（2026-10-23 补）——
+   * EP 默认 default=32 与我们一致，但 small=24，比设计的紧凑档 28 矮 4px，密排工具栏一眼看得出。
+   * 设计没有 large 档（EP 是 40px），全项目不用 size="large"。
+   */
+  --el-component-size: var(--rc-size-control, 32px);
+  --el-component-size-small: var(--rc-size-control-sm, 28px);
+
+  /*
+   * —— 过渡（2026-10-23 补）——
+   * EP 默认 300ms + Material 曲线；我们的状态过渡是 150ms + "快出慢停"。
+   * 不接管的话，同一屏上会有两套动效节奏。
+   */
+  --el-transition-duration: var(--rc-duration-slow, 200ms);
+  --el-transition-duration-fast: var(--rc-duration-base, 150ms);
+  --el-transition-function-ease-in-out-bezier: var(--rc-ease-standard, ease);
 }

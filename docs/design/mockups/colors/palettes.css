@@ -1,0 +1,108 @@
+/*
+ * 主色候选色板（TC-016 视觉评审用，非生产 token）
+ * ------------------------------------------------------------------
+ * 这里是全项目第二处、也是唯一一处允许出现裸 hex 的探索性文件。
+ * 目的：让 6 个版本共用同一份 HTML，只换 --rc-color-primary 一族。
+ * 一旦选定，选定值写回 src/design/tokens.css，本目录整体删除。
+ *
+ * 派生规则与 tokens.css §5 完全一致（EP 约定）：
+ *   hover = 8% 黑 / active = 16% 黑 / dark-2 = 20% 黑
+ *   subtle = 92% 白 / light-N = N×10% 白
+ */
+:root[data-palette="royal"] {
+  --rc-color-primary: #1f5fa8;
+  --rc-color-primary-hover: #1d579b;
+  --rc-color-primary-active: #1a508d;
+  --rc-color-primary-subtle: #edf2f8;
+  --rc-color-primary-light-3: #628fc2;
+  --rc-color-primary-light-5: #8fafd4;
+  --rc-color-primary-light-7: #bccfe5;
+  --rc-color-primary-light-8: #d2dfee;
+  --rc-color-primary-light-9: #e9eff6;
+  --rc-color-primary-dark-2: #194c86;
+  --rc-focus-ring-color: rgba(31, 95, 168, 0.45);
+  --rc-focus-ring: 0 0 0 2px rgba(31, 95, 168, 0.45);
+}
+
+:root[data-palette="navy"] {
+  --rc-color-primary: #1c4a72;
+  --rc-color-primary-hover: #1a4469;
+  --rc-color-primary-active: #183e60;
+  --rc-color-primary-subtle: #edf1f4;
+  --rc-color-primary-light-3: #60809c;
+  --rc-color-primary-light-5: #8ea4b8;
+  --rc-color-primary-light-7: #bbc9d5;
+  --rc-color-primary-light-8: #d2dbe3;
+  --rc-color-primary-light-9: #e8edf1;
+  --rc-color-primary-dark-2: #163b5b;
+  --rc-focus-ring-color: rgba(28, 74, 114, 0.45);
+  --rc-focus-ring: 0 0 0 2px rgba(28, 74, 114, 0.45);
+}
+
+:root[data-palette="ultramarine"] {
+  --rc-color-primary: #3b4d9e;
+  --rc-color-primary-hover: #364791;
+  --rc-color-primary-active: #324185;
+  --rc-color-primary-subtle: #eff1f7;
+  --rc-color-primary-light-3: #7682bb;
+  --rc-color-primary-light-5: #9da6ce;
+  --rc-color-primary-light-7: #c4cae2;
+  --rc-color-primary-light-8: #d8dbec;
+  --rc-color-primary-light-9: #ebedf5;
+  --rc-color-primary-dark-2: #2f3e7e;
+  --rc-focus-ring-color: rgba(59, 77, 158, 0.45);
+  --rc-focus-ring: 0 0 0 2px rgba(59, 77, 158, 0.45);
+}
+
+:root[data-palette="violet"] {
+  --rc-color-primary: #5a4b8f;
+  --rc-color-primary-hover: #534584;
+  --rc-color-primary-active: #4c3f78;
+  --rc-color-primary-subtle: #f2f1f6;
+  --rc-color-primary-light-3: #8c81b1;
+  --rc-color-primary-light-5: #aca5c7;
+  --rc-color-primary-light-7: #cec9dd;
+  --rc-color-primary-light-8: #dedbe9;
+  --rc-color-primary-light-9: #eeedf4;
+  --rc-color-primary-dark-2: #483c72;
+  --rc-focus-ring-color: rgba(90, 75, 143, 0.45);
+  --rc-focus-ring: 0 0 0 2px rgba(90, 75, 143, 0.45);
+}
+
+:root[data-palette="graphite"] {
+  --rc-color-primary: #37505c;
+  --rc-color-primary-hover: #334a55;
+  --rc-color-primary-active: #2e434d;
+  --rc-color-primary-subtle: #eff1f2;
+  --rc-color-primary-light-3: #73848d;
+  --rc-color-primary-light-5: #9ba8ae;
+  --rc-color-primary-light-7: #c3cace;
+  --rc-color-primary-light-8: #d7dcde;
+  --rc-color-primary-light-9: #ebeeef;
+  --rc-color-primary-dark-2: #2c404a;
+  --rc-focus-ring-color: rgba(55, 80, 92, 0.45);
+  --rc-focus-ring: 0 0 0 2px rgba(55, 80, 92, 0.45);
+}
+
+:root[data-palette="cocoa"] {
+  --rc-color-primary: #6b4a2f;
+  --rc-color-primary-hover: #62442b;
+  --rc-color-primary-active: #5a3e27;
+  --rc-color-primary-subtle: #f3f1ee;
+  --rc-color-primary-light-3: #97806d;
+  --rc-color-primary-light-5: #b5a497;
+  --rc-color-primary-light-7: #d3c9c1;
+  --rc-color-primary-light-8: #e1dbd5;
+  --rc-color-primary-light-9: #f0edea;
+  --rc-color-primary-dark-2: #563b26;
+  --rc-focus-ring-color: rgba(107, 74, 47, 0.45);
+  --rc-focus-ring: 0 0 0 2px rgba(107, 74, 47, 0.45);
+}
+
+/* 对比页上的色块，避免在 HTML 里写 hex */
+.sw-royal { background: #1f5fa8; }
+.sw-navy { background: #1c4a72; }
+.sw-ultramarine { background: #3b4d9e; }
+.sw-violet { background: #5a4b8f; }
+.sw-graphite { background: #37505c; }
+.sw-cocoa { background: #6b4a2f; }
