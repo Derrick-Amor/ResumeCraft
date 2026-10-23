@@ -4,7 +4,7 @@
   hover  = 8% 黑, active = 16% 黑, dark-2 = 20% 黑
   subtle = 92% 白, light-N = N*10% 白
 """
-import re, pathlib
+import json, re, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SRC = ROOT.parent / "01-editor.html"
@@ -17,6 +17,10 @@ PALETTES = [
     ("graphite",    "石墨", "#37505c", "近中性的深蓝灰。最安静，纸面独占注意力。"),
     ("cocoa",       "深咖", "#6b4a2f", "暖褐，像纸与墨。气质温和，和简历的纸质感呼应。"),
 ]
+
+_json = ROOT / "palettes.json"
+if _json.exists():
+    PALETTES = [(d["slug"], d["name"], d["hex"], d["desc"]) for d in json.loads(_json.read_text(encoding="utf-8"))]
 
 
 def hex2rgb(h):
@@ -172,3 +176,10 @@ if __name__ == "__main__":
     build()
     (ROOT / "compare.html").write_text(compare(), encoding="utf-8")
     print("built:", ", ".join(n for n, *_ in PALETTES))
+    for n, label, hexv, _ in PALETTES:
+        rgb = hex2rgb(hexv)
+        w = contrast_white(hexv)
+        lp = lumin(rgb)
+        sub = (lumin(hex2rgb(mix_white(rgb, 0.92))) + 0.05) / (lp + 0.05)
+        l9  = (lumin(hex2rgb(mix_white(rgb, 0.90))) + 0.05) / (lp + 0.05)
+        print(f"  {label} {hexv}  white={w:.2f}  subtle={sub:.2f}  light9={l9:.2f}")
