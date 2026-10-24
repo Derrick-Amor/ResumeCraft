@@ -42,7 +42,7 @@
      这两个值只用于 toolbar / statusbar 这类 bg-subtle 底，白底表面仍用上面两个。 */
   --rc-color-bg-hover-on-subtle: #e5e9eb; /* 对 #eff1f3 ΔL* 2.95 */
   --rc-color-bg-active-on-subtle: #dfe4e7; /* 对 #eff1f3 ΔL* 4.76，只做填充不承载主色文字 */
-  --rc-color-canvas: #e8ebed; /* A4 纸外的画布底色，必须比页面底更深 */
+  --rc-color-canvas: #e3e7ea; /* A4 纸外的画布底色，必须比页面底更深；增量 A 加深一档让纸更突出 */
   --rc-color-paper: #ffffff; /* A4 纸面，与导出 PDF 同色 */
   --rc-color-scrim: rgba(43, 43, 43, 0.32); /* 对话框遮罩 */
 
@@ -63,39 +63,43 @@
   --rc-color-text-tertiary: #5f676f; /* 4.80:1 on canvas #e8ebed（最深底），四底全过 AA */
   --rc-color-text-placeholder: #8c949c; /* 3.07:1，仅占位提示 */
   --rc-color-text-disabled: #a9afb5; /* 25% 白混 N400，禁用态豁免对比度 */
-  --rc-color-text-on-primary: #ffffff; /* 5.73:1 on 主色 */
+  --rc-color-text-on-primary: #ffffff; /* 5.42:1 on 主色 #0b7298 */
 
   /* ============================================================
-   * 5. 品牌主色 —— #107093（2026-10-23 视觉 v2.2 定稿）
+   * 5. 品牌主色 —— #0b7298（2026-10-24 增量 A「更轻更活」定稿）
    *
-   *   色相 196° 与初版 #1f6e8c 完全相同；只把饱和度 62%→80%、明度 34%→32%。
-   *   屏幕上可感知的变化是「更实、更透」，品牌识别不动。
+   *   色相 196.2° 与 #107093 同族（青蓝），只把饱和度 80.4%→86.5%、
+   *   明度 32.0%→31.96% 基本持平。屏幕上可感知的变化是「更透、更活」，
+   *   品牌识别不动。Amor 语：「稍微活力一点，不要用力过猛」——因此只提饱和不提明度。
    *
    * 真正的约束不是白底，是 light-9：
    *   Element Plus 里「primary-light-9 底 + primary 文字」这条规则块有 20 处
    *   （下拉选中项、hover 项、plain 按钮……）。要过 AA，主色相对亮度必须 ≤ 0.1533。
-   *   初版 #1f6e8c 的 L=0.1334 本来就压着这条线 —— 当初应该是迭代到 AA 通过为止。
    *
-   * 三版试算（全部实算，不是估值）：
-   *   #1f6e8c  L=0.1334  白底 5.73  subtle 5.11  light-9 5.00  ← 初版，全过但闷
-   *   #157d99  L=0.1713  白底 4.74  subtle 4.24  light-9 4.17  ← 否，三条全挂
-   *   #13769a  L=0.1543  白底 5.14  subtle 4.61  light-9 4.48  ← 否，差 0.02
-   *   #107093  L=0.1380  白底 5.58  subtle 5.01  light-9 4.86  ← 采用，全过
+   * 实算对比度（本轮定稿）：
+   *   #0b7298  L=0.1437  白底 5.42  subtle 4.86  light-9 4.72  ← 采用，三档全过 AA
    *
-   * 结论：**提饱和必须同时压明度**。只提饱和会被 light-9 卡死。
-   * 因为所有模式都过，桥接层把 --el-color-primary 直接指向本变量即可，
+   *   被否候选（实算，不是估值）：
+   *   #0E7A9E  白底 4.89  subtle 4.39  light-9 4.29  ← 审计建议值，subtle/light-9 双挂
+   *
+   * 结论：**提饱和必须同时守住 light-9 的 4.5 底线**。明度上探会被 light-9 卡死，
+   * 所以本轮只动饱和。因为所有模式都过，桥接层把 --el-color-primary 直接指向本变量即可，
    * 不需要「面/字双音高」，也不需要任何特判规则。
+   *
+   * 派生规则（与 #107093 时代完全一致，改主色只换基色）：
+   *   hover = 8% 黑 / active = 16% 黑 / dark-2 = 20% 黑
+   *   subtle = 92% 白 / light-3/5/7/8/9 = 30/50/70/80/90% 白
    * ============================================================ */
-  --rc-color-primary: #107093; /* 白底 5.58 / subtle 5.01 / light-9 4.86 */
-  --rc-color-primary-hover: #0f6787; /* 8% 黑 */
-  --rc-color-primary-active: #0d5e7b; /* 16% 黑 */
-  --rc-color-primary-subtle: #ecf4f6; /* 92% 白：选中行/标签底 */
-  --rc-color-primary-light-3: #589bb3;
-  --rc-color-primary-light-5: #88b8c9;
-  --rc-color-primary-light-7: #b7d4df;
-  --rc-color-primary-light-8: #cfe2e9;
-  --rc-color-primary-light-9: #e7f1f4;
-  --rc-color-primary-dark-2: #0d5a76; /* 白底 7.66 / subtle 底 6.87 */
+  --rc-color-primary: #0b7298; /* 白底 5.42 / subtle 4.86 / light-9 4.72 */
+  --rc-color-primary-hover: #0a698c; /* 8% 黑 */
+  --rc-color-primary-active: #096080; /* 16% 黑 */
+  --rc-color-primary-subtle: #ebf4f7; /* 92% 白：选中行/标签底 */
+  --rc-color-primary-light-3: #549cb7;
+  --rc-color-primary-light-5: #85b9cc;
+  --rc-color-primary-light-7: #b6d5e0;
+  --rc-color-primary-light-8: #cee3ea;
+  --rc-color-primary-light-9: #e7f1f5;
+  --rc-color-primary-dark-2: #095b7a; /* 白底 7.53 / subtle 底 6.75 */
 
   /* ============================================================
    * 6. 语义色（信息/成功/警告/危险）。基色在白色上均 ≥4.5:1。
@@ -170,25 +174,27 @@
   --rc-space-2xl: 32px;
 
   /* ============================================================
-   * 10. 圆角（2/6/8/12；按钮与输入 6、卡片 8、对话框 12）
+   * 10. 圆角（2/6/10/12；按钮与输入 6、卡片 10、对话框 12）
    *     按钮 4→6 是 Amor 2026-10-23 拍板的「提活力」项，配套 PRD 6.2 一条小改；
-   *     卡片 8 与对话框 12 不动（PRD 明确值）。
+   *     卡片 8→10 是 Amor 2026-10-24 增量 A「更轻更活」，卡片/浮层更柔，配套 PRD 6.2 一条小改；
+   *     对话框 12 不动（PRD 明确值）。
    *     full 用于胶囊标签与圆形角标，不参与 PRD 的四级阶梯。
    * ============================================================ */
   --rc-radius-sm: 2px;
   --rc-radius: 6px;
-  --rc-radius-lg: 8px;
+  --rc-radius-lg: 10px;
   --rc-radius-xl: 12px;
   --rc-radius-full: 999px;
 
   /* ============================================================
    * 11. 阴影（2/4/8/16 分层，色相取 N800 #2b2b2b，透明度随层高递增）
+   *     增量 A：shadow-4 稍大给按钮浮起感；shadow-paper 更大更柔，纸"浮"得更轻。
    * ============================================================ */
   --rc-shadow-2: 0 1px 2px rgba(43, 43, 43, 0.06);
-  --rc-shadow-4: 0 2px 4px rgba(43, 43, 43, 0.07), 0 1px 2px rgba(43, 43, 43, 0.05);
+  --rc-shadow-4: 0 3px 6px rgba(43, 43, 43, 0.07), 0 1px 3px rgba(43, 43, 43, 0.05);
   --rc-shadow-8: 0 8px 8px -4px rgba(43, 43, 43, 0.08), 0 2px 6px rgba(43, 43, 43, 0.06);
   --rc-shadow-16: 0 16px 16px -8px rgba(43, 43, 43, 0.1), 0 4px 10px rgba(43, 43, 43, 0.06);
-  --rc-shadow-paper: 0 1px 3px rgba(43, 43, 43, 0.08), 0 8px 24px -6px rgba(43, 43, 43, 0.12);
+  --rc-shadow-paper: 0 1px 3px rgba(43, 43, 43, 0.08), 0 12px 32px -8px rgba(43, 43, 43, 0.1);
 
   /* ============================================================
    * 12. 动效（状态过渡 150、面板 200、对话框 300；100 用于按压/角标）
@@ -227,8 +233,8 @@
    * 14. 焦点与层级
    * ============================================================ */
   --rc-focus-ring-width: 2px;
-  --rc-focus-ring-color: rgba(16, 112, 147, 0.45);
-  --rc-focus-ring: 0 0 0 2px rgba(16, 112, 147, 0.45);
+  --rc-focus-ring-color: rgba(11, 114, 152, 0.45);
+  --rc-focus-ring: 0 0 0 2px rgba(11, 114, 152, 0.45);
 
   --rc-z-artboard-toolbar: 20;
   --rc-z-badge: 30;
