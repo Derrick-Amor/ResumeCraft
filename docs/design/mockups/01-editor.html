@@ -173,38 +173,33 @@
         <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span>
       </div>
 
-      <article class="page">
-        <div class="page__guide" aria-hidden="true"></div>
-
-        <header>
-          <h1 class="r-name">张&nbsp;明</h1>
-          <p class="r-target">求职意向：后端开发工程师（2026 届校招）· 深圳</p>
-          <div class="r-contact">
-            <span>138-0013-8000</span>
-            <span>zhangming@example.com</span>
-            <span>github.com/zhangming</span>
-            <span>华南理工大学 · 软件工程</span>
-          </div>
-        </header>
-
-        <section class="r-sec">
-          <h2 class="r-sec__h">教育经历</h2>
-          <div class="r-item page__selected">
-            <div class="r-item__row">
-              <span class="r-item__title">华南理工大学</span>
-              <span class="r-item__meta">2022.09 – 2026.06</span>
+      <div class="page-frame">
+        <article class="page">
+          <header>
+            <h1 class="r-name">张&nbsp;明</h1>
+            <p class="r-target">求职意向：后端开发工程师（2026 届校招）· 深圳</p>
+            <div class="r-contact">
+              <span>138-0013-8000</span>
+              <span>zhangming@example.com</span>
+              <span>github.com/zhangming</span>
+              <span>华南理工大学 · 软件工程</span>
             </div>
-            <div class="r-item__sub">软件工程 · 本科 · GPA 3.7/4.0（专业前 12%）</div>
-            <ul class="r-bullets">
-              <li>主修课程：数据结构与算法、操作系统、数据库系统、计算机网络</li>
-              <li>连续三年获校级二等奖学金；2024 年校级程序设计竞赛二等奖</li>
-            </ul>
-            <span class="handle handle--tl"></span>
-            <span class="handle handle--tr"></span>
-            <span class="handle handle--bl"></span>
-            <span class="handle handle--br"></span>
-          </div>
-        </section>
+          </header>
+
+          <section class="r-sec">
+            <h2 class="r-sec__h">教育经历</h2>
+            <div class="r-item" data-selected>
+              <div class="r-item__row">
+                <span class="r-item__title">华南理工大学</span>
+                <span class="r-item__meta">2022.09 – 2026.06</span>
+              </div>
+              <div class="r-item__sub">软件工程 · 本科 · GPA 3.7/4.0（专业前 12%）</div>
+              <ul class="r-bullets">
+                <li>主修课程：数据结构与算法、操作系统、数据库系统、计算机网络</li>
+                <li>连续三年获校级二等奖学金；2024 年校级程序设计竞赛二等奖</li>
+              </ul>
+            </div>
+          </section>
 
         <section class="r-sec">
           <h2 class="r-sec__h">实习经历</h2>
@@ -233,8 +228,6 @@
               <li>自建 120 页比对样本，导出 PDF 与浏览器打印的版式一致率 99.2%</li>
             </ul>
           </div>
-
-          <div class="insert-line" aria-hidden="true"></div>
 
           <div class="r-item">
             <div class="r-item__row">
@@ -266,7 +259,22 @@
           </ul>
         </section>
       </article>
-    </div>
+
+      <!-- CanvasOverlay：UI 装饰层，导出时整层排除 -->
+      <div class="canvas-overlay" data-export-hide>
+        <div class="page__guide" aria-hidden="true"></div>
+        <!-- 选中框 + 四角手柄（视觉上覆盖"教育经历"条目） -->
+        <div class="selection-box" style="top:188px;left:0;right:0;height:132px">
+          <span class="handle handle--tl"></span>
+          <span class="handle handle--tr"></span>
+          <span class="handle handle--bl"></span>
+          <span class="handle handle--br"></span>
+        </div>
+        <!-- 拖拽插入线 -->
+        <div class="insert-line" style="top:372px" aria-hidden="true"></div>
+      </div>
+      </div><!-- /page-frame -->
+    </div><!-- /page-wrap -->
 
     <div class="canvas__zoom">
       <button class="icon-btn" title="缩小">

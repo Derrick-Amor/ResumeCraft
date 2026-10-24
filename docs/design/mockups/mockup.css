@@ -54,6 +54,7 @@ button { font-family: inherit; }
   height: calc(100vh - 36px);
   min-height: 560px;
   background: var(--rc-color-bg-page);
+  position: relative; /* 窄视口下面板 overlay 化的定位上下文 */
 }
 
 /* ============ 顶部工具栏 ============ */
@@ -377,6 +378,7 @@ button { font-family: inherit; }
   align-items: center;
   background: var(--rc-color-canvas);
   overflow: auto;
+  scrollbar-gutter: stable; /* 防止滚动条出现时"纸宽变了"的跳动 */
   padding: var(--rc-space-xl) 0 var(--rc-space-2xl);
   min-height: 0;
 }
@@ -400,12 +402,30 @@ button { font-family: inherit; }
   line-height: 1;
 }
 
+/* ---- H2 修复：纸宽 794 是常量，面板覆盖不挤压 ---- */
+/* 删除了 transform:scale(0.8) 展示 hack——它是截图构图手法，不是设计决策。
+   实测 rect=635≠794 会让验收挂。现在纸恒 794，窄视口下面板 overlay 化。 */
 .page-wrap {
   width: 794px;
   flex: none;
-  transform: scale(0.8);
-  transform-origin: top center;
-  margin-bottom: -230px; /* 抵消 scale 后的空白（含标尺高度） */
+}
+
+/* ---- H1 修复：Paper 与 CanvasOverlay 必须是兄弟节点 ---- */
+/* 所有 UI 装饰（选中框/手柄/插入线/角标/辅助线/标签）住在 overlay 层，
+   不进纸的 DOM。导出时 overlay 整层排除（data-export-hide）。
+   验收：导出快照与 .page 节点快照 diff = 0。 */
+.page-frame {
+  position: relative;
+  width: 794px;
+}
+.canvas-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+.canvas-overlay > * {
+  pointer-events: auto;
 }
 
 .page {
@@ -418,7 +438,7 @@ button { font-family: inherit; }
   padding: 76px 76px 64px;
 }
 
-/* 页边距辅助线 */
+/* 页边距辅助线（住在 overlay 层，不在纸内） */
 .page__guide {
   position: absolute;
   inset: var(--rc-layout-page-margin);
@@ -426,12 +446,12 @@ button { font-family: inherit; }
   pointer-events: none;
 }
 
-/* 选中态：2px 主色描边 + 四角手柄 */
-.page__selected {
-  position: relative;
-  outline: 2px solid var(--rc-color-primary);
-  outline-offset: 3px;
+/* 选中框（住在 overlay 层，用绝对定位覆盖到目标内容上方） */
+.selection-box {
+  position: absolute;
+  border: 2px solid var(--rc-color-primary);
   border-radius: var(--rc-radius-sm);
+  pointer-events: none;
 }
 .handle {
   position: absolute;
@@ -440,6 +460,7 @@ button { font-family: inherit; }
   background: var(--rc-color-paper);
   border: 1.5px solid var(--rc-color-primary);
   border-radius: var(--rc-radius-sm);
+  pointer-events: none;
 }
 .handle--tl { top: -5px; left: -5px; }
 .handle--tr { top: -5px; right: -5px; }
@@ -876,6 +897,25 @@ button { font-family: inherit; }
   z-index: var(--rc-z-dialog);
   overflow: auto;
 }
+
+/* ---- H3 修复：溢出处理界面贴底，不做居中弹窗 ---- */
+/* 决策变量是几何后果（收回 7mm / 仍缺 11mm / 留白 62mm），
+   离开出血行位置无法判断。贴底不遮纸面，用户可同时看到内容与选项。 */
+.scrim--bottom {
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
+  background: transparent;
+  pointer-events: none;
+}
+.scrim--bottom > .dialog {
+  pointer-events: auto;
+  max-width: none;
+  width: 100%;
+  border-radius: var(--rc-radius-xl) var(--rc-radius-xl) 0 0;
+  max-height: 70vh;
+}
+
 .dialog {
   width: 100%;
   max-width: 720px;
@@ -1544,17 +1584,17 @@ button { font-family: inherit; }
 }
 .badge__count {
   position: absolute;
-  top: -4px;
-  right: -6px;
-  min-width: 14px;
-  height: 14px;
+  top: -5px;
+  right: -7px;
+  min-width: 16px;
+  height: 16px;
   padding: 0 3px;
   border-radius: var(--rc-radius-full);
   background: var(--rc-neutral-800);
   color: var(--rc-color-bg);
-  font-size: 10px;
+  font-size: 12px;
   font-family: var(--rc-font-family-mono);
-  line-height: 14px;
+  line-height: 16px;
   text-align: center;
   border: 1px solid var(--rc-color-bg);
 }
@@ -1805,8 +1845,23 @@ button { font-family: inherit; }
 .mock-nav a.is-current { background: var(--rc-color-primary-subtle); color: var(--rc-color-primary); }
 
 /* 窄屏兜底：视觉稿是桌面稿，不做响应式，只防溢出 */
+/* ---- H2：窄视口下面板覆盖不挤压纸 ---- */
+/* 1280 视口：264+794+280+16(滚动条)=1354 > 1280，差 74px。
+   解法不是缩小纸（794 是常量），而是面板改 overlay。 */
+@media (max-width: 1360px) {
+  .app { grid-template-columns: var(--rc-layout-left-w-narrow) 1fr 0; }
+  .side, .inspector {
+    position: absolute;
+    top: 0; bottom: 0;
+    z-index: var(--rc-z-popover);
+    box-shadow: var(--rc-shadow-8);
+  }
+  .side { left: 0; width: var(--rc-layout-left-w-narrow); }
+  .inspector { right: 0; width: var(--rc-layout-right-w); }
+  .canvas { padding-left: var(--rc-layout-left-w-narrow); padding-right: var(--rc-layout-right-w); }
+}
 @media (max-width: 1280px) {
-  .app { grid-template-columns: var(--rc-layout-left-w-narrow) 1fr var(--rc-layout-right-w); }
+  .app { grid-template-columns: var(--rc-layout-left-w-narrow) 1fr 0; }
 }
 
 /* ============ 模板画廊页（02） ============ */

@@ -237,16 +237,8 @@
         </button>
       </div>
 
+      <div class="page-frame" style="width:640px">
       <div class="page" style="width:640px;min-height:820px;padding:48px">
-        <div class="page__guide" style="inset:48px"></div>
-
-        <!-- 背景层锁定标识 -->
-        <div style="position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:4px"
-             class="tag tag--warning">
-          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>
-          背景层已锁定
-        </div>
-
         <div style="height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 23px,var(--rc-color-border-lighter) 23px,var(--rc-color-border-lighter) 24px),repeating-linear-gradient(90deg,transparent,transparent 23px,var(--rc-color-border-lighter) 23px,var(--rc-color-border-lighter) 24px);border-radius:var(--rc-radius-sm);padding:24px">
           <div style="background:var(--rc-color-paper);height:100%;padding:20px;border-radius:var(--rc-radius-sm)">
             <div class="r-name" style="font-size:20px">张&nbsp;明</div>
@@ -273,6 +265,18 @@
           </div>
         </div>
       </div>
+
+      <!-- CanvasOverlay：UI 装饰层，导出时整层排除 -->
+      <div class="canvas-overlay" data-export-hide>
+        <div class="page__guide" style="inset:48px"></div>
+        <!-- 背景层锁定标识 -->
+        <div style="position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:4px"
+             class="tag tag--warning">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>
+          背景层已锁定
+        </div>
+      </div>
+      </div><!-- /page-frame -->
     </div>
 
     <div class="demo-cap mt-8">
