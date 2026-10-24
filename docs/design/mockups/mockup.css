@@ -360,6 +360,10 @@ button { font-family: inherit; }
   box-shadow: inset 2px 0 0 var(--rc-color-primary-light-5);
 }
 .el-item:focus-visible { outline: none; box-shadow: var(--rc-focus-ring); }
+/* H5: hover+focus 同时成立时 inset 条不能被焦点环吃掉（box-shadow 不叠加） */
+.el-item:hover:focus-visible {
+  box-shadow: inset 2px 0 0 var(--rc-color-primary-light-5), var(--rc-focus-ring);
+}
 .el-item:hover .el-item__grip { color: var(--rc-color-text-placeholder); }
 .el-item__grip { color: transparent; transition: color var(--rc-duration-fast) var(--rc-ease-standard); }
 .el-item--dragging {
@@ -435,7 +439,7 @@ button { font-family: inherit; }
   box-shadow: var(--rc-shadow-paper);
   position: relative;
   color: var(--rc-neutral-800);
-  padding: 76px 76px 64px;
+  padding: 76px 76px 76px; /* H8: 四边统一 76px=20mm，消掉底边 12px 检测盲区 */
 }
 
 /* 页边距辅助线（住在 overlay 层，不在纸内） */
@@ -1445,6 +1449,14 @@ button { font-family: inherit; }
   background: var(--rc-color-primary-subtle);
   box-shadow: 0 0 0 1px var(--rc-color-primary);
 }
+/* H5: radio-card 是 tabindex=0，必须有焦点态 + 阴影合成 */
+.radio-card:focus-visible {
+  outline: none;
+  box-shadow: var(--rc-focus-ring);
+}
+.radio-card--on:focus-visible {
+  box-shadow: 0 0 0 1px var(--rc-color-primary), var(--rc-focus-ring);
+}
 .radio {
   width: 16px; height: 16px;
   border-radius: var(--rc-radius-full);
@@ -1581,6 +1593,11 @@ button { font-family: inherit; }
   border: 1px solid var(--rc-color-bg);
   box-shadow: var(--rc-shadow-4);
   cursor: pointer;
+}
+/* H5: badge 是 button，必须有焦点态 + 阴影合成 */
+.badge:focus-visible {
+  outline: none;
+  box-shadow: var(--rc-shadow-4), var(--rc-focus-ring);
 }
 .badge__count {
   position: absolute;
@@ -2019,6 +2036,15 @@ button { font-family: inherit; }
 .tpl-card--hoverpop .preview-pop {
   top: var(--rc-space-lg);
   left: calc(100% + var(--rc-space-base));
+  /* H9: hover 只改色/边框，揭示新内容必须 focus/click */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--rc-duration-fast) var(--rc-ease-standard);
+}
+.tpl-card--hoverpop:focus-visible .preview-pop,
+.tpl-card--hoverpop:focus-within .preview-pop {
+  opacity: 1;
+  visibility: visible;
 }
 .mini--academic { gap: 4px; }
 .mini--academic .mini__name { margin: 0 auto; width: 58%; }
