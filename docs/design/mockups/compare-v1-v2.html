@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>前后对比 · 原版 vs TRAE×Rezi 改造版</title>
+<style>
+  :root {
+    --bg: #f0f1f3;
+    --fg: #1a1d21;
+    --muted: #5a636e;
+    --accent: #0b7298;
+    --card: #fff;
+    --border: #dde1e5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Inter", "Noto Sans SC", -apple-system, sans-serif;
+    background: var(--bg); color: var(--fg);
+    min-height: 100vh;
+  }
+
+  /* ===== 顶部控制条 ===== */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .topbar h1 { font-size: 15px; font-weight: 600; }
+  .topbar .sub { font-size: 12px; color: var(--muted); }
+  .toggle-group {
+    display: flex; gap: 4px; margin-left: auto;
+    background: var(--bg); border-radius: 8px; padding: 3px;
+  }
+  .toggle-group button {
+    border: none; padding: 7px 18px; border-radius: 6px;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    background: transparent; color: var(--muted);
+    transition: all .15s;
+  }
+  .toggle-group button.active {
+    background: var(--card); color: var(--fg);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  }
+
+  /* ===== 对比区 ===== */
+  .compare-wrap {
+    padding: 20px 24px;
+    display: flex; gap: 20px;
+    overflow-x: auto;
+  }
+  .compare-wrap.single .panel { display: none; }
+  .compare-wrap.single .panel.active { display: flex; width: 100%; }
+  .compare-wrap.single .panel:not(.active) { display: none; }
+
+  .panel {
+    flex: 1; min-width: 680px;
+    background: var(--card); border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .panel__label {
+    padding: 10px 16px;
+    font-size: 12px; font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .panel__label .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .panel--old .dot { background: #8a8a85; }
+  .panel--new .dot { background: var(--accent); }
+  .panel__label .badge {
+    font-size: 10px; padding: 2px 8px;
+    border-radius: 99px; font-weight: 500;
+    margin-left: auto;
+  }
+  .panel--old .badge { background: #f0f0ee; color: #8a8a85; }
+  .panel--new .badge { background: #e7f1f5; color: var(--accent); }
+
+  .panel__frame {
+    width: 100%; height: 720px;
+    border: none;
+    background: #f9f9f9;
+  }
+
+  /* ===== 底部差异说明 ===== */
+  .diff-list {
+    padding: 20px 24px 40px;
+    max-width: 1200px;
+  }
+  .diff-list h2 {
+    font-size: 16px; font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .diff-item {
+    display: flex; gap: 12px;
+    padding: 12px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+  .diff-item .num {
+    width: 24px; height: 24px; border-radius: 6px;
+    background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; flex: none;
+  }
+  .diff-item .content { flex: 1; }
+  .diff-item .title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .diff-item .desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .diff-item .tag {
+    font-size: 10px; padding: 2px 8px; border-radius: 99px;
+    background: #e7f1f5; color: var(--accent); font-weight: 500;
+    flex: none; margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>前后对比</h1>
+  <span class="sub">TRAE CN 简洁性 × Rezi 内容优先</span>
+  <div class="toggle-group">
+    <button class="active" onclick="setView('both')">并排</button>
+    <button onclick="setView('old')">只看原版</button>
+    <button onclick="setView('new')">只看改造版</button>
+  </div>
+</div>
+
+<div class="compare-wrap" id="wrap">
+  <div class="panel panel--old" id="old-panel">
+    <div class="panel__label">
+      <span class="dot"></span>原版
+      <span class="badge">修改前</span>
+    </div>
+    <iframe class="panel__frame" src="01-editor.html" loading="lazy"></iframe>
+  </div>
+  <div class="panel panel--new" id="new-panel">
+    <div class="panel__label">
+      <span class="dot"></span>TRAE × Rezi 改造版
+      <span class="badge">修改后</span>
+    </div>
+    <iframe class="panel__frame" src="01-editor-v2.html" loading="lazy"></iframe>
+  </div>
+</div>
+
+<div class="diff-list">
+  <h2>改了什么</h2>
+
+  <div class="diff-item">
+    <div class="num">1</div>
+    <div class="content">
+      <div class="title">顶栏从 28 按钮瘦身到 6 + 溢出菜单</div>
+      <div class="desc">TRAE CN 原则：顶栏只放当前场景高频操作。撤销/重做/预览/导出保留，其余 7 项（保存/新建/打开/页面设置/导入/打印/帮助）进 <code>…</code> 菜单，或用 Ctrl+K 命令面板搜索。</div>
+    </div>
+    <div class="tag">TRAE</div>
+  </div>
+
+  <div class="diff-item">
+    <div class="num">2</div>
+    <div class="content">
+      <div class="title">面板边框 → 底色差分层</div>
+      <div class="desc">去掉左面板右边框和右面板左边框。面板 <code>#eff1f3</code> 与画布 <code>#dde1e4</code> 靠色差分层，视觉更轻。纸仍是屏幕唯一纯白。</div>
+    </div>
+    <div class="tag">TRAE</div>
+  </div>
+
+  <div class="diff-item">
+    <div class="num">3</div>
+    <div class="content">
+      <div class="title">新增底部 28px 深色状态轨</div>
+      <div class="desc">底色 <code>#1a1d21</code>。左：页码/缩放/保存状态；中：字数/提示计数；右：Ctrl K / 导出检查。深底语义色独立一套（警告 #D99A4E / 危险 #E05A4E / 通过 #3DDC84），全部过 AA。</div>
+    </div>
+    <div class="tag">TRAE</div>
+  </div>
+
+  <div class="diff-item">
+    <div class="num">4</div>
+    <div class="content">
+      <div class="title">Ctrl+K 命令面板</div>
+      <div class="desc">半透明遮罩 + 搜索框 + 6 条结果分 4 组（文件/编辑/视图/帮助），键盘 ↑↓ 选中、↵ 执行、Esc 关闭。TRAE 的键盘优先语法。</div>
+    </div>
+    <div class="tag">TRAE</div>
+  </div>
+
+  <div class="diff-item">
+    <div class="num">5</div>
+    <div class="content">
+      <div class="title">右面板改检查/建议风格</div>
+      <div class="desc">Rezi 式：顶部评分块（86/100 + 进度条），选中对象带状态点（绿=正常/黄=警告/红=问题）。字段区去边框线，改间距分组。</div>
+    </div>
+    <div class="tag">Rezi</div>
+  </div>
+
+  <div class="diff-item">
+    <div class="num">6</div>
+    <div class="content">
+      <div class="title">纸面内容完整保留</div>
+      <div class="desc">张明简历全 5 区（教育/实习/项目/专业技能/荣誉）一字未删。纸宽 794px、overlay 层（辅助线/选中框/手柄）全部保留。</div>
+    </div>
+    <div class="tag">不变</div>
+  </div>
+</div>
+
+<script>
+function setView(mode) {
+  const wrap = document.getElementById('wrap');
+  const btns = document.querySelectorAll('.toggle-group button');
+  btns.forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  if (mode === 'both') {
+    wrap.classList.remove('single');
+    document.getElementById('old-panel').classList.remove('active');
+    document.getElementById('new-panel').classList.remove('active');
+  } else {
+    wrap.classList.add('single');
+    document.getElementById('old-panel').classList.toggle('active', mode === 'old');
+    document.getElementById('new-panel').classList.toggle('active', mode === 'new');
+  }
+}
+</script>
+</body>
+</html>
