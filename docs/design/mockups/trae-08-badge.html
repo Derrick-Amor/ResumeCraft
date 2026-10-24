@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>08 溢出角标 · ResumeCraft</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+:root{--bg:#f5f6f8;--white:#fff;--glass:rgba(255,255,255,.85);--blue1:#4A9EF7;--blue2:#6CB8FF;--grad:linear-gradient(135deg,#4A9EF7,#6CB8FF);--text1:#1B1F2A;--text2:#6B7280;--text3:#9CA3AF;--border:#E5E7EB;--hover:#F3F4F6;--r-sm:8px;--r-md:12px;--r-lg:16px;--r-full:999px;--sh-md:0 2px 8px rgba(0,0,0,.06);--sh-lg:0 8px 24px rgba(0,0,0,.08);--sh-float:0 4px 16px rgba(74,158,247,.15);--ease:cubic-bezier(.25,.1,.25,1);--ease-out:cubic-bezier(.16,1,.3,1);--danger:#EF4444;--warn:#F59E0B;--ok:#22C55E}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Inter","Noto Sans SC",-apple-system,sans-serif;background:var(--bg);color:var(--text1);font-size:14px;line-height:1.5;overflow:hidden;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;border:none;background:none;font-size:inherit}
+svg{display:block}
+.topbar{position:fixed;top:0;left:0;right:0;height:36px;background:var(--white);border-bottom:1px solid #F0F1F3;display:flex;align-items:center;padding:0 12px;z-index:100;user-select:none}
+.topbar__logo{width:20px;height:20px;background:var(--grad);border-radius:5px;display:flex;align-items:center;justify-content:center;margin-right:8px;flex:none}
+.topbar__sp{flex:1}
+.topbar__cb{width:28px;height:28px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:var(--text3)}
+.topbar__cb:hover{background:var(--hover)}
+.topbar__cb--x:hover{background:#EF4444;color:#fff}
+.app{display:flex;height:100vh;padding-top:36px}
+.sidebar{width:220px;background:var(--white);border-right:1px solid #F0F1F3;display:flex;flex-direction:column;padding:12px;flex:none}
+.sidebar__nav{display:flex;flex-direction:column;gap:2px}
+.sidebar__item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r-md);color:var(--text2);font-size:13px;font-weight:500;transition:all .2s;text-decoration:none}
+.sidebar__item:hover{background:var(--hover);color:var(--text1)}
+.sidebar__item.active{background:rgba(74,158,247,.1);color:var(--blue1)}
+.sidebar__item svg{width:18px;height:18px;flex:none;opacity:.7}
+.sidebar__item.active svg{opacity:1}
+.sidebar__ft{margin-top:auto;padding:12px;border-top:1px solid #F0F1F3}
+.sidebar__user{display:flex;align-items:center;gap:8px}
+.sidebar__avatar{width:32px;height:32px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:600;flex:none}
+.sidebar__uname{font-size:12px;font-weight:500}
+.sidebar__badge{font-size:10px;color:var(--text3)}
+.sidebar__badge em{font-style:normal;background:rgba(74,158,247,.1);color:var(--blue1);padding:1px 6px;border-radius:var(--r-full);font-weight:500}
+.main{flex:1;display:flex;overflow:hidden}
+.demo-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;overflow-y:auto}
+.demo-label{font-size:12px;color:var(--text3);margin-bottom:16px;text-transform:uppercase;letter-spacing:.06em}
+.paper-wrap{position:relative;margin-bottom:24px}
+.paper{width:340px;min-height:480px;background:var(--white);border-radius:var(--r-md);box-shadow:var(--sh-lg);padding:32px;position:relative}
+.paper h1{font-size:18px;font-weight:700;margin-bottom:3px}
+.paper .sub{font-size:10px;color:var(--text2);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.paper h2{font-size:11px;font-weight:600;margin:10px 0 5px}
+.paper .item{font-size:9px;color:var(--text2);margin:2px 0}
+.paper .bar{height:3px;background:var(--hover);border-radius:2px;margin:3px 0}
+.paper .bar.w80{width:80%}.paper .bar.w60{width:60%}.paper .bar.w40{width:40%}
+.overflow-line{position:absolute;bottom:50px;left:32px;right:32px;border-top:2px dashed var(--danger);opacity:.45}
+.overflow-label{position:absolute;bottom:32px;left:32px;font-size:9px;color:var(--danger);opacity:.7}
+
+/* 角标（在 overlay 层，不在纸内） */
+.badge-host{position:absolute;top:12px;right:12px;z-index:10}
+.badge{
+  width:28px;height:28px;
+  border-radius:50%;
+  background:var(--danger);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:"JetBrains Mono",monospace;
+  font-size:13px;font-weight:700;
+  cursor:pointer;
+  box-shadow:0 2px 8px rgba(239,68,68,.3),0 0 0 2px var(--white);
+  transition:all .2s;
+}
+.badge:hover{transform:scale(1.1);box-shadow:0 4px 16px rgba(239,68,68,.4),0 0 0 2px var(--white)}
+
+/* 悬浮摘要浮层 */
+.badge-pop{
+  position:absolute;top:36px;right:-8px;
+  width:280px;
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:var(--r-lg);
+  box-shadow:0 8px 32px rgba(0,0,0,.1);
+  overflow:hidden;
+}
+.badge-pop__head{
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.badge-pop__head-title{font-size:12px;font-weight:600}
+.badge-pop__head-tag{font-size:10px;padding:2px 8px;border-radius:var(--r-full);background:rgba(245,158,11,.1);color:var(--warn)}
+.badge-pop__list{padding:6px}
+.badge-pop__item{
+  display:flex;align-items:flex-start;gap:8px;
+  padding:8px 10px;
+  border-radius:var(--r-sm);
+  cursor:pointer;
+  transition:background .15s;
+}
+.badge-pop__item:hover{background:var(--hover)}
+.badge-pop__icon{width:16px;height:16px;flex:none;margin-top:1px}
+.badge-pop__icon.warn{color:var(--warn)}
+.badge-pop__icon.info{color:var(--blue1)}
+.badge-pop__text{flex:1}
+.badge-pop__title{font-size:11px;font-weight:500}
+.badge-pop__meta{font-size:10px;color:var(--text3);margin-top:1px}
+.badge-pop__foot{
+  padding:10px 14px;
+  border-top:1px solid var(--border);
+  display:flex;gap:8px;
+}
+.badge-pop__btn{flex:1;padding:7px 0;border-radius:var(--r-sm);font-size:11px;font-weight:500;text-align:center;transition:all .15s}
+.badge-pop__btn--primary{background:var(--grad);color:#fff}
+.badge-pop__btn--primary:hover{transform:scale(1.02)}
+.badge-pop__btn--ghost{background:var(--hover);color:var(--text2)}
+.badge-pop__btn--ghost:hover{background:var(--border)}
+
+/* 三种状态对照 */
+.states{display:flex;gap:12px;width:100%;max-width:500px}
+.state-card{
+  flex:1;padding:14px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+}
+.state-card__label{font-size:11px;color:var(--text3);margin-bottom:8px;font-weight:500}
+.state-card__demo{display:flex;align-items:center;gap:8px}
+.state-card__dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:#fff}
+.state-card__dot.single{background:var(--warn)}
+.state-card__dot.multi{background:var(--danger)}
+.state-card__dot.done{background:var(--ok)}
+.state-card__text{font-size:11px;color:var(--text2)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.paper{animation:fadeUp .5s var(--ease-out) both}
+.states{animation:fadeUp .5s var(--ease-out) .1s both}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar__logo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M7 3h7l4 4v14H7z"/></svg></div>
+  <div class="topbar__sp"></div>
+  <button class="topbar__cb"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></button>
+  <button class="topbar__cb topbar__cb--x"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+<div class="app">
+  <aside class="sidebar">
+    <nav class="sidebar__nav">
+      <a class="sidebar__item" href="trae-style.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>新建简历</a>
+      <a class="sidebar__item" href="trae-02-templates.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>模板库</a>
+      <a class="sidebar__item" href="trae-03-import.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>导入简历</a>
+      <a class="sidebar__item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>我的简历</a>
+    </nav>
+    <div class="sidebar__ft"><div class="sidebar__user"><div class="sidebar__avatar">A</div><div><div class="sidebar__uname">Amor</div><div class="sidebar__badge"><em>免费版</em></div></div></div></div>
+  </aside>
+  <div class="main">
+    <div class="demo-area">
+      <div class="demo-label">页内角标 + 悬浮摘要</div>
+      <div class="paper-wrap">
+        <div class="paper">
+          <h1>张明</h1>
+          <div class="sub">求职意向：后端开发工程师 · 深圳</div>
+          <h2>教育经历</h2>
+          <div class="item"><b>华南理工大学</b> · 2022.09 – 2026.06</div>
+          <div class="item">软件工程 · 本科 · GPA 3.7/4.0</div>
+          <div class="bar w80"></div>
+          <h2>实习经历</h2>
+          <div class="item"><b>腾讯 · 微信事业群</b> · 2025.07 – 2025.09</div>
+          <div class="bar w80"></div>
+          <div class="bar w60"></div>
+          <h2>项目经历</h2>
+          <div class="item"><b>ResumeCraft 简历排版引擎</b></div>
+          <div class="bar w80"></div>
+          <div class="bar w40"></div>
+          <h2>专业技能</h2>
+          <div class="bar w80"></div>
+          <div class="bar w60"></div>
+          <div class="overflow-line"></div>
+          <div class="overflow-label">溢出参考线</div>
+        </div>
+        <!-- 角标（overlay 层，不在纸内） -->
+        <div class="badge-host">
+          <div class="badge">3</div>
+          <div class="badge-pop">
+            <div class="badge-pop__head">
+              <div class="badge-pop__head-title">3 待处理 · 0 建议</div>
+              <div class="badge-pop__head-tag">本页</div>
+            </div>
+            <div class="badge-pop__list">
+              <div class="badge-pop__item">
+                <svg class="badge-pop__icon warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4L2.8 20h18.4z"/><path d="M12 10v4.2"/><path d="M12 17.2h.01"/></svg>
+                <div class="badge-pop__text">
+                  <div class="badge-pop__title">项目经历 · 校园二手书交易平台</div>
+                  <div class="badge-pop__meta">超出下边距 18mm · 第 2 页 · 未处理</div>
+                </div>
+              </div>
+              <div class="badge-pop__item">
+                <svg class="badge-pop__icon warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4L2.8 20h18.4z"/><path d="M12 10v4.2"/><path d="M12 17.2h.01"/></svg>
+                <div class="badge-pop__text">
+                  <div class="badge-pop__title">专业技能 · 技能矩阵</div>
+                  <div class="badge-pop__meta">跨页拆分，续写位置待确认 · 第 2 页</div>
+                </div>
+              </div>
+              <div class="badge-pop__item">
+                <svg class="badge-pop__icon info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><path d="M12 7.8h.01"/></svg>
+                <div class="badge-pop__text">
+                  <div class="badge-pop__title">荣誉奖项 · 标题孤行</div>
+                  <div class="badge-pop__meta">标题落在页末最后一行 · 第 2 页 · 警告级</div>
+                </div>
+              </div>
+            </div>
+            <div class="badge-pop__foot">
+              <button class="badge-pop__btn badge-pop__btn--primary">逐条处理</button>
+              <button class="badge-pop__btn badge-pop__btn--ghost">全部按推荐处理</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 三种状态对照 -->
+      <div class="states">
+        <div class="state-card">
+          <div class="state-card__label">单处溢出</div>
+          <div class="state-card__demo">
+            <div class="state-card__dot single">1</div>
+            <div class="state-card__text">黄色角标</div>
+          </div>
+        </div>
+        <div class="state-card">
+          <div class="state-card__label">多处溢出</div>
+          <div class="state-card__demo">
+            <div class="state-card__dot multi">3</div>
+            <div class="state-card__text">红色角标</div>
+          </div>
+        </div>
+        <div class="state-card">
+          <div class="state-card__label">已处理完</div>
+          <div class="state-card__demo">
+            <div class="state-card__dot done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></div>
+            <div class="state-card__text">绿色勾号</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
