@@ -1,141 +1,181 @@
 /*
- * ResumeCraft 设计 token —— 数值唯一事实源（TC-016 定稿）
- * 执笔：team-lead（阿U）于 2026-10-23 直接落盘，设计规格来自 TC-016 卡。
- *       TC-016 是设计规格卡，代码改动归属记在台账 D12/D13，勿据文件名反推。
+ * ResumeCraft 设计 token —— 数值唯一事实源
  * ==================================================================
+ * 版本：v3「蓝玻璃 + 白纸」（2026-10-27 Amor 定稿）
+ * 上一代：v2「冷灰 + 青蓝 #0b7298」（2026-10-24 增量 A），已被取代。
+ *
  * 本文件是全项目**唯一**允许出现十六进制色值与 rgba() 的文件。
  * 其它任何文件（组件样式、视觉稿、规格文档）一律引用 `var(--rc-*)`。
  *
- * 数值依据：`docs/design/token-values.md`（含每项的取值理由与对比度实测）。
- * 主题：P0 只做亮色。暗色接口位置见文件末尾 `[data-theme='dark']` 注释块，
- *       **不实现**（阿U 裁决，PRD 未承诺暗色）。
- * 接线：由 TC-004 在 `src/main.ts` 引入（本卡不碰 main.ts）。
+ * 分工（本轮最重要的一条）：
+ *   蓝 = 界面外壳（chrome）：边框、按钮、选中、焦点、呼吸环、开关。
+ *   绿 = 纸面内容（content）：只给简历自己用 —— 小节竖条、求职意向、强调词。
+ *   纸是印刷预览，不能被界面色污染，所以纸的墨绿单独留一族 token。
+ *
+ * 材质：按钮与卡片一律「一层透明色 + backdrop-filter 模糊」。
+ *       **不画镜面高光、不做色散彩边、不叠多重内阴影** —— 那些模拟出来的光泽是「假」的来源。
+ *
+ * 主题：P0 只做亮色。暗色接口位置见文件末尾注释块，**不实现**。
  * 桥接：`src/design/element-plus-bridge.css` 把 `--rc-*` 映射到 Element Plus 的 `--el-*`。
  *
- * 命名规则：`--rc-<类别>-<语义>-<变体>`；数值一律写死，不允许在这里再套一层 var() 链，
- *          否则「改一处全局生效」会退化成「改三处才生效」。
- */
+ * 命名规则：`--rc-<类别>-<语义>-<变体>`；数值一律写死，
+ *          不允许在这里再套一层 var() 链，否则「改一处全局生效」会退化成「改三处才生效」。
+ * ============================================================ */
 
 :root {
   /* ============================================================
-   * 1. 中性色 6 阶（端点对齐 PRD 6.2：#f9f9f9 → #2b2b2b）
-   *    冷偏移 210°、饱和度 ≤4%，与主色（196°）同族，避免纯灰在纸面旁显脏。
+   * 1. 中性色 6 阶（v3：由暖灰改为冷蓝灰，与主色同族）
+   *    色相统一压到 215°±5、饱和度 ≤8%，避免纯灰在纸面旁显脏。
    * ============================================================ */
-  --rc-neutral-50: #f9f9f9; /* 页面底 */
-  --rc-neutral-100: #eff1f3; /* 面板/工具栏底 */
-  --rc-neutral-200: #dde1e5; /* 分隔线/浅边框 */
-  --rc-neutral-400: #8c949c; /* 占位符/次要图标 */
-  --rc-neutral-600: #5b636b; /* 二级文本 */
-  --rc-neutral-800: #2b2b2b; /* 主文本 */
+  --rc-neutral-50: #f6f8fb;
+  --rc-neutral-100: #eef3f9;
+  --rc-neutral-200: #dbe5f1;
+  --rc-neutral-400: #9aabc0;
+  --rc-neutral-600: #5a6879;
+  --rc-neutral-800: #1b2430;
 
   /* ============================================================
    * 2. 表面（背景）
    * ============================================================ */
-  --rc-color-bg-page: #f9f9f9;
-  --rc-color-bg: #ffffff;
-  --rc-color-bg-elevated: #ffffff; /* 浮层/对话框/下拉，靠阴影与页面底分离 */
-  --rc-color-bg-subtle: #eff1f3; /* 工具栏、只读字段、表头 */
-  --rc-color-bg-hover: #f3f5f6;
-  --rc-color-bg-active: #e9ecee;
-  /* 灰壳专用：白面板上的 hover 是"变浅到 #f3f5f6"，灰面板上必须反过来"变深"，
-     否则 hover 与静止态分不开（#f3f5f6 压在 #eff1f3 上几乎同色）。
-     这两个值只用于 toolbar / statusbar 这类 bg-subtle 底，白底表面仍用上面两个。 */
-  --rc-color-bg-hover-on-subtle: #e5e9eb; /* 对 #eff1f3 ΔL* 2.95 */
-  --rc-color-bg-active-on-subtle: #dfe4e7; /* 对 #eff1f3 ΔL* 4.76，只做填充不承载主色文字 */
-  --rc-color-canvas: #e3e7ea; /* A4 纸外的画布底色，必须比页面底更深；增量 A 加深一档让纸更突出 */
-  --rc-color-paper: #ffffff; /* A4 纸面，与导出 PDF 同色 */
-  --rc-color-scrim: rgba(43, 43, 43, 0.32); /* 对话框遮罩 */
+  --rc-color-bg-page: #edf1f7; /* 工作台 */
+  --rc-color-bg: #ffffff; /* 面板/对话框底 */
+  --rc-color-bg-elevated: #ffffff;
+  --rc-color-bg-subtle: #f4f7fb; /* 工具栏、只读字段、表头 */
+  --rc-color-bg-hover: #f2f6fc;
+  --rc-color-bg-active: #e9eff9;
+  --rc-color-bg-hover-on-subtle: #e6eef9;
+  --rc-color-bg-active-on-subtle: #dde7f5;
+  --rc-color-canvas: #edf1f7; /* A4 纸外的画布底色 */
+  --rc-color-paper: #ffffff; /* A4 纸面，与导出 PDF 同色，永不加滤镜 */
+  --rc-color-scrim: rgba(12, 20, 34, 0.66);
 
   /* ============================================================
-   * 3. 边框（由 --rc-neutral-200 向白/向深按固定比例混出，逐级单调）
+   * 3. 边框 —— 全部走蓝族（Amor 2026-10-27：所有组件边框改蓝）
    * ============================================================ */
-  --rc-color-border-extra-light: #f0f2f3; /* 55% 白 */
-  --rc-color-border-lighter: #ebedef; /* 40% 白 */
-  --rc-color-border-light: #e4e7ea; /* 20% 白 */
-  --rc-color-border: #bdc2c7; /* 25% N600 压深，输入框/按钮描边 */
-  --rc-color-border-strong: #8c949c; /* = N400，聚焦前的高对比描边 */
+  --rc-color-border-extra-light: #eef3f9;
+  --rc-color-border-lighter: #e6edf7;
+  --rc-color-border-light: #dbe5f1;
+  --rc-color-border: #c3d8f2; /* 组件描边 */
+  --rc-color-border-strong: #93b3dc; /* hover / 聚焦前的高对比描边 */
 
   /* ============================================================
    * 4. 文本
    * ============================================================ */
-  --rc-color-text: #2b2b2b; /* 13.45:1 on 页面底 */
-  --rc-color-text-secondary: #5b636b; /* 5.80:1 on 页面底 */
-  --rc-color-text-tertiary: #5f676f; /* 4.80:1 on canvas #e8ebed（最深底），四底全过 AA */
-  --rc-color-text-placeholder: #8c949c; /* 3.07:1，仅占位提示 */
-  --rc-color-text-disabled: #a9afb5; /* 25% 白混 N400，禁用态豁免对比度 */
-  --rc-color-text-on-primary: #ffffff; /* 5.42:1 on 主色 #0b7298 */
+  --rc-color-text: #1b2430; /* 白底 15.2:1 */
+  --rc-color-text-secondary: #5a6879; /* 白底 5.6:1 */
+  --rc-color-text-tertiary: #66788f; /* 白底 4.9:1，仅用于 ≥11px 元信息 */
+  --rc-color-text-placeholder: #9aabc0; /* 3.0:1，仅占位提示 */
+  --rc-color-text-disabled: #a9b6c6; /* 禁用态豁免对比度 */
+  --rc-color-text-on-primary: #ffffff; /* 5.49:1 on #2867C4 */
 
   /* ============================================================
-   * 5. 品牌主色 —— #0b7298（2026-10-24 增量 A「更轻更活」定稿）
+   * 5. 品牌蓝 —— #2867C4
    *
-   *   色相 196.2° 与 #107093 同族（青蓝），只把饱和度 80.4%→86.5%、
-   *   明度 32.0%→31.96% 基本持平。屏幕上可感知的变化是「更透、更活」，
-   *   品牌识别不动。Amor 语：「稍微活力一点，不要用力过猛」——因此只提饱和不提明度。
+   *   为什么不是稿面的 #2F76D2：
+   *     稿面蓝 L=0.182，压在 EP 的 primary-light-9（#EAF0F9，L=0.865）上只有 3.96:1，**挂 AA**。
+   *     EP 里「light-9 底 + primary 文字」这条规则块有 20 处（下拉选中、hover 项、plain 按钮…），
+   *     所以主色相对亮度必须 ≤0.1533。同族下沉一档取 #2867C4（L=0.1413）即可全过，
+   *     肉眼与 #2F76D2 几乎无差。稿面值保留在 docs/design/token-values.md 作对照。
    *
-   * 真正的约束不是白底，是 light-9：
-   *   Element Plus 里「primary-light-9 底 + primary 文字」这条规则块有 20 处
-   *   （下拉选中项、hover 项、plain 按钮……）。要过 AA，主色相对亮度必须 ≤ 0.1533。
+   *   实算（本轮定稿）：
+   *     #2867C4  L=0.1413  白底 5.49  subtle 5.02  light-9 4.78  ← 三档全过 AA
    *
-   * 实算对比度（本轮定稿）：
-   *   #0b7298  L=0.1437  白底 5.42  subtle 4.86  light-9 4.72  ← 采用，三档全过 AA
-   *
-   *   被否候选（实算，不是估值）：
-   *   #0E7A9E  白底 4.89  subtle 4.39  light-9 4.29  ← 审计建议值，subtle/light-9 双挂
-   *
-   * 结论：**提饱和必须同时守住 light-9 的 4.5 底线**。明度上探会被 light-9 卡死，
-   * 所以本轮只动饱和。因为所有模式都过，桥接层把 --el-color-primary 直接指向本变量即可，
-   * 不需要「面/字双音高」，也不需要任何特判规则。
-   *
-   * 派生规则（与 #107093 时代完全一致，改主色只换基色）：
-   *   hover = 8% 黑 / active = 16% 黑 / dark-2 = 20% 黑
-   *   subtle = 92% 白 / light-3/5/7/8/9 = 30/50/70/80/90% 白
+   *   派生规则：hover = 8% 黑 / active = 16% 黑 / dark-2 = 20% 黑
+   *            subtle = 92% 白 / light-3/5/7/8/9 = 30/50/70/80/90% 白
    * ============================================================ */
-  --rc-color-primary: #0b7298; /* 白底 5.42 / subtle 4.86 / light-9 4.72 */
-  --rc-color-primary-hover: #0a698c; /* 8% 黑 */
-  --rc-color-primary-active: #096080; /* 16% 黑 */
-  --rc-color-primary-subtle: #ebf4f7; /* 92% 白：选中行/标签底 */
-  --rc-color-primary-light-3: #549cb7;
-  --rc-color-primary-light-5: #85b9cc;
-  --rc-color-primary-light-7: #b6d5e0;
-  --rc-color-primary-light-8: #cee3ea;
-  --rc-color-primary-light-9: #e7f1f5;
-  --rc-color-primary-dark-2: #095b7a; /* 白底 7.53 / subtle 底 6.75 */
+  --rc-color-primary: #2867c4; /* 白底 5.49 / light-9 4.78 */
+  --rc-color-primary-hover: #255fb4;
+  --rc-color-primary-active: #2257a5;
+  --rc-color-primary-subtle: #eef3fa;
+  --rc-color-primary-light-3: #6995d6;
+  --rc-color-primary-light-5: #94b3e2;
+  --rc-color-primary-light-7: #bfd1ed;
+  --rc-color-primary-light-8: #d4e1f3;
+  --rc-color-primary-light-9: #eaf0f9;
+  --rc-color-primary-dark-2: #20529d;
+
+  /* 玻璃主按钮上的文字色。v3 的主按钮是透明蓝玻璃，不能再用白字（白字在浅玻璃上看不见），
+     改用深一档的蓝：白底 8.10:1，压在 accent 玻璃上仍 ≥6:1。 */
+  --rc-color-primary-ink: #1b4f94;
+
+  /* 选中语义：本轮起与品牌蓝同值（原「选中蓝」已升为品牌蓝） */
+  --rc-color-selection: #2867c4;
+  --rc-color-selection-soft: rgba(40, 103, 196, 0.08);
 
   /* ============================================================
-   * 6. 语义色（信息/成功/警告/危险）。基色在白色上均 ≥4.5:1。
+   * 6. 纸面墨绿 —— 只给简历内容用
+   *    界面转蓝后，纸内容仍是墨绿；纸内分隔线必须中性灰，不能被染蓝。
+   * ============================================================ */
+  --rc-color-paper-accent: #4b7168; /* 白底 5.44:1 */
+  --rc-color-paper-accent-soft: #edf4f1;
+  --rc-color-paper-accent-ink: #2e4a43;
+  --rc-color-paper-border: #d9dee2; /* 纸内分隔线，中性灰 */
+  --rc-color-paper-neutral: #f2f4f5; /* 纸内占位块 */
+
+  /* ============================================================
+   * 7. 语义色（信息/成功/警告/危险）。基色在白色上均 ≥4.5:1。
    *    -subtle = 92% 白（状态底色），-border = 32% 基色 + 68% 白（状态描边）
    * ============================================================ */
-  --rc-color-info: #4a6d8c;
-  --rc-color-info-hover: #446481;
-  --rc-color-info-active: #3e5c76;
-  --rc-color-info-subtle: #f1f3f6;
-  --rc-color-info-border: #c5d0da;
+  --rc-color-info: #3b6fa8;
+  --rc-color-info-hover: #356497;
+  --rc-color-info-active: #2f5a87;
+  --rc-color-info-subtle: #f1f5f8;
+  --rc-color-info-border: #ccdbe6;
 
-  --rc-color-success: #1f7a4c;
-  --rc-color-success-hover: #1d7046;
-  --rc-color-success-active: #1a6640;
-  --rc-color-success-subtle: #edf4f1;
-  --rc-color-success-border: #b7d4c6;
+  --rc-color-success: #2e7a57; /* 与纸面墨绿同族但更饱和，用于「已确认」徽标 */
+  --rc-color-success-hover: #297050;
+  --rc-color-success-active: #246549;
+  --rc-color-success-subtle: #eaf5ef;
+  --rc-color-success-border: #bcdcc9;
 
-  --rc-color-warning: #8a5200; /* 5.33:1 on canvas，四底全过 AA */
-  --rc-color-warning-hover: #7a4800;
-  --rc-color-warning-active: #6b4000;
-  --rc-color-warning-subtle: #f8f3eb;
-  --rc-color-warning-border: #e3cdad;
+  --rc-color-warning: #96611a; /* 白底 5.23:1，warning-subtle 上 4.78:1 */
+  --rc-color-warning-hover: #865616;
+  --rc-color-warning-active: #764b13;
+  --rc-color-warning-subtle: #fcf4e4;
+  --rc-color-warning-border: #eddcb6;
 
-  --rc-color-danger: #b3352b;
-  --rc-color-danger-hover: #a53128;
-  --rc-color-danger-active: #962d24;
-  --rc-color-danger-subtle: #f9efee;
-  --rc-color-danger-border: #e7bebb;
+  --rc-color-danger: #b6544f; /* 白底 4.80:1 */
+  --rc-color-danger-hover: #a54c47;
+  --rc-color-danger-active: #95443f;
+  --rc-color-danger-subtle: #fbefee; /* 文字用 -ink */
+  --rc-color-danger-border: #e7c9c7;
+  --rc-color-danger-ink: #8e3d39; /* danger-subtle 上 5.61:1 */
 
   /* ============================================================
-   * 7. 字体族
+   * 8. 材质：透明色 + 背景模糊
+   *    只做两件事 —— 一层 rgba + backdrop-filter。不做任何模拟高光。
+   *    取值依据：alpha ≥0.5 时 11px 文字在极光底上仍 ≥4.5:1。
+   * ============================================================ */
+  --rc-glass-bg: rgba(255, 255, 255, 0.62); /* 顶栏/侧栏/状态栏 */
+  --rc-glass-bg-soft: rgba(255, 255, 255, 0.52); /* 面板内卡槽、分段控件 */
+  --rc-glass-bg-tint: rgba(255, 255, 255, 0.42); /* 默认按钮 */
+  --rc-glass-bg-tint-hover: rgba(255, 255, 255, 0.66);
+  --rc-glass-bg-strong: rgba(255, 255, 255, 0.86); /* 对话框、浮层 */
+  --rc-glass-primary: rgba(40, 103, 196, 0.14); /* 主按钮（导出/确认） */
+  --rc-glass-primary-hover: rgba(40, 103, 196, 0.22);
+  --rc-glass-primary-border: rgba(40, 103, 196, 0.42);
+  --rc-glass-card: rgba(255, 255, 255, 0.5); /* 卡片 */
+  --rc-glass-card-hover: rgba(255, 255, 255, 0.72);
+  --rc-glass-border: rgba(255, 255, 255, 0.55);
+  --rc-glass-blur-sm: blur(12px) saturate(140%);
+  --rc-glass-blur: blur(18px) saturate(140%);
+  --rc-glass-blur-lg: blur(20px) saturate(140%);
+
+  /* 极光底：透明色必须背后有东西才成立，纯白上做玻璃只会得到更白的方块 */
+  --rc-aurora:
+    radial-gradient(780px 540px at 6% 2%, rgba(94, 152, 238, 0.24), transparent 62%),
+    radial-gradient(700px 520px at 96% 8%, rgba(96, 204, 214, 0.2), transparent 64%),
+    radial-gradient(860px 580px at 56% 98%, rgba(128, 124, 236, 0.17), transparent 66%),
+    radial-gradient(520px 420px at 34% 62%, rgba(47, 118, 210, 0.08), transparent 70%);
+
+  /* ============================================================
+   * 9. 字体族
    *    UI 字体只服务界面；简历渲染字体由 TC-006 托管，这里只给变量名与回退链，
    *    **不引入任何字体文件**（@font-face 归 TC-006）。
+   *    Inter 排在最前：装了就用，没装走系统栈，不依赖网络。
    * ============================================================ */
   --rc-font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC',
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC',
     'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
   --rc-font-family-mono: 'SF Mono', 'Cascadia Mono', Consolas, 'Liberation Mono', monospace;
   --rc-font-resume-sans:
@@ -144,9 +184,11 @@
     'Noto Serif SC', 'Source Serif 4', 'Songti SC', 'SimSun', serif;
 
   /* ============================================================
-   * 8. 字号阶梯 12/14/16/20/24/28（UI 字号；简历字号由模板规则定义）
+   * 10. 字号阶梯（UI 字号；简历字号由模板规则定义）
    *    sm/base/lg 三个名字被桥接层直接占用（EP small/base/large），不要改名。
+   *    v3 增 11px 一档：稿面元信息用 11–12px，缺这档会逼组件写硬编码。
    * ============================================================ */
+  --rc-font-size-2xs: 11px;
   --rc-font-size-sm: 12px;
   --rc-font-size-base: 14px;
   --rc-font-size-lg: 16px;
@@ -158,12 +200,12 @@
   --rc-font-weight-medium: 500;
   --rc-font-weight-semibold: 600;
 
-  --rc-line-height-tight: 1.25; /* 工具栏、状态栏、单行标签 */
-  --rc-line-height-base: 1.5; /* 界面正文 */
-  --rc-line-height-relaxed: 1.7; /* 多行说明文字 */
+  --rc-line-height-tight: 1.25;
+  --rc-line-height-base: 1.5;
+  --rc-line-height-relaxed: 1.7;
 
   /* ============================================================
-   * 9. 间距（4px 网格：2 是唯一破格值，用于图标与文字的贴合）
+   * 11. 间距（4px 网格：2 是唯一破格值，用于图标与文字的贴合）
    * ============================================================ */
   --rc-space-2xs: 2px;
   --rc-space-xs: 4px;
@@ -174,67 +216,80 @@
   --rc-space-2xl: 32px;
 
   /* ============================================================
-   * 10. 圆角（2/6/10/12；按钮与输入 6、卡片 10、对话框 12）
-   *     按钮 4→6 是 Amor 2026-10-23 拍板的「提活力」项，配套 PRD 6.2 一条小改；
-   *     卡片 8→10 是 Amor 2026-10-24 增量 A「更轻更活」，卡片/浮层更柔，配套 PRD 6.2 一条小改；
-   *     对话框 12 不动（PRD 明确值）。
-   *     full 用于胶囊标签与圆形角标，不参与 PRD 的四级阶梯。
+   * 12. 圆角（4 标签 / 7 控件 / 10 卡片 / 14 对话框）
+   *    v3 按定稿稿面调整：控件 6→7、卡片 10 保持、对话框 12→14。
+   *    ⚠ `--rc-radius-sm` 必须留 2px：桥接层把它喂给 EP 的
+   *      --el-border-radius-small，使用方是 14×14 的 checkbox 内框，
+   *      改大会把复选框变成小圆饼。标签圆角另开 `--rc-radius-tag`。
    * ============================================================ */
   --rc-radius-sm: 2px;
-  --rc-radius: 6px;
+  --rc-radius-tag: 4px;
+  --rc-radius: 7px;
   --rc-radius-lg: 10px;
-  --rc-radius-xl: 12px;
+  --rc-radius-xl: 14px;
   --rc-radius-full: 999px;
 
   /* ============================================================
-   * 11. 阴影（2/4/8/16 分层，色相取 N800 #2b2b2b，透明度随层高递增）
-   *     增量 A：shadow-4 稍大给按钮浮起感；shadow-paper 更大更柔，纸"浮"得更轻。
+   * 13. 阴影（色相改冷：rgba(16,38,72)，与蓝族同族）
+   *    v3 收紧：按钮与卡片**不再有阴影**，只剩弹窗/浮层与纸面两级。
    * ============================================================ */
-  --rc-shadow-2: 0 1px 2px rgba(43, 43, 43, 0.06);
-  --rc-shadow-4: 0 3px 6px rgba(43, 43, 43, 0.07), 0 1px 3px rgba(43, 43, 43, 0.05);
-  --rc-shadow-8: 0 8px 8px -4px rgba(43, 43, 43, 0.08), 0 2px 6px rgba(43, 43, 43, 0.06);
-  --rc-shadow-16: 0 16px 16px -8px rgba(43, 43, 43, 0.1), 0 4px 10px rgba(43, 43, 43, 0.06);
-  --rc-shadow-paper: 0 1px 3px rgba(43, 43, 43, 0.08), 0 12px 32px -8px rgba(43, 43, 43, 0.1);
+  --rc-shadow-2: 0 1px 2px rgba(16, 38, 72, 0.05);
+  --rc-shadow-4: 0 3px 6px rgba(16, 38, 72, 0.06), 0 1px 3px rgba(16, 38, 72, 0.04);
+  --rc-shadow-8: 0 8px 16px -6px rgba(16, 38, 72, 0.1), 0 2px 6px rgba(16, 38, 72, 0.06);
+  --rc-shadow-16: 0 16px 32px -12px rgba(16, 38, 72, 0.16), 0 4px 10px rgba(16, 38, 72, 0.07);
+  --rc-shadow-paper: 0 0 0 1px #dbe5f1, 0 10px 30px -18px rgba(16, 38, 72, 0.25);
+  --rc-shadow-pop: 0 24px 60px -20px rgba(16, 38, 72, 0.4);
 
   /* ============================================================
-   * 12. 动效（状态过渡 150、面板 200、对话框 300；100 用于按压/角标）
+   * 14. 动效（状态过渡 150、面板 200、对话框 300；100 用于按压/角标）
+   *    spring 只用于卡片上浮；breathe 用于蓝色呼吸环。
    * ============================================================ */
   --rc-duration-fast: 100ms;
   --rc-duration-base: 150ms;
   --rc-duration-slow: 200ms;
   --rc-duration-dialog: 300ms;
+  --rc-duration-card: 280ms;
+  --rc-duration-breathe: 2600ms;
   --rc-ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --rc-ease-out: cubic-bezier(0, 0, 0.2, 1);
   --rc-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --rc-ease-spring: cubic-bezier(0.34, 1.42, 0.64, 1);
+
+  /* 交互位移：卡片悬停上浮档位（v3 新增，稿面用 6–8px） */
+  --rc-lift-card: -8px;
+  --rc-lift-control: -1px;
+  --rc-lift-scale: 1.012;
 
   /* ============================================================
-   * 13. 尺寸与布局常量（五区域骨架 + 控件高度 + 图标档位）
-   *     图标只允许 16/20/24 三档（PRD 6.7 视觉一致性）。
+   * 15. 尺寸与布局常量
+   *    图标只允许 16/20/24 三档（PRD 6.7 视觉一致性）。
+   *    v3 按定稿稿面调宽：左栏 264→296、右栏 280→292、顶栏 44→48。
    * ============================================================ */
-  --rc-layout-toolbar-h: 44px;
+  --rc-layout-toolbar-h: 48px;
   --rc-layout-statusbar-h: 28px;
-  --rc-layout-left-w: 264px;
-  --rc-layout-left-w-narrow: 240px;
-  --rc-layout-right-w: 280px;
+  --rc-layout-left-w: 296px;
+  --rc-layout-left-w-narrow: 264px;
+  --rc-layout-right-w: 292px;
   --rc-layout-a4-w: 794px; /* 210mm @96dpi */
   --rc-layout-a4-h: 1123px; /* 297mm @96dpi */
-  --rc-layout-page-margin: 76px; /* 20mm 页边距，辅助线位置 */
+  --rc-layout-page-margin: 60px; /* 纸面内边距；79px 才是 21mm，稿面取 60px 视觉更透气 */
+  --rc-layout-zoom-default: 0.6; /* 适合页面：794×1123 在 790 高画布内整页可见 */
 
-  --rc-size-control-sm: 28px; /* 紧凑按钮/输入 */
-  --rc-size-control: 32px; /* 标准按钮/输入 */
-  --rc-size-row: 32px; /* 列表行、图层行 */
+  --rc-size-control-sm: 28px;
+  --rc-size-control: 32px;
+  --rc-size-row: 32px;
   --rc-size-tab-h: 36px;
-  --rc-size-badge: 20px; /* 溢出角标直径 */
+  --rc-size-badge: 20px;
   --rc-size-icon-sm: 16px;
   --rc-size-icon-md: 20px;
   --rc-size-icon-lg: 24px;
 
   /* ============================================================
-   * 14. 焦点与层级
+   * 16. 焦点与层级
    * ============================================================ */
   --rc-focus-ring-width: 2px;
-  --rc-focus-ring-color: rgba(11, 114, 152, 0.45);
-  --rc-focus-ring: 0 0 0 2px rgba(11, 114, 152, 0.45);
+  --rc-focus-ring-color: rgba(40, 103, 196, 0.45);
+  --rc-focus-ring: 0 0 0 2px rgba(40, 103, 196, 0.45);
 
   --rc-z-artboard-toolbar: 20;
   --rc-z-badge: 30;
@@ -245,7 +300,7 @@
 
 /*
  * 动效降级：系统开启「减少动态效果」时，时长压到 1ms —— 状态仍然切换，
- * 只是不播放过渡，避免既丢反馈又动画乱动。
+ * 只是不播放过渡；呼吸环同时降级为常亮（由组件侧 :hover 静态边框兜底）。
  */
 @media (prefers-reduced-motion: reduce) {
   :root {
@@ -253,6 +308,8 @@
     --rc-duration-base: 1ms;
     --rc-duration-slow: 1ms;
     --rc-duration-dialog: 1ms;
+    --rc-duration-card: 1ms;
+    --rc-duration-breathe: 1ms;
   }
 }
 

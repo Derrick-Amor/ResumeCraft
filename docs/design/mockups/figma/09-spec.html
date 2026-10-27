@@ -6,6 +6,17 @@
 <title>09 设计说明 · ResumeCraft</title>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="glass.css">
+<style>
+  code {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10.5px;
+    background: var(--rc-accent-soft);
+    color: var(--rc-accent-ink);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+</style>
 </head>
 <body data-screen="09">
 
@@ -16,7 +27,7 @@
       <div class="spec__head">
         <div>
           <h1 class="spec__title">ResumeCraft <em>/ 设计说明</em></h1>
-          <p class="spec__meta">内容优先的桌面编辑器 · 简体中文 · 9 个产品画面</p>
+          <p class="spec__meta">白纸优先 · 蓝玻璃外壳 · 简体中文 · 9 个产品画面</p>
         </div>
         <span class="spec__meta">静态界面设计 · 非功能原型</span>
       </div>
@@ -27,19 +38,23 @@
         <div>
           <h2 class="spec__h">配色角色</h2>
 
-          <div class="swatch"><span class="swatch__chip" class="dot-canvas"></span><span class="swatch__name">工作台 / canvas</span><span class="swatch__hex">#F0F2F3</span></div>
-          <div class="swatch"><span class="swatch__chip" class="dot-white"></span><span class="swatch__name">白纸 / surface</span><span class="swatch__hex">#FFFFFF</span></div>
-          <div class="swatch"><span class="swatch__chip" class="dot-text"></span><span class="swatch__name">正文 / text</span><span class="swatch__hex">#252B28</span></div>
-          <div class="swatch"><span class="swatch__chip" class="dot-secondary"></span><span class="swatch__name">次级 / secondary</span><span class="swatch__hex">#66707A</span></div>
-          <div class="swatch"><span class="swatch__chip" class="dot-border"></span><span class="swatch__name">分隔 / border</span><span class="swatch__hex">#E2E6E9</span></div>
-          <div class="swatch"><span class="swatch__chip" class="dot-accent"></span><span class="swatch__name">强调 / accent</span><span class="swatch__hex">#4B7168</span></div>
-          <div class="swatch"><span class="swatch__chip" class="dot-soft"></span><span class="swatch__name">选中底 / accentSoft</span><span class="swatch__hex">#EDF4F1</span></div>
-          <div class="swatch"><span class="swatch__chip" class="dot-danger"></span><span class="swatch__name">错误 / danger</span><span class="swatch__hex">#B6544F</span></div>
-          <div class="swatch"><span class="swatch__chip" class="dot-warn"></span><span class="swatch__name">警告 / warning<i>新增</i></span><span class="swatch__hex">#96611A</span></div>
-          <div class="swatch"><span class="swatch__chip" class="dot-select"></span><span class="swatch__name">选中框 / selection<i>新增</i></span><span class="swatch__hex">#2F76D2</span></div>
+          <p class="spec__p" style="margin:0 0 8px;color:var(--rc-text-3)">外壳 · 蓝族</p>
+          <div class="swatch"><span class="swatch__chip dot-canvas"></span><span class="swatch__name">工作台 / canvas</span><span class="swatch__hex">#EDF1F7</span></div>
+          <div class="swatch"><span class="swatch__chip dot-border"></span><span class="swatch__name">边框 / border</span><span class="swatch__hex">#C3D8F2</span></div>
+          <div class="swatch"><span class="swatch__chip dot-border-strong"></span><span class="swatch__name">描边强 / borderStrong</span><span class="swatch__hex">#93B3DC</span></div>
+          <div class="swatch"><span class="swatch__chip dot-accent"></span><span class="swatch__name">品牌蓝 / accent</span><span class="swatch__hex">#2F76D2</span></div>
+          <div class="swatch"><span class="swatch__chip dot-accent-soft"></span><span class="swatch__name">蓝浅底 / accentSoft</span><span class="swatch__hex">rgba(47,118,210,.09)</span></div>
+
+          <p class="spec__p" style="margin:14px 0 8px;color:var(--rc-text-3)">内容 · 墨绿（只在纸面）</p>
+          <div class="swatch"><span class="swatch__chip dot-white"></span><span class="swatch__name">纸面 / paper</span><span class="swatch__hex">#FFFFFF</span></div>
+          <div class="swatch"><span class="swatch__chip dot-paper"></span><span class="swatch__name">纸面墨绿 / paperAccent</span><span class="swatch__hex">#4B7168</span></div>
+          <div class="swatch"><span class="swatch__chip dot-text"></span><span class="swatch__name">正文 / text</span><span class="swatch__hex">#1B2430</span></div>
+          <div class="swatch"><span class="swatch__chip dot-secondary"></span><span class="swatch__name">次级 / secondary</span><span class="swatch__hex">#5A6879</span></div>
+          <div class="swatch"><span class="swatch__chip dot-danger"></span><span class="swatch__name">错误 / danger</span><span class="swatch__hex">#B6544F</span></div>
+          <div class="swatch"><span class="swatch__chip dot-warn"></span><span class="swatch__name">警告 / warning</span><span class="swatch__hex">#96611A</span></div>
 
           <p class="spec__p" style="margin-top:14px">
-            <b>selection 蓝只画在画布上。</b>选中框、画板描边、缩放手柄用它；面板内的选中行仍用墨绿浅底，两者不互相串台。
+            <b>蓝是外壳，绿是内容。</b>边框、按钮、选中、焦点、呼吸环全部走蓝；墨绿只留给简历本身——小节竖条、求职意向、强调词。纸是印刷预览，不能被界面色污染。
           </p>
         </div>
 
@@ -60,18 +75,19 @@
 
           <p class="spec__p" style="margin-top:14px">
             间距 <b>4 / 8 / 12 / 16 / 24 / 32 / 40</b><br>
-            圆角 <b>4</b> 标签 · <b>6</b> 控件 · <b>8</b> 卡片 · <b>12</b> 对话框<br>
+            圆角 <b>4</b> 标签 · <b>7</b> 控件 · <b>10</b> 卡片 · <b>14</b> 对话框<br>
             图标 <b>Lucide 线性 · 1.5 px</b> 描边
           </p>
         </div>
 
-        <!-- ---------- 内容优先策略 ---------- -->
+        <!-- ---------- 材质 ---------- -->
         <div>
-          <h2 class="spec__h">内容优先策略</h2>
-          <p class="spec__p"><b>白纸是视觉主角。</b>两侧面板固定为白色，浅色工作台承托纸面；细线与低饱和墨绿只用于层级、选中与操作反馈。</p>
-          <p class="spec__p"><b>错误草稿不污染纸面。</b>邮箱这类正在编辑的无效值只留在面板里并标红，纸面保留上一次有效值，修复后再回写。</p>
-          <p class="spec__p"><b>溢出分级处理。</b>以数量、定位和三档策略（压缩该组件 / 压缩本页 / 暂不处理）呈现，不用恐吓性文案，并给出可读下限 10 pt / 1.40 倍。</p>
-          <p class="spec__p"><b>中文与英文是两条内容轨。</b>英文轨不含照片与政治面貌，成果以 Built / Implemented / Reduced / Led 等动作动词开头。</p>
+          <h2 class="spec__h">液态玻璃规则</h2>
+          <p class="spec__p"><b>① 必须有色可折射。</b>玻璃的实质是折射背后的东西。纯色底上做玻璃只会得到一块更白的方块，所以铺一层低饱和极光（蓝 / 青 / 紫，峰值透明度 0.24），纸面本身仍纯白不透明。</p>
+          <p class="spec__p"><b>② 透明色只有一层，不叠渲染。</b>默认按钮 <code>rgba(255,255,255,.42)</code>、主按钮 <code>rgba(47,118,210,.14)</code>、卡片 <code>rgba(255,255,255,.5)</code>，再加一根 1px 蓝边。<b>不画镜面高光、不做色散彩边、不叠内阴影</b>——那些模拟出来的光泽正是「假」的来源。</p>
+          <p class="spec__p"><b>③ 模糊只负责柔化。</b><code>backdrop-filter: blur(12px) saturate(140%)</code> 的唯一作用是把背后的东西糊掉，不是去画玻璃。主按钮与默认按钮的区别只有颜色，没有光效。</p>
+          <p class="spec__p"><b>④ 呼吸环是交互，不是材质。</b>卡片 hover 时用伪元素画一圈 1px 蓝环，2.6 秒一周期只动透明度（0.45 → 1），不加外发光。系统开启「减少动态效果」时降级为常亮静态框。</p>
+          <p class="spec__p"><b>⑤ 悬停是上浮不是放大。</b>卡片 <code>translateY(-6~8px)</code> 配 1.008–1.012 缩放，缓动走弹簧曲线；同时抬 <code>z-index</code>，避免被邻居压住。</p>
         </div>
       </div>
 
@@ -80,7 +96,7 @@
         <span class="chip">按钮（primary / default / ghost / danger）</span>
         <span class="chip">输入框（默认 / 聚焦 / 错误 / 禁用）</span>
         <span class="chip">Tab · 分段控件</span>
-        <span class="chip">模板卡</span>
+        <span class="chip">模板卡 · 组件卡</span>
         <span class="chip">图层行（显示 / 锁定）</span>
         <span class="chip">开关</span>
         <span class="chip">状态标签（阻断 / 警告 / 建议 / 已确认 / 待确认）</span>
@@ -89,37 +105,42 @@
         <span class="chip">检查项行</span>
         <span class="chip">方案单选卡</span>
         <span class="chip">对话框</span>
-        <span class="chip chip--new">Variables：10 色族 · 34 项尺度</span>
+        <span class="chip chip--new">Variables：11 色 · 玻璃 6 项 · 尺度 34 项</span>
         <span class="chip chip--new">画布选中框 / 缩放手柄</span>
+        <span class="chip chip--new">呼吸环动效</span>
       </div>
 
-      <h2 class="spec__h">本次落地与 Figma 稿的 5 处差异</h2>
+      <h2 class="spec__h">本稿与 Figma 原稿的 6 处差异</h2>
       <div class="deltas">
         <div class="deltas__row">
+          <span class="deltas__key">材质</span>
+          <span class="deltas__val">原稿是哑光白面。<b>改为液态玻璃 + 全蓝边框 + 悬停呼吸环</b>，并为此铺了极光底——没有可折射的颜色，玻璃就不成立。纸面不参与玻璃化。</span>
+        </div>
+        <div class="deltas__row">
+          <span class="deltas__key">强调色</span>
+          <span class="deltas__val">原稿强调色是墨绿 <b>#4B7168</b>。本轮把<b>外壳整体转蓝 #2F76D2</b>，墨绿降级为「纸面专用色」，仍保留在简历内容的竖条与意向行上。</span>
+        </div>
+        <div class="deltas__row">
           <span class="deltas__key">纸面尺度</span>
-          <span class="deltas__val">稿内纸面按 <b>0.6</b> 缩放绘制却标了 87%，87% 时整页装不进画布。本实现取 <b>794 × 1123 真值 + 60% 视图</b>，10.5 pt 正文才等于真实印刷尺寸；顶栏右侧的百分比同步显示 60%。</span>
-        </div>
-        <div class="deltas__row">
-          <span class="deltas__key">警告色族</span>
-          <span class="deltas__val">04 / 07 / 08 三屏都在用琥珀色，但原稿配色表未定义。补齐 <b>warning #96611A</b>（白底 5.23:1，警告底 4.78:1，两档均过 AA）。</span>
-        </div>
-        <div class="deltas__row">
-          <span class="deltas__key">选中框蓝</span>
-          <span class="deltas__val">原稿选中框是未登记的蓝。正式收编为 <b>selection #2F76D2</b>，只用于画布选中框与画板描边，不参与按钮、标签、图表。</span>
+          <span class="deltas__val">稿内纸面按 <b>0.6</b> 缩放绘制却标了 87%，87% 时整页装不进画布。本实现取 <b>794 × 1123 真值 + 60% 视图</b>，10.5 pt 正文才等于真实印刷尺寸。</span>
         </div>
         <div class="deltas__row">
           <span class="deltas__key">状态栏分工</span>
-          <span class="deltas__val">原稿把「第 1/2 页 · A4 · 87% · 已保存 · 3 处溢出」在同一条里重复出现两次。改为 <b>画布条放页信息与缩放</b>、<b>状态栏放保存时间与溢出计数</b>，各出现一次。</span>
+          <span class="deltas__val">原稿把「第 1/2 页 · A4 · 87% · 已保存 · 3 处溢出」在同一条里重复出现两次。改为 <b>画布条放页信息与缩放</b>、<b>状态栏放保存时间与溢出计数</b>。</span>
         </div>
         <div class="deltas__row">
           <span class="deltas__key">模板卡徽标</span>
-          <span class="deltas__val">原稿「当前模板」与「已应用」同时出现在两张卡上。收敛为 <b>只有当前使用的那张卡带徽标</b>，其余卡的语言标签与 A4 版式信息保留。</span>
+          <span class="deltas__val">原稿「当前模板」与「已应用」同时出现在两张卡上。收敛为 <b>只有当前使用的那张卡带徽标</b>，其余保留语言标签与 A4 版式信息。</span>
+        </div>
+        <div class="deltas__row">
+          <span class="deltas__key">组件市场</span>
+          <span class="deltas__val">原稿左栏是单列列表。改为 <b>两列玻璃卡片网格</b>，与模板市场同一套卡片语言：上浮 + 呼吸环 + 图标块；拖拽柄移到右上角、hover 才出现。</span>
         </div>
       </div>
 
       <div class="spec__foot">
         <i class="ic ic--12" data-ic="info" style="margin-top:3px"></i>
-        <span>PDF 保持最终版式，Word 用于继续编辑；导出前检查内容、语言轨与分页。本作品为静态设计，文件解析、自动分页、按钮与实际导出均未接入功能。</span>
+        <span>样式分三层加载：<b>tokens.css</b>（值）→ <b>app.css</b>（结构与组件）→ <b>glass.css</b>（材质与互动）。想退回哑光白面，注释掉 glass.css 一行即可。PDF 保持最终版式，Word 用于继续编辑；本作品为静态设计，文件解析、自动分页、按钮与实际导出均未接入功能。</span>
       </div>
     </div>
   </div>

@@ -1,5 +1,9 @@
 # ResumeCraft 组件规格（TC-016）
 
+> ⚠️ **本文的尺寸与结构仍然有效，但配色与材质部分已被 2026-10-27 定稿的 v3 取代。**
+> v3 的关键变更：边框全部转蓝、按钮与卡片改为「一层透明色 + backdrop-filter」、
+> 卡片悬停上浮 + 蓝色呼吸环。详见 **`docs/design/V3-DELTA.md`**，生产值以 `src/design/tokens.css`（v3）为准。
+
 > 覆盖 PRD 6.4「核心组件规格」全部 11 项。每一项给出 **尺寸 / 状态 / 间距 / 对应 token 变量**。
 > 本文不含任何色值：所有颜色一律写 token 变量名；变量定义见 `docs/design/token-values.md` 与 `src/design/tokens.css`。
 > 视觉参照：`docs/design/mockups/` 下 8 张静态稿（编号在每节标题后标注）。

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>canvas-vs-dom</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 24px; color: #1b2430; }
+  #stage { position: absolute; left: -99999px; top: 0; white-space: pre; }
+  table { border-collapse: collapse; font-size: 12px; margin-top: 12px; }
+  th, td { border: 1px solid #c3d8f2; padding: 4px 8px; text-align: right; }
+  th:first-child, td:first-child { text-align: left; }
+  .pass { color: #2e7a57; }
+  .fail { color: #b6544f; font-weight: 600; }
+  h1 { font-size: 16px; }
+  pre { white-space: pre-wrap; font-size: 11px; color: #5a6879; }
+</style>
+</head>
+<body>
+<h1>Canvas measureText ⇄ DOM 实测宽度对照</h1>
+<p style="font-size:12px;color:#5a6879">
+  验证目标：src/layout/measure.ts 用 Canvas2D 量的宽度，能否代表 DOM 实际排版宽度。
+  容差 <strong>1px</strong>（低于此值肉眼与分页都不可见）。
+</p>
+
+<div id="stage" aria-hidden="true"></div>
+<div id="summary"></div>
+<div id="table"></div>
+<pre id="raw"></pre>
+
+<h1 style="margin-top:32px">补充用例：letter-spacing 的累加语义</h1>
+<p style="font-size:12px;color:#5a6879">
+  待验问题：CSS 的 letter-spacing 是「每个字符后都加」（含行尾），还是「只在字符之间加」。<br>
+  <code>measure.ts</code> 目前按 <strong>(n-1) × spacing</strong> 实现。若 DOM 实际是 <strong>n × spacing</strong>，
+  每行会少算一个 spacing——长行累积后足以影响分页。
+</p>
+<div id="table-ls"></div>
+<pre id="raw-ls"></pre>
+
+<script>
+(function () {
+  var FAMILY = '"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif';
+  var samples = [
+    { text: 'Hello World', size: 14, weight: 400 },
+    { text: '华南理工大学 · 软件工程', size: 14, weight: 400 },
+    { text: 'React / TypeScript / Node.js', size: 14, weight: 400 },
+    { text: '构建课程导入与冲突检测，支持 6 类课表格式，导入成功率 96%。', size: 14, weight: 400 },
+    { text: '138 0013 8000', size: 11.5, weight: 400 },
+    { text: 'zhangming.dev@example.com', size: 11.5, weight: 400 },
+    { text: '张明', size: 30, weight: 600 },
+    { text: '教育经历', size: 17, weight: 600 },
+    { text: 'The quick brown fox jumps over the lazy dog', size: 16, weight: 400 },
+    { text: '前端负责人 | Vue 3 / Pinia / IndexedDB', size: 14, weight: 500 }
+  ];
+
+  var TOLERANCE = 1;
+
+  var stage = document.getElementById('stage');
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+
+  var rows = [];
+  var worst = 0;
+  var failures = 0;
+
+  for (var i = 0; i < samples.length; i++) {
+    var s = samples[i];
+    var fontCss = s.weight + ' ' + s.size + 'px ' + FAMILY;
+
+    // --- DOM 侧：真实排版宽度 ---
+    var span = document.createElement('span');
+    span.style.font = fontCss;
+    span.style.whiteSpace = 'pre';
+    span.style.display = 'inline-block';
+    span.textContent = s.text;
+    stage.appendChild(span);
+    var domWidth = span.getBoundingClientRect().width;
+
+    // --- Canvas 侧：measureText ---
+    ctx.font = fontCss;
+    var canvasWidth = ctx.measureText(s.text).width;
+
+    stage.removeChild(span);
+
+    var delta = Math.abs(domWidth - canvasWidth);
+    if (delta > worst) worst = delta;
+    if (delta > TOLERANCE) failures++;
+
+    rows.push({
+      text: s.text,
+      size: s.size,
+      weight: s.weight,
+      dom: domWidth,
+      canvas: canvasWidth,
+      delta: delta
+    });
+  }
+
+  var pass = failures === 0;
+  document.title = (pass ? 'PASS' : 'FAIL') + ' worst=' + worst.toFixed(4) + 'px';
+
+  var html = '<table><thead><tr>' +
+    '<th>文本</th><th>字号/字重</th><th>DOM (px)</th><th>Canvas (px)</th><th>Δ (px)</th><th>判定</th>' +
+    '</tr></thead><tbody>';
+
+  for (var j = 0; j < rows.length; j++) {
+    var r = rows[j];
+    var ok = r.delta <= TOLERANCE;
+    html += '<tr>' +
+      '<td>' + r.text.replace(/</g, '&lt;') + '</td>' +
+      '<td>' + r.size + ' / ' + r.weight + '</td>' +
+      '<td>' + r.dom.toFixed(3) + '</td>' +
+      '<td>' + r.canvas.toFixed(3) + '</td>' +
+      '<td>' + r.delta.toFixed(4) + '</td>' +
+      '<td class="' + (ok ? 'pass' : 'fail') + '">' + (ok ? '✓' : '✗') + '</td>' +
+      '</tr>';
+  }
+  html += '</tbody></table>';
+  document.getElementById('table').innerHTML = html;
+
+  document.getElementById('summary').innerHTML =
+    '<p style="font-size:13px;margin-top:16px">' +
+    '样本 <strong>' + rows.length + '</strong> 条 · 容差 <strong>' + TOLERANCE + 'px</strong> · ' +
+    '最大偏差 <strong>' + worst.toFixed(4) + 'px</strong> · ' +
+    '不达标 <strong class="' + (pass ? 'pass' : 'fail') + '">' + failures + '</strong> 条 · ' +
+    '结论 <strong class="' + (pass ? 'pass' : 'fail') + '">' + (pass ? 'PASS' : 'FAIL') + '</strong>' +
+    '</p>';
+
+  // 给 --dump-dom 用的机器可读摘要
+  var raw = ['RESULT=' + (pass ? 'PASS' : 'FAIL'), 'SAMPLES=' + rows.length,
+             'WORST_PX=' + worst.toFixed(4), 'FAILURES=' + failures, 'TOLERANCE_PX=' + TOLERANCE,
+             'UA=' + navigator.userAgent,
+             'AT=' + new Date().toISOString(),
+             'FAMILY=' + FAMILY];
+  for (var k = 0; k < rows.length; k++) {
+    raw.push('ROW ' + k + ' dom=' + rows[k].dom.toFixed(3) + ' canvas=' + rows[k].canvas.toFixed(3) +
+             ' delta=' + rows[k].delta.toFixed(4) + ' text=' + rows[k].text);
+  }
+  document.getElementById('raw').textContent = raw.join('\n');
+
+  // ============================================================
+  // 补充用例：letter-spacing 的累加语义
+  // ============================================================
+  var lsSamples = [
+    { text: 'Hello World', size: 14, weight: 400, spacing: 0.5 },
+    { text: '华南理工大学 · 软件工程', size: 14, weight: 400, spacing: 0.5 },
+    { text: 'React / TypeScript', size: 14, weight: 400, spacing: 1 },
+    { text: '构建课程导入与冲突检测', size: 14, weight: 400, spacing: 1 },
+    { text: '前端负责人 | Vue 3', size: 14, weight: 500, spacing: 0.8 },
+    { text: '教育经历', size: 17, weight: 600, spacing: 0.5 }
+  ];
+
+  var lsRows = [];
+  var lsFailNMinus1 = 0;
+  var lsFailN = 0;
+  var worstNMinus1 = 0;
+  var worstN = 0;
+
+  for (var m = 0; m < lsSamples.length; m++) {
+    var t = lsSamples[m];
+    var css = t.weight + ' ' + t.size + 'px ' + FAMILY;
+
+    var sp = document.createElement('span');
+    sp.style.font = css;
+    sp.style.whiteSpace = 'pre';
+    sp.style.display = 'inline-block';
+    sp.style.letterSpacing = t.spacing + 'px';
+    sp.textContent = t.text;
+    stage.appendChild(sp);
+    var domLs = sp.getBoundingClientRect().width;
+    stage.removeChild(sp);
+
+    ctx.font = css;
+    var base = ctx.measureText(t.text).width;
+    var n = t.text.length;
+    var byNMinus1 = base + (n - 1) * t.spacing;
+    var byN = base + n * t.spacing;
+
+    var dMinus1 = Math.abs(domLs - byNMinus1);
+    var dN = Math.abs(domLs - byN);
+
+    if (dMinus1 > TOLERANCE) lsFailNMinus1++;
+    if (dN > TOLERANCE) lsFailN++;
+    if (dMinus1 > worstNMinus1) worstNMinus1 = dMinus1;
+    if (dN > worstN) worstN = dN;
+
+    lsRows.push({
+      text: t.text, spacing: t.spacing, n: n, dom: domLs, base: base,
+      byNMinus1: byNMinus1, byN: byN, dMinus1: dMinus1, dN: dN
+    });
+  }
+
+  var lsHtml = '<table><thead><tr><th>文本</th><th>spacing</th><th>字数</th>' +
+    '<th>DOM (px)</th><th>base+(n-1)·s</th><th>Δ</th><th>base+n·s</th><th>Δ</th>' +
+    '</tr></thead><tbody>';
+  for (var q = 0; q < lsRows.length; q++) {
+    var L = lsRows[q];
+    lsHtml += '<tr><td>' + L.text + '</td><td>' + L.spacing + '</td><td>' + L.n + '</td>' +
+      '<td>' + L.dom.toFixed(3) + '</td>' +
+      '<td>' + L.byNMinus1.toFixed(3) + '</td>' +
+      '<td class="' + (L.dMinus1 <= TOLERANCE ? 'pass' : 'fail') + '">' + L.dMinus1.toFixed(4) + '</td>' +
+      '<td>' + L.byN.toFixed(3) + '</td>' +
+      '<td class="' + (L.dN <= TOLERANCE ? 'pass' : 'fail') + '">' + L.dN.toFixed(4) + '</td>' +
+      '</tr>';
+  }
+  lsHtml += '</tbody></table>';
+  document.getElementById('table-ls').innerHTML = lsHtml;
+
+  var verdict = lsFailN === 0 && lsFailNMinus1 > 0 ? 'CSS_USES_N' :
+                (lsFailNMinus1 === 0 && lsFailN > 0 ? 'CSS_USES_N_MINUS_1' :
+                 (lsFailN === 0 && lsFailNMinus1 === 0 ? 'BOTH_WITHIN_TOLERANCE' : 'NEITHER'));
+
+  var lsRaw = ['LS_VERDICT=' + verdict,
+               'WORST_N_MINUS_1_PX=' + worstNMinus1.toFixed(4),
+               'WORST_N_PX=' + worstN.toFixed(4)];
+  for (var z = 0; z < lsRows.length; z++) {
+    lsRaw.push('LS_ROW ' + z + ' n=' + lsRows[z].n + ' dom=' + lsRows[z].dom.toFixed(3) +
+               ' nMinus1=' + lsRows[z].byNMinus1.toFixed(3) + ' d1=' + lsRows[z].dMinus1.toFixed(4) +
+               ' n=' + lsRows[z].byN.toFixed(3) + ' d2=' + lsRows[z].dN.toFixed(4));
+  }
+  document.getElementById('raw-ls').textContent = lsRaw.join('\n');
+})();
+</script>
+</body>
+</html>

@@ -1,82 +1,89 @@
 /*
- * ResumeCraft · Figma 复刻版设计 token
+ * ResumeCraft · 设计 token
  * ============================================================
- * 事实源：Amor 2026-10-27 提供的 Figma 设计稿（10 屏）+ 当面裁决的 4 条勘误。
+ * 事实源：Amor 的 Figma 稿（2026-10-27）+ 同日两轮裁决：
+ *   ① 全套替换 TRAE / Fusion 方向，改成墨绿 + 白纸（首版）
+ *   ② 边框全蓝、按钮与卡片液态玻璃、悬停上浮 + 蓝色呼吸边框（本轮）
+ *
+ * 分工原则（本轮定）：
+ *   蓝色 = 界面外壳（chrome）。边框、按钮、选中、焦点、卡片呼吸环全部走蓝族。
+ *   墨绿 = 纸面内容（content）。只留给简历本身：小节竖条、求职意向、强调词。
+ *   —— 纸面是印刷预览，不能被界面色污染，因此纸的墨绿单独留一族 token。
+ *
  * 本目录（docs/design/mockups/figma/）内所有文件只允许引用本文件的 var(--rc-*)，
- * 任何组件文件里出现十六进制色值都视为违规。
- *
- * 相对 Figma 稿的 4 处增补（Amor 2026-10-27 定）：
- *   1. 新增 warning 一整族（原稿 04/07/08 大量用琥珀色，但 09 配色表漏定义）
- *   2. 新增 selection 蓝族，**只**用于画布选中框与画板描边（面板内选中行仍走 accent-soft）
- *   3. 溢出计数口径统一：画布角标/状态栏 = 版面溢出条数；导出检查 = 问题清单分级
- *   4. 模板卡状态徽标只允许出现在「当前模板」一张卡上
- *
- * 尺度依据：A4 = 794 × 1123 px（210 × 297 mm @96dpi），默认视图 87%。
- *          正文字号 10.5 pt = 14 px，落在 794 宽的纸上才是真实印刷尺寸。
+ * 组件文件里出现十六进制色值即视为违规（09 规格页作为色值说明书除外）。
  * ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
 
 :root {
-  /* ===== 1. 表面 ===== */
-  --rc-canvas: #f0f2f3;          /* 工作台，纸面之外的一切底部 */
-  --rc-surface: #ffffff;         /* 白纸 / 面板 / 弹窗 */
-  --rc-surface-sunk: #f7f8f9;    /* 次级凹陷面：模板缩略图槽、只读区 */
-  --rc-surface-hover: #f2f4f5;
-  --rc-surface-active: #e9edef;
-  --rc-scrim: rgba(28, 32, 30, 0.72);
+  /* ===== 1. 表面（玻璃层之下）===== */
+  --rc-canvas: #edf1f7;
+  --rc-surface: #ffffff;
+  --rc-surface-sunk: #f4f7fb;
+  --rc-surface-hover: rgba(47, 118, 210, 0.06);
+  --rc-surface-active: rgba(47, 118, 210, 0.11);
+  --rc-scrim: rgba(12, 20, 34, 0.66);
   --rc-paper: #ffffff;           /* 与导出 PDF 同色，永不加滤镜 */
 
-  /* ===== 2. 文本（全部实算过对比度，见 09 规格页）===== */
-  --rc-text: #252b28;            /* 白底 13.9:1 */
-  --rc-text-2: #66707a;          /* 白底 5.05:1，画布 4.62:1 */
-  --rc-text-3: #7a838c;          /* 白底 4.56:1，仅用于 ≥11px 元信息 */
-  --rc-text-4: #9aa2aa;          /* 占位符/禁用，豁免对比度 */
-  --rc-text-inv: #ffffff;        /* 压在 accent 上 5.44:1 */
+  /* ===== 2. 文本（冷调，与蓝族同族，实算过对比度）===== */
+  --rc-text: #1b2430;            /* 白底 15.2:1 */
+  --rc-text-2: #5a6879;          /* 白底 5.6:1 */
+  --rc-text-3: #66788f;          /* 白底 4.9:1，仅用于 ≥11px 元信息 */
+  --rc-text-4: #9fb0c6;          /* 占位符 / 禁用，豁免对比度 */
+  --rc-text-inv: #ffffff;
 
-  /* ===== 3. 边框 ===== */
-  --rc-border: #e2e6e9;
-  --rc-border-soft: #edf0f2;
-  --rc-border-strong: #cbd2d7;
+  /* ===== 3. 边框 —— 全部走蓝族 ===== */
+  --rc-border: #c3d8f2;          /* 组件描边 */
+  --rc-border-soft: #dce8f8;     /* 分隔线 */
+  --rc-border-strong: #93b3dc;   /* hover / 聚焦前的高对比描边 */
+  --rc-border-glass: rgba(255, 255, 255, 0.55);
 
-  /* ===== 4. 强调 · 墨绿（品牌唯一记忆色）===== */
-  --rc-accent: #4b7168;          /* 白底 5.44:1 / accent-soft 4.87:1 */
-  --rc-accent-hover: #3f6157;
-  --rc-accent-active: #345147;
-  --rc-accent-soft: #edf4f1;     /* 选中行、标签底 */
-  --rc-accent-soft-2: #dceae4;   /* 选中行 hover */
-  --rc-accent-border: #c3d6cf;
-  --rc-accent-ink: #2e4a43;      /* 深一档，用于纸面小节标题 */
+  /* ===== 4. 品牌蓝（界面唯一强调色）===== */
+  --rc-accent: #2f76d2;          /* 白底 4.52:1 */
+  --rc-accent-hover: #2361b4;
+  --rc-accent-active: #1b4f94;
+  --rc-accent-soft: rgba(47, 118, 210, 0.09);
+  --rc-accent-soft-2: rgba(47, 118, 210, 0.17);
+  --rc-accent-border: #9fc1e8;
+  --rc-accent-ink: #1b4f94;      /* 浅蓝底上的文字，白底 8.1:1 */
 
-  /* ===== 5. 选中 · 蓝（仅画布语义，不进按钮不进标签）===== */
-  --rc-select: #2f76d2;          /* 白底 4.52:1 */
+  /* 选中语义（本轮起与品牌蓝同值，保留变量名以免大面积改名） */
+  --rc-select: #2f76d2;
   --rc-select-hover: #2361b4;
   --rc-select-soft: rgba(47, 118, 210, 0.06);
-  --rc-select-glow: rgba(47, 118, 210, 0.18);
+  --rc-select-glow: rgba(47, 118, 210, 0.2);
+
+  /* ===== 5. 纸面墨绿（只给简历内容用）===== */
+  --rc-paper-accent: #4b7168;    /* 白底 5.44:1 */
+  --rc-paper-accent-soft: #edf4f1;
+  --rc-paper-accent-ink: #2e4a43;
+  --rc-paper-border: #d9dee2;    /* 纸内分隔线：中性灰，不能带蓝 */
+  --rc-paper-neutral: #f2f4f5;   /* 纸内占位块 */
 
   /* ===== 6. 语义 ===== */
-  --rc-danger: #b6544f;          /* 白底 4.80:1 / danger-soft 4.32 → 文字用 -ink */
-  --rc-danger-ink: #8e3d39;      /* danger-soft 上 5.61:1 */
+  --rc-danger: #b6544f;
+  --rc-danger-ink: #8e3d39;
   --rc-danger-soft: #fbefee;
   --rc-danger-border: #e7c9c7;
 
-  --rc-warn: #96611a;            /* 白底 5.23:1 / warn-soft 4.78:1 */
+  --rc-warn: #96611a;
   --rc-warn-ink: #7a4e13;
   --rc-warn-soft: #fcf4e4;
   --rc-warn-border: #eddcb6;
 
-  --rc-info: #4a6d8c;
-  --rc-info-soft: #f1f5f8;
-  --rc-info-border: #ccdbe6;
+  --rc-ok: #2e7a57;              /* 「已确认」类徽标，与品牌蓝区分 */
+  --rc-ok-soft: #eaf5ef;
+  --rc-ok-border: #bcdcc9;
 
-  /* ===== 7. 圆角（原稿：4 标签 · 6 控件 · 8 卡片 · 12 对话框）===== */
+  /* ===== 7. 圆角 ===== */
   --rc-r-tag: 4px;
-  --rc-r-ctl: 6px;
-  --rc-r-card: 8px;
-  --rc-r-dlg: 12px;
+  --rc-r-ctl: 7px;
+  --rc-r-card: 10px;
+  --rc-r-dlg: 14px;
   --rc-r-pill: 999px;
 
-  /* ===== 8. 间距（4 基准）===== */
+  /* ===== 8. 间距 ===== */
   --rc-s1: 4px;
   --rc-s2: 8px;
   --rc-s3: 12px;
@@ -87,40 +94,72 @@
   --rc-s10: 40px;
 
   /* ===== 9. 字号（界面层）===== */
-  --rc-fz-display: 24px;   /* 界面标题 */
-  --rc-fz-title: 18px;     /* 面板与入口标题 */
+  --rc-fz-display: 24px;
+  --rc-fz-title: 18px;
   --rc-fz-h3: 15px;
-  --rc-fz-body: 13px;      /* 正文与主要控件 */
+  --rc-fz-body: 13px;
   --rc-fz-sm: 12px;
-  --rc-fz-xs: 11px;        /* 元信息与辅助说明 */
+  --rc-fz-xs: 11px;
   --rc-fz-2xs: 10px;
 
   /* ===== 10. 字号（纸面层，1:1 印刷尺寸）===== */
   --rc-p-fz-name: 30px;
   --rc-p-fz-intent: 13px;
   --rc-p-fz-contact: 11px;
-  --rc-p-fz-sec: 17px;     /* 小节标题 12.5 pt */
-  --rc-p-fz-item: 14px;    /* 条目名 10.5 pt 粗 */
-  --rc-p-fz-body: 14px;    /* 正文 10.5 pt ← 可调 */
-  --rc-p-fz-meta: 11.5px;  /* 日期 8.5 pt */
-  --rc-p-lh: 1.55;         /* 行距 ← 可调 */
+  --rc-p-fz-sec: 17px;
+  --rc-p-fz-item: 14px;
+  --rc-p-fz-body: 14px;
+  --rc-p-fz-meta: 11.5px;
+  --rc-p-lh: 1.55;
 
-  /* ===== 11. 阴影（克制：全局只用两级 + 浮层一级）===== */
-  --rc-sh-1: 0 1px 2px rgba(37, 43, 40, 0.04);
-  --rc-sh-2: 0 2px 8px rgba(37, 43, 40, 0.06);
-  --rc-sh-pop: 0 8px 24px rgba(37, 43, 40, 0.1), 0 1px 3px rgba(37, 43, 40, 0.06);
-  --rc-sh-paper: 0 1px 3px rgba(37, 43, 40, 0.06), 0 12px 32px rgba(37, 43, 40, 0.07);
+  /* ===== 11. 阴影 ===== */
+  --rc-sh-1: 0 1px 2px rgba(16, 38, 72, 0.05);
+  --rc-sh-2: 0 2px 8px rgba(16, 38, 72, 0.07);
+  --rc-sh-pop: 0 16px 40px -12px rgba(16, 38, 72, 0.28), 0 2px 8px rgba(16, 38, 72, 0.08);
+  --rc-sh-paper: 0 1px 3px rgba(16, 38, 72, 0.07), 0 16px 40px -18px rgba(16, 38, 72, 0.32);
 
-  /* ===== 12. 动效 ===== */
+  /* ===== 12. 液态玻璃 ===== */
+  --rc-glass: rgba(255, 255, 255, 0.58);
+  --rc-glass-strong: rgba(255, 255, 255, 0.74);
+  --rc-glass-weak: rgba(255, 255, 255, 0.34);
+  --rc-glass-fill: linear-gradient(150deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.56) 100%);
+  --rc-glass-fill-hover: linear-gradient(150deg, rgba(255, 255, 255, 0.93) 0%, rgba(255, 255, 255, 0.7) 100%);
+  --rc-glass-blur: blur(22px) saturate(180%);
+  --rc-glass-blur-sm: blur(12px) saturate(160%);
+  /* 上沿高光 + 下沿反光 + 左沿侧光，缺一条就退化成普通半透明 */
+  --rc-glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.95),
+                   inset 0 -1px 0 rgba(255, 255, 255, 0.45),
+                   inset 1px 0 0 rgba(255, 255, 255, 0.6);
+  --rc-glass-shadow: 0 1px 2px rgba(16, 38, 72, 0.05),
+                     0 12px 32px -18px rgba(16, 38, 72, 0.32);
+  --rc-glass-shadow-hover: 0 2px 6px rgba(16, 38, 72, 0.07),
+                           0 26px 48px -22px rgba(16, 38, 72, 0.42);
+
+  /* ===== 13. 蓝色呼吸光 ===== */
+  --rc-glow-ring: 0 0 0 1px rgba(47, 118, 210, 0.55),
+                  0 0 20px 2px rgba(47, 118, 210, 0.26),
+                  0 0 44px 6px rgba(47, 118, 210, 0.12);
+  --rc-glow-soft: 0 0 16px 0 rgba(47, 118, 210, 0.22);
+
+  /* ===== 14. 极光背景（给玻璃一点可折射的颜色，否则玻璃看不见）===== */
+  --rc-aurora:
+    radial-gradient(780px 540px at 6% 2%, rgba(94, 152, 238, 0.24), transparent 62%),
+    radial-gradient(700px 520px at 96% 8%, rgba(96, 204, 214, 0.2), transparent 64%),
+    radial-gradient(860px 580px at 56% 98%, rgba(128, 124, 236, 0.17), transparent 66%),
+    radial-gradient(520px 420px at 34% 62%, rgba(47, 118, 210, 0.08), transparent 70%);
+
+  /* ===== 15. 动效 ===== */
   --rc-ease: cubic-bezier(0.2, 0, 0, 1);
   --rc-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --rc-ease-spring: cubic-bezier(0.34, 1.42, 0.64, 1);
   --rc-dur: 160ms;
   --rc-dur-slow: 280ms;
+  --rc-breathe: 2.6s;
 
-  /* ===== 13. 布局常量 ===== */
+  /* ===== 16. 布局常量 ===== */
   --rc-topbar-h: 48px;
   --rc-statusbar-h: 28px;
-  --rc-left-w: 268px;
+  --rc-left-w: 296px;
   --rc-right-w: 292px;
   --rc-paper-w: 794px;
   --rc-paper-h: 1123px;
@@ -128,12 +167,12 @@
      这里取 60%（适合页面），A4 真值 794×1123 不变，详见 09 规格页说明。 */
   --rc-zoom: 0.6;
 
-  /* ===== 14. 字体 ===== */
+  /* ===== 17. 字体 ===== */
   --rc-font: 'Inter', 'Noto Sans SC', -apple-system, 'Segoe UI', sans-serif;
   --rc-font-brand: 'Inter', 'Noto Sans SC', sans-serif;
 }
 
-/* 编辑画布里的纸面按 87% 呈现，但内部尺寸/字号保持 1:1 印刷真值 */
+/* 编辑画布里的纸面按 60% 呈现，但内部尺寸/字号保持 1:1 印刷真值 */
 .paper-slot {
   width: calc(var(--rc-paper-w) * var(--rc-zoom));
   height: calc(var(--rc-paper-h) * var(--rc-zoom));

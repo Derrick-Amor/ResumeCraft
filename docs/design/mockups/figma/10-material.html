@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10 材质规范 · Liquid Glass · ResumeCraft</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="glass.css">
+<style>
+  /* ---- 本页专用：把 hover 峰值固化成静态 .is-hover，方便截图与验收 ---- */
+  .is-hover.btn {
+    background: rgba(255, 255, 255, 0.66);
+    border-color: var(--rc-border-strong);
+  }
+  .is-hover.btn--primary {
+    background: rgba(47, 118, 210, 0.22);
+    border-color: var(--rc-accent);
+  }
+  .is-hover.tplcard {
+    transform: translateY(-8px) scale(1.012);
+    background: var(--rc-glass-fill-hover);
+    border-color: transparent;
+    box-shadow: var(--rc-glass-edge), var(--rc-glass-shadow-hover), 0 0 0 1px rgba(47, 118, 210, 0.28);
+    z-index: 5;
+  }
+  .is-hover.tplcard::after {
+    animation: none;
+    opacity: 1;
+    box-shadow: 0 0 0 1px rgba(47, 118, 210, 0.9),
+                0 0 26px 3px rgba(47, 118, 210, 0.4),
+                0 0 52px 8px rgba(47, 118, 210, 0.16);
+  }
+
+  .matgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--rc-s4); }
+  .matcell {
+    display: flex; flex-direction: column; gap: 10px;
+    padding: var(--rc-s4);
+    border: 1px solid var(--rc-border-soft);
+    border-radius: var(--rc-r-card);
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .matcell__stage {
+    min-height: 118px;
+    display: grid; place-items: center;
+    border-radius: var(--rc-r-ctl);
+    background: rgba(237, 241, 247, 0.5);
+    border: 1px dashed var(--rc-border);
+  }
+  .matcell__label { font-size: var(--rc-fz-xs); font-weight: 600; color: var(--rc-text); }
+  .matcell__note { font-size: 10px; color: var(--rc-text-3); line-height: 1.55; }
+  .matmini.tplcard { width: 132px; }
+  .matmini .tplcard__stage { height: 66px; padding: 8px 8px 0; }
+  .matmini .tplcard__info { padding: 8px 9px 9px; gap: 3px; }
+  .matmini .tplcard__name { font-size: 11px; }
+  .matmini .tplcard__meta { font-size: 10px; }
+  .matmini .tplcard__desc, .matmini .tplcard__foot { display: none; }
+  .barline { display: flex; height: 34px; border-radius: var(--rc-r-ctl); overflow: hidden; border: 1px solid var(--rc-border); }
+  .barline span { flex: 1; display: grid; place-items: center; font-size: 9px; color: var(--rc-text-2); }
+
+  /* ---- 透明验证：把玻璃压在文字上，能看见字才是真透明 ---- */
+  .probes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--rc-s4); }
+  .probe {
+    position: relative; height: 132px;
+    border-radius: var(--rc-r-card);
+    display: grid; place-items: center;
+    overflow: hidden;
+    border: 1px solid var(--rc-border-soft);
+  }
+  .probe__word {
+    position: absolute;
+    font-family: var(--rc-font-brand);
+    font-size: 44px; font-weight: 700; letter-spacing: -0.035em;
+    color: var(--rc-text); user-select: none;
+  }
+  .probe .btn { position: relative; z-index: 2; height: 40px; padding: 0 22px; font-size: 13px; }
+  .probe--paper { background: var(--rc-surface-sunk); }
+  .probe--blue { background: linear-gradient(135deg, #7fb4ea 0%, #4b7fd0 55%, #7f5fd0 100%); }
+  .probe--blue .probe__word { color: rgba(255, 255, 255, 0.92); }
+  .probe--warm { background: linear-gradient(135deg, #f6c98a 0%, #e58f6a 60%, #d2748f 100%); }
+  .probe--warm .probe__word { color: rgba(40, 24, 20, 0.9); }
+
+  .matbig { display: flex; align-items: center; gap: 20px; padding: 22px; border-radius: var(--rc-r-card); background: rgba(255, 255, 255, 0.34); border: 1px dashed var(--rc-border); }
+  .matbig .btn { height: 56px; padding: 0 30px; font-size: 16px; border-radius: 14px; }
+</style>
+</head>
+<body data-screen="10">
+
+<div class="app">
+  <div class="specwrap">
+    <div class="spec">
+
+      <div class="spec__head">
+        <div>
+          <h1 class="spec__title">材质规范 <em>/ Liquid Glass</em></h1>
+          <p class="spec__meta">透明玻璃按钮 · 边缘全蓝 · 悬停上浮 + 蓝色呼吸环</p>
+        </div>
+        <span class="spec__meta">静态示意 · 悬停态已固化为 <b>.is-hover</b></span>
+      </div>
+
+      <h2 class="spec__h" style="margin-top:20px">一 · 透明验证 —— 能看见背后的字，才叫透明</h2>
+      <p class="spec__p" style="margin:-6px 0 14px">
+        每个色块里压着一个大字，按钮盖在字上面。玻璃必须让字隐约透出来并被打散；如果完全看不见字，说明填充已经不透光了。
+      </p>
+      <div class="probes">
+        <div class="probe probe--paper">
+          <span class="probe__word">Pixso</span>
+          <button class="btn btn--primary">导出</button>
+        </div>
+        <div class="probe probe--blue">
+          <span class="probe__word">Pixso</span>
+          <button class="btn btn--primary">确认导入</button>
+        </div>
+        <div class="probe probe--warm">
+          <span class="probe__word">Pixso</span>
+          <button class="btn btn--primary">返回修复</button>
+        </div>
+      </div>
+
+      <h2 class="spec__h" style="margin-top:26px">二 · 放大看</h2>
+      <div class="matbig">
+        <button class="btn btn--primary">导出 PDF</button>
+        <button class="btn">导出前检查</button>
+        <button class="btn btn--primary is-hover">悬停态</button>
+        <span class="matcell__note" style="max-width:300px">
+          放大之后也没有高光、没有暗部、没有彩边——只有一层均匀的透明色和一根 1px 蓝边。悬停时透明度抬高 0.08，边框转深，仅此而已。
+        </span>
+      </div>
+
+      <h2 class="spec__h" style="margin-top:26px">三 · 按钮四态</h2>
+      <div class="matgrid">
+        <div class="matcell">
+          <div class="matcell__stage"><button class="btn btn--lg">导出前检查</button></div>
+          <span class="matcell__label">默认</span>
+          <span class="matcell__note">透明玻璃，蓝发丝边；文字压深色。</span>
+        </div>
+        <div class="matcell">
+          <div class="matcell__stage"><button class="btn btn--lg is-hover">导出前检查</button></div>
+          <span class="matcell__label">悬停</span>
+          <span class="matcell__note">上浮 1px，环转亮蓝，外扩 22px 冷晕。</span>
+        </div>
+        <div class="matcell">
+          <div class="matcell__stage"><button class="btn btn--lg btn--primary"><i class="ic ic--14" data-ic="download"></i>导出</button></div>
+          <span class="matcell__label">主按钮（透明 + 蓝环）</span>
+          <span class="matcell__note">不加实心填充，靠蓝环、蓝字、蓝晕立身份。</span>
+        </div>
+        <div class="matcell">
+          <div class="matcell__stage"><button class="btn btn--lg" aria-disabled="true">确认导入</button></div>
+          <span class="matcell__label">禁用</span>
+          <span class="matcell__note">填充降到 26%，只剩一圈极淡的边。</span>
+        </div>
+      </div>
+
+      <h2 class="spec__h" style="margin-top:26px">四 · 材质规则（只有两条）</h2>
+      <div class="deltas">
+        <div class="deltas__row">
+          <span class="deltas__key">① 透明色</span>
+          <span class="deltas__val">就是一层 <code>rgba()</code>。默认按钮 <code>rgba(255,255,255,.42)</code>，主按钮 <code>rgba(47,118,210,.14)</code>，卡片 <code>rgba(255,255,255,.5)</code>。悬停只把透明度抬高约 0.2，不换材质。</span>
+        </div>
+        <div class="deltas__row">
+          <span class="deltas__key">② 背景模糊</span>
+          <span class="deltas__val"><code>backdrop-filter: blur(12px) saturate(140%)</code>。作用只有一个：让背后的东西柔化，而不是画一层假的玻璃。</span>
+        </div>
+        <div class="deltas__row">
+          <span class="deltas__key">不做的事</span>
+          <span class="deltas__val">不画镜面高光弧、不做色散彩边、不叠多重内阴影、不加外发光。<b>这些模拟出来的光泽正是「假」的来源。</b></span>
+        </div>
+        <div class="deltas__row">
+          <span class="deltas__key">唯一装饰</span>
+          <span class="deltas__val">卡片 hover 时的蓝色呼吸环（2.6s，只动透明度），以及上浮 6–8px。这是交互反馈，不是材质。</span>
+        </div>
+        <div class="deltas__row">
+          <span class="deltas__key">前提</span>
+          <span class="deltas__val">透明色必须背后有东西才成立，所以画布铺了一层极淡极光。<b>把玻璃压在纯白上，它只会变成一块更白的方块。</b></span>
+        </div>
+      </div>
+
+      <h2 class="spec__h" style="margin-top:26px">五 · 边框色阶（全蓝）</h2>
+      <div class="barline">
+        <span class="dot-border" style="color:var(--rc-text-2)">border #C3D8F2</span>
+        <span class="dot-border-strong" style="color:var(--rc-text-2)">strong #93B3DC</span>
+        <span class="dot-accent" style="color:#fff">accent #2F76D2</span>
+        <span class="dot-paper" style="color:#fff">paperAccent #4B7168</span>
+      </div>
+
+      <h2 class="spec__h" style="margin-top:26px">六 · 卡片静止 / 悬停</h2>
+      <div class="matgrid">
+        <div class="matcell">
+          <div class="matcell__stage">
+            <article class="tplcard matmini">
+              <div class="tplcard__stage" style="display:grid;place-items:center">
+                <i class="ic ic--18" data-ic="layout-template" style="color:var(--rc-accent)"></i>
+              </div>
+              <div class="tplcard__info">
+                <span class="tplcard__name">清晰 · 校园</span>
+                <span class="tplcard__meta">应届生 / 校园招聘</span>
+              </div>
+            </article>
+          </div>
+          <span class="matcell__label">静止</span>
+          <span class="matcell__note">20px 玻璃 + 蓝边，阴影只有一层。</span>
+        </div>
+        <div class="matcell">
+          <div class="matcell__stage">
+            <article class="tplcard matmini is-hover">
+              <div class="tplcard__stage" style="display:grid;place-items:center">
+                <i class="ic ic--18" data-ic="layout-template" style="color:var(--rc-accent)"></i>
+              </div>
+              <div class="tplcard__info">
+                <span class="tplcard__name">清晰 · 校园</span>
+                <span class="tplcard__meta">应届生 / 校园招聘</span>
+              </div>
+            </article>
+          </div>
+          <span class="matcell__label">悬停 · 呼吸峰值</span>
+          <span class="matcell__note">上浮 8px、放大 1.012，环亮到 0.9 + 26px 蓝晕。</span>
+        </div>
+        <div class="matcell">
+          <div class="matcell__stage">
+            <article class="tplcard matmini tplcard--on">
+              <div class="tplcard__stage" style="display:grid;place-items:center">
+                <i class="ic ic--18" data-ic="layout-template" style="color:var(--rc-accent)"></i>
+              </div>
+              <div class="tplcard__info">
+                <span class="tplcard__name">清晰 · 校园</span>
+                <span class="tplcard__meta">当前模板</span>
+              </div>
+            </article>
+          </div>
+          <span class="matcell__label">当前态</span>
+          <span class="matcell__note">边框常亮 accent，不参与呼吸。</span>
+        </div>
+        <div class="matcell">
+          <div class="matcell__stage">
+            <label class="searchbox" style="width:150px">
+              <i class="ic ic--12 muted" data-ic="search"></i>
+              <input placeholder="搜索模板" style="font-size:11px">
+            </label>
+          </div>
+          <span class="matcell__label">输入类</span>
+          <span class="matcell__note">玻璃 66% + 蓝边；聚焦 accent 边 + 3px 光晕。</span>
+        </div>
+      </div>
+
+      <div class="spec__foot">
+        <i class="ic ic--12" data-ic="info" style="margin-top:3px"></i>
+        <span>本页悬停态用 <b>.is-hover</b> 固化，方便静态验收；真实交互在 01 / 02 两屏用鼠标悬停即可。玻璃必须有背后的颜色才成立——去掉 glass.css，所有按钮与卡片会退回哑光白面。</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a class="navhint" href="index.html"><i class="ic ic--12" data-ic="chevron-left"></i>全部界面</a>
+<script src="icons.js"></script>
+</body>
+</html>

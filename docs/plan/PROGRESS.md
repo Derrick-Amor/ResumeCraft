@@ -1,7 +1,24 @@
 # PROGRESS — ResumeCraft 主控进度快照
 
 > 更新时机：每卡闭环时；出现遗忘信号时立即更新
-> 最近更新：2026-10-23 23:15
+> 最近更新：2026-10-27 19:20
+
+## 0. 最新状态（2026-10-27，覆盖下方 §1 的部分旧描述）
+
+- **TC-016 已关闭**：视觉 v3「蓝玻璃 + 白纸」定稿，11 个稿在 `docs/design/mockups/figma/`；
+  生产 token 回灌 `src/design/tokens.css`（v3，纯增量 + 换值，变量名一个未改，桥接层零改动）
+- **TC-003 已关闭**：`src/model/` 7 文件 + `tests/model/model.test.ts`（33 条），契约 §2 五条不变量 + undo 四条全覆盖。
+  首轮挂 2 条真 bug（`validate` 不幂等），已修并补回归测试
+- **M1 已收官（2026-10-27 19:45）**：TC-016 / TC-003 / TC-004 三卡全部 `resolved`
+- **四门最后一次全绿：2026-10-27 19:43** —— lint 0 / vue-tsc 通过 / **94 tests passed（5 files）** / build 5.86s
+  —— 由 `scripts\gate.cmd` 执行，日志 `docs/verify/gate-latest.log`（每次覆盖）
+- v3 变更全文见 **`docs/design/V3-DELTA.md`**
+- **当前卡：TC-006（布局引擎·测量与单位 + 字体资产）**，TAPD `developing`
+  - 段① 单位换算层 `src/layout/units.ts` 已落盘（24 条测试）
+  - 段② `measure`、段③ `font-loader` 未做；**卡级验收 `pnpm test -- src/layout/measure` 现在会因无匹配文件失败，段② 落地前别跑**
+- **TAPD 已同步（2026-10-27 19:45）**：016 / 003 / 004 → `resolved`，006 → `developing`（owner 郭涛）
+- **环境限制**：shell 进程无法读取项目文件（ACL），git 提交仍需 Amor 侧执行；
+  跑检验请双击 `scripts\gate.cmd`，日志会写到 `docs/verify/gate-latest.log`，我能直接读
 
 ## 1. 当前位置
 

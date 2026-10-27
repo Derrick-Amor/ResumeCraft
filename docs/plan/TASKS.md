@@ -27,10 +27,10 @@ pnpm lint && pnpm type-check && pnpm test && pnpm build
 |---|---|---|---|---|---|---|---|---|
 | TC-001 | 需求摘要与边界确认 | arch | — | `docs/plan/`（仅加批注）、`docs/contract/`（仅加批注）、`docs/handoff/`、`docs/` 下本卡四份产物 | 见 §0 例外条 + `wc -m docs/需求摘要.md` ≤5000 | 全文；重点 2/4 章 | 0.5–1d | 未开始 |
 | TC-002 | 工程脚手架与工程规范 | fe-foundation | 001 | 工程根配置、`src/`（骨架）、`tests/`（空跑）、`.github/`、`docs/ui-lib-compare.md`、`README.md` | `pnpm lint && pnpm type-check && pnpm test && pnpm build` + `pnpm verify:layout && pnpm verify:export && pnpm verify:import` | 13 章、3.2 | 1.5–2.5d | 未开始 |
-| TC-016 | UI 视觉设计专题（视觉先行） | fe-foundation | 002 | `docs/design/`、`src/design/tokens.css` | `ls docs/design/{token-values.md,components-spec.md,mockups/index.html}`；mockups ≥8 个 html 可开；硬编码色值扫描为空；6.7 自检逐条 | 6 章全、6.7、FR-EDT-001/002（视觉）、FR-LAY-011/012（视觉） | 1.5–2d | 未开始 |
-| TC-003 | 文档模型与序列化 + undo 栈 | fe-editor | 002 | `src/model/`、`tests/model/` | `pnpm test -- src/model` | FR-DOC-002/003/004、8 章 | 2–3d | 未开始 |
-| TC-004 | 设计 token 落地与基础控件 | fe-foundation | 002、016 | `src/design/`、`src/ui/controls/`、`tests/controls/` | `pnpm test -- src/ui/controls` | 6.1–6.4 | 1.5–2d | 未开始 |
-| TC-006 | 布局引擎·测量与单位 + 字体资产 | fe-layout | 003 | `src/layout/{units,measure,font-loader}.ts`、`src/assets/fonts/`、`docs/font-license.md`、`docs/verify/canvas-vs-dom.md` | `pnpm test -- src/layout/measure` + `pnpm verify:layout` | FR-LAY-001/002/010、13.1#8/#17 | 3–4d | 未开始 |
+| TC-016 | UI 视觉设计专题（视觉先行） | fe-foundation | 002 | `docs/design/`、`src/design/tokens.css` | `ls docs/design/{token-values.md,components-spec.md,mockups/index.html}`；mockups ≥8 个 html 可开；硬编码色值扫描为空；6.7 自检逐条 | 6 章全、6.7、FR-EDT-001/002（视觉）、FR-LAY-011/012（视觉） | 1.5–2d | 已完成（四门全绿 2026-10-27 19:13） |
+| TC-003 | 文档模型与序列化 + undo 栈 | fe-editor | 002 | `src/model/`、`tests/model/` | `pnpm test -- src/model` | FR-DOC-002/003/004、8 章 | 2–3d | 已完成（四门全绿 2026-10-27 19:24，49 tests） |
+| TC-004 | 设计 token 落地与基础控件 | fe-foundation | 002、016 | `src/design/`、`src/ui/controls/`、`tests/controls/` | `pnpm test -- src/ui/controls` | 6.1–6.4 | 1.5–2d | 进行中（8 件已落盘：按钮/标签/Tab/卡片/开关/提示条/字段外壳/溢出角标，待四门） |
+| TC-006 | 布局引擎·测量与单位 + 字体资产 | fe-layout | 003 | `src/layout/{units,measure,font-loader}.ts`、`src/assets/fonts/`、`docs/font-license.md`、`docs/verify/canvas-vs-dom.md` | `pnpm test -- src/layout/measure` + `pnpm verify:layout` | FR-LAY-001/002/010、13.1#8/#17 | 3–4d | 进行中（units / measure / font-loader / canvas-vs-dom 四段已落盘；**仅差字体二进制文件**） |
 | TC-007 | 布局引擎·排列/分页/溢出 | fe-layout | 006 | `src/layout/`（flow/pagination/overflow/overflow-stages/report/types）、`docs/layout-rules.md`、`tests/layout/` | `pnpm verify:layout` | FR-LAY-003~008、010、011（引擎） | 3–4d | 未开始 |
 | TC-005 | 简历组件集（中英双轨） | fe-content | 003、004 | `src/components/`、`tests/components/` | `pnpm test -- src/components` | FR-CMP-001~010、FR-EDT-004、FR-EDT-006（P0 部分） | 2.5–3d | 未开始 |
 | TC-017 | 持久化与数据安全 | fe-content | 003 | `src/storage/`、`tests/storage/` | `pnpm test -- src/storage` | FR-SEC-001~005、FR-DOC-002/003 配套、4.4（**FR-SEC-005 只验 JSON 备份核心，完整删除/恢复策略留 P1**） | 1.5–2d | 未开始 |
@@ -109,6 +109,28 @@ M2/M3 的卡内顺序由我按关键路径重排（文档罗列顺序不同）�
 | 2026-10-23 16:00 | — | Amor 拍板 **Element Plus**；暗色不进 P0（阿U 裁决）；解除 TC-002 阻塞标签 | 对话 + 项目记忆 |
 | 2026-10-23 16:37 | TC-002 | **B 段验收通过 → 全卡关闭**：`developing → status_2 → status_3 → resolved`（completed 16:37:39）。Element Plus 2.14.7 按需引入 + 桥接层（零 hex/rgb）+ vendor 已删；远端 main=`cdd4956` | TAPD 回读 + handoff B 段验收记录 |
 | 2026-10-23 16:37 | — | 备注：PRD 13.1#3 / 13.2#6 已于 15:41 由外部会话回写（V1.3b）、15:49 同步资料库，阿U 核对一致未重复改 | 文件 mtime + 资料库 updatedAt |
+| 2026-10-27 18:57 | TC-016 | **视觉 v3 经 Amor 定稿**（蓝玻璃 + 白纸）；11 张稿落在 `docs/design/mockups/figma/`；生产 token 回灌 `src/design/tokens.css`；变更全文 `docs/design/V3-DELTA.md` | 对话确认 + 文件落盘 |
+| 2026-10-27 19:20 | TC-016 | 状态转 **待验收**：设计已定稿、token 已回灌，**四门与 git 提交未做**（沙箱拒绝 shell 访问项目目录，`pnpm`/`git`/`grep` EPERM） | 本文件 + PROGRESS §0 |
+| 2026-10-27 19:14 | TC-016 | **四门全绿 → 全卡关闭**：lint 0 警告 / vue-tsc 通过 / **16 tests passed（3 files）** / build 6.52s（css 52.54 kB、js 208.35 kB）。由 `scripts\gate.cmd` 执行，日志 `docs/verify/gate-latest.log` | 门禁日志 |
+| 2026-10-27 19:22 | TC-003 | 首轮四门：lint / type-check / build 过，**test 挂 2 条**——`validate` 对自己的输出不幂等（unknown 组件 raw 二次包裹、extra 未列入已知顶层字段）。已修 + 补 2 条回归测试 | 门禁日志 19:20 |
+| 2026-10-27 19:24 | TC-003 | **四门全绿 → 全卡关闭**：49 tests passed（model 33 / smoke 3 / verify-scripts 6 / element-probe 7）/ build 6.63s | 门禁日志 19:24 |
+| 2026-10-27 19:38 | TC-016 | **TAPD：developing → status_2 → status_3 → resolved**（completed 19:38:40）。此前一直在改本地台账、TAPD 未同步，属主控失误，Amor 指出后补齐 | TAPD 回读 status=resolved |
+| 2026-10-27 19:39 | TC-003 | **TAPD：planning → developing（owner 郭涛）→ status_2 → status_3 → resolved**（completed 19:39:08） | TAPD 回读 status=resolved |
+| 2026-10-27 19:39 | TC-004 | **TAPD：planning → developing**（owner 郭涛）。8 件控件已落盘，等四门后转 status_2 | TAPD 回读 status=developing |
+| 2026-10-27 19:43 | TC-004 | lint 挂 2 条：`RcField` 的 prop 取名 `for`（JS 保留字）导致模板表达式解析失败 + 漏配默认值。改 `htmlFor` 后修复，补 1 条测试 | 门禁日志 19:43 |
+| 2026-10-27 19:43 | TC-004 | **四门全绿 → 全卡关闭**：94 tests passed（5 files，controls 45）/ build 5.86s | 门禁日志 19:43 |
+| 2026-10-27 19:45 | TC-004 | **TAPD：developing → status_2 → status_3 → resolved**（completed 19:45:14）。M1 三卡（016 / 003 / 004）全部 resolved | TAPD 回读 status=resolved |
+| 2026-10-27 19:45 | TC-006 | **TAPD：planning → developing**（owner 郭涛） | TAPD 回读 status=developing |
+| 2026-10-27 19:47 | TC-006 | 段① 单位换算层四门通过：**113 tests passed（6 files，units 19）** / build 5.83s | 门禁日志 19:47 |
+| 2026-10-27 19:48 | TC-006 | 段② 测量层 `src/layout/measure.ts`（后端可注入、降级显式标记）+ `tests/layout/measure.test.ts` 落盘；font-loader 未做 | 文件落盘 |
+| 2026-10-27 19:52 | TC-006 | 段② 首轮测 1 条失败：`CJK 逐字可断` 的期望值我手打错字（把「十」写两遍），代码正确。改期望值 + 补 `toHaveLength` 断言 | 门禁日志 19:51 |
+| 2026-10-27 19:53 | TC-006 | 段② 四门通过：**138 tests passed（7 files）** / build 5.83s | 门禁日志 19:53 |
+| 2026-10-27 19:54 | TC-006 | 段③ 字体加载器 `src/layout/font-loader.ts` + `tests/layout/font-loader.test.ts` + `docs/font-license.md`（选型与核验清单）落盘。**字体文件仍为空，待 Amor 拍板** | 文件落盘 |
+| 2026-10-27 19:56 | TC-006 | 段③ 四门通过：**151 tests passed（8 files）** / build 6.09s | 门禁日志 19:56 |
+| 2026-10-27 19:58 | TC-006 | **字体方案定为思源系列（SIL OFL 1.1，Amor 拍板）**；`docs/font-license.md` 写入 5 个字重清单与子集化步骤；`src/assets/fonts/README.md` 落盘。字体二进制文件仍待放入（沙箱无法下载） | 对话 + 文件落盘 |
+| 2026-10-27 19:58 | — | `scripts/gate.ps1` 增加可选卡级验收参数：`gate.cmd src/layout/measure` 会在四门后追加一次 `pnpm test -- <filter>`，不把具体卡硬编码进通用脚本 | 文件改动 |
+| 2026-10-27 20:02 | — | 门禁脚本新版验证通过：**151 tests / 8 files** / build 9.00s，RESULT 行已输出 "ALL GATES GREEN" | 门禁日志 20:02 |
+| 2026-10-27 20:05 | TC-006 | `docs/verify/canvas-vs-dom.html` + `.md` 落盘。**实测 10 个样本，最大偏差 0.0156px，0 条不达标，PASS**（HeadlessChrome 156 / Windows 10.0.26200）。已注明 4 项未覆盖范围，字体到位后必须重跑 | 无头 Chrome 实跑 |
 
 ---
 
