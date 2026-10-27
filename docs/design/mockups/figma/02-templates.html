@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 模板选择 · ResumeCraft</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body data-screen="02">
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <span class="brand__mark"><i class="ic ic--14" data-ic="file-text"></i></span>
+        <span class="brand__name">ResumeCraft</span>
+      </div>
+      <span class="topbar__divider"></span>
+      <div class="docmeta">
+        <span class="docmeta__name">张明的产品研发简历</span>
+        <span class="docmeta__sub">清晰 · 校园 / 自动排版</span>
+      </div>
+    </div>
+    <div class="topbar__mid">
+      <div class="segmented" role="group" aria-label="内容语言轨">
+        <button class="segmented__item segmented__item--on">中文</button>
+        <button class="segmented__item">English<span class="segmented__dot"></span></button>
+      </div>
+      <button class="iconbtn" title="撤销"><i class="ic ic--14" data-ic="undo"></i></button>
+      <button class="iconbtn" title="重做"><i class="ic ic--14" data-ic="redo"></i></button>
+    </div>
+    <div class="topbar__right">
+      <span class="statusbar__item muted" style="margin-right:6px">
+        <i class="ic ic--12" data-ic="check-circle"></i>已保存
+      </span>
+      <button class="btn"><i class="ic ic--14" data-ic="clipboard-check"></i>导出前检查</button>
+      <button class="btn btn--primary"><i class="ic ic--14" data-ic="download"></i>导出</button>
+      <span class="avatar">张</span>
+    </div>
+  </header>
+
+  <div class="sheet">
+    <div class="sheet__inner">
+
+      <div class="sheet__head">
+        <div>
+          <h1 class="h1">选择模板</h1>
+          <p class="h1__sub">只改排版，不改变你的内容。切换前将保留当前版本。</p>
+        </div>
+        <button class="btn btn--lg"><i class="ic ic--14" data-ic="x"></i>返回编辑器</button>
+      </div>
+
+      <div class="filters">
+        <label class="searchbox">
+          <i class="ic ic--14 muted" data-ic="search"></i>
+          <input placeholder="搜索模板名称或使用场景">
+        </label>
+        <button class="filterbtn">行业：<span class="filterbtn__v">全部</span><i class="ic ic--12" data-ic="chevron-down"></i></button>
+        <button class="filterbtn">职业阶段：<span class="filterbtn__v">全部</span><i class="ic ic--12" data-ic="chevron-down"></i></button>
+        <button class="filterbtn">语言：<span class="filterbtn__v">全部</span><i class="ic ic--12" data-ic="chevron-down"></i></button>
+        <span class="filters__count">4 套原创模板</span>
+      </div>
+
+      <div class="tpl-grid">
+
+        <!-- ---------- 1 清晰 · 校园（当前） ---------- -->
+        <article class="tplcard tplcard--on">
+          <div class="tplcard__stage">
+            <div class="mini">
+              <div class="mini__photo"></div>
+              <div class="mini__name">张明</div>
+              <div class="mini__sub">前端开发工程师</div>
+              <div class="mini__contact">广州 · 138 0013 8000<br>zhangming.dev@example.com</div>
+
+              <div class="mini__sec">教育经历</div><div class="mini__rule"></div>
+              <div class="mini__row"><span class="mini__t">华南理工大学 · 软件工程</span><span class="mini__d">2022.09-2026.06</span></div>
+              <div class="mini__m">本科 · GPA 3.7/4.0 · 专业前 10%</div>
+
+              <div class="mini__sec">项目经历</div><div class="mini__rule"></div>
+              <div class="mini__row"><span class="mini__t">校招通 · 校园招聘协作平台</span><span class="mini__d">2025.03-2025.06</span></div>
+              <div class="mini__m">前端负责人 | React / TypeScript / Node.js</div>
+              <div class="mini__b">设计岗位检索与投递看板，覆盖 12 个学院。</div>
+              <div class="mini__b">虚拟列表与请求缓存，首屏 2.8s→1.4s。</div>
+              <div class="mini__row"><span class="mini__t">课表助手 · 多端日程管理</span><span class="mini__d">2024.09-2024.12</span></div>
+              <div class="mini__m">前端开发 | Vue 3 / Pinia / IndexedDB</div>
+              <div class="mini__b">课程导入与冲突检测，支持 6 类格式。</div>
+              <div class="mini__b">离线缓存与提醒，累计 800+ 用户。</div>
+
+              <div class="mini__sec">专业技能</div><div class="mini__rule"></div>
+              <div class="mini__b">TypeScript / JavaScript · React / Vue · Git</div>
+
+              <div class="mini__sec">自我评价</div><div class="mini__rule"></div>
+              <div class="mini__b">关注用户体验与工程质量，重视协作与复盘。</div>
+            </div>
+          </div>
+          <div class="tplcard__info">
+            <div class="tplcard__titlerow">
+              <span class="tplcard__name">清晰 · 校园</span>
+              <span class="badge badge--accent">当前模板</span>
+            </div>
+            <div class="tplcard__meta">应届生 / 校园招聘</div>
+            <p class="tplcard__desc">单栏叙事，突出项目与成长</p>
+            <div class="tplcard__foot">A4 · 单栏 · 中文轨 · 已应用</div>
+          </div>
+        </article>
+
+        <!-- ---------- 2 秩序 · 专业 ---------- -->
+        <article class="tplcard">
+          <div class="tplcard__stage">
+            <div class="mini">
+              <div class="mini__name">张明</div>
+              <div class="mini__sub">前端开发工程师</div>
+              <div class="mini__contact">广州 · 138 0013 8000</div>
+              <div class="mini__cols" style="margin-top:4px">
+                <div>
+                  <div class="mini__sec">项目经历</div><div class="mini__rule"></div>
+                  <div class="mini__row"><span class="mini__t">校招通</span><span class="mini__d">25.03-25.06</span></div>
+                  <div class="mini__m">React / TypeScript</div>
+                  <div class="mini__b">岗位检索与投递看板，12 个学院。</div>
+                  <div class="mini__b">虚拟列表，首屏 2.8s→1.4s。</div>
+                  <div class="mini__row"><span class="mini__t">课表助手</span><span class="mini__d">24.09-24.12</span></div>
+                  <div class="mini__m">Vue 3 / Pinia</div>
+                  <div class="mini__b">课程导入与冲突检测，6 类格式。</div>
+                  <div class="mini__b">离线缓存，800+ 用户。</div>
+                  <div class="mini__sec">专业技能</div><div class="mini__rule"></div>
+                  <div class="mini__b">TypeScript · React / Vue</div>
+                  <div class="mini__b">Git · 可访问性 · CET-6</div>
+                </div>
+                <div>
+                  <div class="mini__sec">教育经历</div><div class="mini__rule"></div>
+                  <div class="mini__t">华南理工大学</div>
+                  <div class="mini__m">软件工程 · 本科</div>
+                  <div class="mini__m">GPA 3.7/4.0</div>
+                  <div class="mini__m">专业前 10%</div>
+                  <div class="mini__sec">自我评价</div><div class="mini__rule"></div>
+                  <div class="mini__b">关注体验与工程质量，独立拆解需求。</div>
+                  <div class="mini__b">重视协作与复盘。</div>
+                  <div class="mini__sec">证书</div><div class="mini__rule"></div>
+                  <div class="mini__b">CET-6 568</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tplcard__info">
+            <div class="tplcard__titlerow">
+              <span class="tplcard__name">秩序 · 专业</span>
+              <span class="badge badge--outline">中文</span>
+            </div>
+            <div class="tplcard__meta">1–5 年经验 / 通用</div>
+            <p class="tplcard__desc">双栏信息，重点一目了然</p>
+            <div class="tplcard__foot">A4 · 双栏 · 中文轨</div>
+          </div>
+        </article>
+
+        <!-- ---------- 3 留白 · 双语 ---------- -->
+        <article class="tplcard">
+          <div class="tplcard__stage">
+            <div class="mini mini--latin">
+              <div class="mini__name" style="font-size:10.5px;letter-spacing:.02em">ZHANG MING</div>
+              <div class="mini__sub">Frontend Developer</div>
+              <div class="mini__contact">Guangzhou, China · 138 0013 8000<br>zhangming.dev@example.com</div>
+
+              <div class="mini__sec" style="margin-top:8px">EDUCATION</div>
+              <div class="mini__t">South China University of Technology</div>
+              <div class="mini__m">B.Eng. Software Engineering · Sep 2022 – Jun 2026</div>
+              <div class="mini__m">GPA 3.7/4.0 · Top 10%</div>
+
+              <div class="mini__sec" style="margin-top:8px">PROJECT EXPERIENCE</div>
+              <div class="mini__row"><span class="mini__t">Campus Hire Platform</span><span class="mini__d">Mar – Jun 2025</span></div>
+              <div class="mini__m">Frontend Lead · React / TypeScript / Node.js</div>
+              <div class="mini__b">Built a role search and application dashboard for 1,200 students across 12 schools.</div>
+              <div class="mini__b">Reduced initial load from 2.8s to 1.4s with virtualized lists and request caching.</div>
+
+              <div class="mini__row"><span class="mini__t">Timetable Assistant</span><span class="mini__d">Sep – Dec 2024</span></div>
+              <div class="mini__m">Frontend · Vue 3 / Pinia / IndexedDB</div>
+              <div class="mini__b">Implemented schedule import and conflict detection for six formats.</div>
+              <div class="mini__b">Added offline cache and reminders; reached 800+ users with 62% weekly active rate.</div>
+
+              <div class="mini__sec" style="margin-top:8px">SKILLS</div>
+              <div class="mini__b">TypeScript / JavaScript · React / Vue · HTML / CSS · Git</div>
+            </div>
+          </div>
+          <div class="tplcard__info">
+            <div class="tplcard__titlerow">
+              <span class="tplcard__name">留白 · 双语</span>
+              <span class="badge badge--outline">中文 / EN</span>
+            </div>
+            <div class="tplcard__meta">外企 / 国际化岗位</div>
+            <p class="tplcard__desc">中英独立排版，保留呼吸感</p>
+            <div class="tplcard__foot">A4 · 单栏 · 中英双轨</div>
+          </div>
+        </article>
+
+        <!-- ---------- 4 精研 · 技术 ---------- -->
+        <article class="tplcard">
+          <div class="tplcard__stage">
+            <div class="mini">
+              <div class="mini__name" style="font-size:9px">张明</div>
+              <div class="mini__sub">前端开发工程师</div>
+              <div class="mini__contact">广州 · 138 0013 8000 · zhangming.dev@example.com</div>
+
+              <div class="mini__sec">技术能力</div><div class="mini__rule"></div>
+              <div class="mini__b">TypeScript / JavaScript · React / Vue · HTML / CSS</div>
+              <div class="mini__b">Git · 基础可访问性与性能分析 · CET-6 568</div>
+
+              <div class="mini__sec">教育经历</div><div class="mini__rule"></div>
+              <div class="mini__row"><span class="mini__t">华南理工大学 · 软件工程</span><span class="mini__d">2022.09-2026.06</span></div>
+              <div class="mini__m">本科 · GPA 3.7/4.0 · 专业前 10%</div>
+
+              <div class="mini__sec">项目经历</div><div class="mini__rule"></div>
+              <div class="mini__row"><span class="mini__t">校招通 · 校园招聘协作平台</span><span class="mini__d">2025.03-2025.06</span></div>
+              <div class="mini__m">前端负责人 · React / TypeScript / Node.js</div>
+              <div class="mini__b">设计岗位检索与投递看板，覆盖 12 个学院、1,200 名试用用户。</div>
+              <div class="mini__b">采用虚拟列表与请求缓存，首屏 2.8s 降至 1.4s，重复请求减少 38%。</div>
+
+              <div class="mini__row"><span class="mini__t">课表助手 · 多端日程管理</span><span class="mini__d">2024.09-2024.12</span></div>
+              <div class="mini__m">前端开发 · Vue 3 / Pinia / IndexedDB</div>
+              <div class="mini__b">构建课程导入与冲突检测，支持 6 类课表格式，导入成功率 96%。</div>
+              <div class="mini__b">实现离线缓存及提醒设置，累计 800+ 用户，周活跃率 62%。</div>
+            </div>
+          </div>
+          <div class="tplcard__info">
+            <div class="tplcard__titlerow">
+              <span class="tplcard__name">精研 · 技术</span>
+              <span class="badge badge--outline">中文</span>
+            </div>
+            <div class="tplcard__meta">研发 / 技术岗位</div>
+            <p class="tplcard__desc">技术栈优先，量化工程成果</p>
+            <div class="tplcard__foot">A4 · 单栏 · 中文轨</div>
+          </div>
+        </article>
+      </div>
+
+      <div class="hintbar">
+        <i class="ic ic--18 hintbar__ico" data-ic="sparkle"></i>
+        <span>
+          <span class="hintbar__t">为不同语言保留合适的简历惯例</span><br>
+          「留白 · 双语」支持中文与 English 独立内容轨。英文 CV 不展示照片或政治面貌，项目以 Built / Implemented / Reduced / Led 等动作动词开头。
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="actionbar">
+    <div class="actionbar__sel">
+      <span class="actionbar__label">已选择：</span>
+      <span class="actionbar__name">清晰 · 校园</span>
+      <span class="actionbar__desc">A4 · 单栏 · 中文轨 · 保留现有内容</span>
+    </div>
+    <div class="actionbar__actions">
+      <button class="btn btn--lg">取消</button>
+      <button class="btn btn--lg btn--primary"><i class="ic ic--14" data-ic="check"></i>使用此模板</button>
+    </div>
+  </div>
+</div>
+
+<a class="navhint" href="index.html"><i class="ic ic--12" data-ic="chevron-left"></i>全部界面</a>
+<script src="icons.js"></script>
+</body>
+</html>

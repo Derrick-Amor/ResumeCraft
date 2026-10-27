@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08 溢出角标 · 摘要展开 · ResumeCraft</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body data-screen="08">
+
+<div class="app">
+
+  <!-- ================= 顶栏 ================= -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <span class="brand__mark"><i class="ic ic--14" data-ic="file-text"></i></span>
+        <span class="brand__name">ResumeCraft</span>
+      </div>
+      <span class="topbar__divider"></span>
+      <div class="docmeta">
+        <span class="docmeta__name">张明的产品研发简历</span>
+        <span class="docmeta__sub">清晰 · 校园 / 自动排版</span>
+      </div>
+    </div>
+
+    <div class="topbar__mid">
+      <div class="segmented" role="group" aria-label="内容语言轨">
+        <button class="segmented__item segmented__item--on">中文</button>
+        <button class="segmented__item">English<span class="segmented__dot" title="英文轨未完成"></span></button>
+      </div>
+      <button class="iconbtn" title="撤销"><i class="ic ic--14" data-ic="undo"></i></button>
+      <button class="iconbtn" title="重做"><i class="ic ic--14" data-ic="redo"></i></button>
+    </div>
+
+    <div class="topbar__right">
+      <span class="statusbar__item muted" style="margin-right:6px">
+        <i class="ic ic--12" data-ic="check-circle"></i>已保存
+      </span>
+      <button class="btn"><i class="ic ic--14" data-ic="clipboard-check"></i>导出前检查</button>
+      <button class="btn btn--primary"><i class="ic ic--14" data-ic="download"></i>导出</button>
+      <span class="avatar">张</span>
+    </div>
+  </header>
+
+  <!-- ================= 三栏 ================= -->
+  <div class="workspace">
+
+    <!-- ---------- 左栏 ---------- -->
+    <aside class="side">
+      <nav class="side__tabs">
+        <button class="side__tab">模板</button>
+        <button class="side__tab side__tab--on">组件</button>
+        <button class="side__tab">素材</button>
+        <button class="side__tab">页面</button>
+      </nav>
+
+      <div class="side__body">
+        <div class="side__section">
+          <span class="side__section-title">简历组件</span>
+          <span class="side__section-hint">拖入画布</span>
+        </div>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="user"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">基本信息</span>
+            <span class="compcard__desc">姓名、意向与联系方式</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="graduation-cap"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">教育经历</span>
+            <span class="compcard__desc">学校、专业与学业表现</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="briefcase"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">项目经历</span>
+            <span class="compcard__desc">职责、技术栈与量化成果</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="code"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">技能</span>
+            <span class="compcard__desc">专业能力与语言水平</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="quote"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">自我评价</span>
+            <span class="compcard__desc">优势与个人特点</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <p class="side__note">内容自动参与排版与分页。拖动组件可调整顺序。</p>
+
+        <div class="side__section" style="margin-top:18px">
+          <span class="side__section-title">文档页面</span>
+        </div>
+        <button class="pagerow pagerow--on">
+          <span class="pagerow__no">1</span>
+          <span class="pagerow__name">第 1 页 · 简历正文</span>
+          <span class="pagerow__count">2</span>
+        </button>
+        <button class="pagerow">
+          <span class="pagerow__no">2</span>
+          <span class="pagerow__name">第 2 页 · 补充内容</span>
+          <span class="pagerow__count">1</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ---------- 画布 ---------- -->
+    <main class="canvas">
+      <div class="canvas__bar">
+        <div class="canvas__meta">
+          <span class="canvas__pageno">第 1 / 2 页</span>
+          <span class="canvas__meta-sep"></span>
+          <span class="canvas__size">A4 · 210 × 297 mm</span>
+        </div>
+        <div class="canvas__tools">
+          <div class="canvas__zoom">
+            <button class="iconbtn iconbtn--sm" title="缩小"><i class="ic ic--12" data-ic="minus"></i></button>
+            <span class="canvas__pct">60%</span>
+            <button class="iconbtn iconbtn--sm" title="放大"><i class="ic ic--12" data-ic="plus"></i></button>
+          </div>
+          <button class="iconbtn iconbtn--sm" title="适合页面"><i class="ic ic--14" data-ic="maximize"></i></button>
+        </div>
+      </div>
+
+      <div class="canvas__scroll" style="padding-top:40px;align-items:flex-start;padding-left:36px">
+
+        <!-- A4 纸：内部 794×1123 真值，整体按 --rc-zoom 缩放 -->
+        <div class="paper-slot">
+          <span class="paper-flag" title="3 处内容溢出">3</span>
+          <div class="paper-dots"><span></span><span></span><span></span></div>
+          <article class="paper">
+
+            <header class="p-header">
+              <div class="p-header__main">
+                <h1 class="p-name">张明</h1>
+                <p class="p-intent">求职意向 · 前端开发工程师</p>
+                <p class="p-contact">广州 · 138 0013 8000<br>zhangming.dev@example.com</p>
+              </div>
+              <div class="p-photo">
+                <i class="ic ic--18" data-ic="user"></i>
+                <span>照片</span>
+              </div>
+            </header>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">教育经历</h2>
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">华南理工大学 · 软件工程</span>
+                  <span class="p-item__date">2022.09-2026.06</span>
+                </div>
+                <div class="p-item__role">本科 · GPA 3.7/4.0 · 专业前 10%</div>
+              </div>
+            </section>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">项目经历</h2>
+
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">校招通 · 校园招聘协作平台</span>
+                  <span class="p-item__date">2025.03-2025.06</span>
+                </div>
+                <div class="p-item__role">前端负责人 | React / TypeScript / Node.js</div>
+                <ul class="p-bullets">
+                  <li>设计岗位检索与投递看板，覆盖 12 个学院、1,200 名试用用户。</li>
+                  <li>采用虚拟列表与请求缓存，首屏加载 2.8s 降至 1.4s，重复请求减少 38%。</li>
+                </ul>
+              </div>
+
+              <!-- 选中态：与右栏属性面板、06A 图层树保持同一对象 -->
+              <div class="p-item" style="position:relative">
+                <div class="selbox selbox--bare" style="inset:-6px -8px">
+                  <span class="selbox__h selbox__h--tl"></span>
+                  <span class="selbox__h selbox__h--tc"></span>
+                  <span class="selbox__h selbox__h--tr"></span>
+                  <span class="selbox__h selbox__h--ml"></span>
+                  <span class="selbox__h selbox__h--mr"></span>
+                  <span class="selbox__h selbox__h--bl"></span>
+                  <span class="selbox__h selbox__h--bc"></span>
+                  <span class="selbox__h selbox__h--br"></span>
+                </div>
+                <div class="p-item__head">
+                  <span class="p-item__name">课表助手 · 多端日程管理</span>
+                  <span class="p-item__date">2024.09-2024.12</span>
+                </div>
+                <div class="p-item__role">前端开发 | Vue 3 / Pinia / IndexedDB</div>
+                <ul class="p-bullets">
+                  <li>构建课程导入与冲突检测，支持 6 类课表格式，导入成功率 96%。</li>
+                  <li class="is-over">实现离线缓存及提醒设置，累计 800+ 用户，周活跃率 62%。<span class="p-ovf__tag">超出 3 行</span></li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">专业技能</h2>
+              <p class="p-plain">TypeScript / JavaScript · React / Vue · HTML / CSS</p>
+              <p class="p-plain">Git · 基础可访问性与性能分析 · CET-6 568</p>
+            </section>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">自我评价</h2>
+              <p class="p-plain">关注用户体验与工程质量，能独立拆解前端需求；重视协作与复盘，持续通过数据验证产品改进。</p>
+            </section>
+
+            <div class="paper-foot">1 / 2</div>
+          </article>
+        </div>
+
+        <div class="paper-next"></div>
+      </div>
+
+<div class="popover">
+  <div class="popover__head">
+    <i class="ic ic--14" style="color:var(--rc-danger)" data-ic="alert-triangle"></i>
+    3 处内容溢出
+    <button class="iconbtn iconbtn--sm" title="关闭"><i class="ic ic--12" data-ic="x"></i></button>
+  </div>
+  <div class="popover__body">
+    <div class="popover__item">
+      <div class="popover__meta">
+        <span class="popover__page">第 1 页</span>
+        <span class="popover__name">课表助手 · 项目经历</span>
+      </div>
+      <div class="popover__desc">
+        <span>末尾成组超出可导出区域。</span>
+      </div>
+      <div class="popover__meta" style="margin:5px 0 0">
+        <span class="badge badge--danger">超出 3 行</span>
+        <a class="popover__loc" href="#" style="margin-left:auto">定位<i class="ic ic--12" data-ic="arrow-up-right"></i></a>
+      </div>
+    </div>
+
+    <div class="popover__item">
+      <div class="popover__meta">
+        <span class="popover__page">第 1 页</span>
+        <span class="popover__name">自我评价</span>
+      </div>
+      <div class="popover__desc">
+        <span>文本超出当前组件高度。</span>
+      </div>
+      <div class="popover__meta" style="margin:5px 0 0">
+        <span class="badge badge--danger">超出 1 行</span>
+        <a class="popover__loc" href="#" style="margin-left:auto">定位<i class="ic ic--12" data-ic="arrow-up-right"></i></a>
+      </div>
+    </div>
+
+    <div class="popover__item">
+      <div class="popover__meta">
+        <span class="popover__page">第 2 页</span>
+        <span class="popover__name">专业技能</span>
+      </div>
+      <div class="popover__desc">
+        <span>组件底部超出页边距。</span>
+      </div>
+      <div class="popover__meta" style="margin:5px 0 0">
+        <span class="badge badge--danger">超出 4 mm</span>
+        <a class="popover__loc" href="#" style="margin-left:auto">定位<i class="ic ic--12" data-ic="arrow-up-right"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="popover__foot">
+    <button class="btn btn--primary" style="width:100%"><i class="ic ic--14" data-ic="arrow-down-to-line"></i>逐项处理溢出</button>
+    <p class="popover__note">自动检查 · 规则更新后重新计数；导出前会再次校验完整性。</p>
+  </div>
+</div>
+
+    </main>
+
+    <!-- ---------- 右栏 ---------- -->
+    <aside class="inspector">
+      <div class="inspector__head">
+        <span class="inspector__title">项目组件</span>
+        <button class="iconbtn iconbtn--sm" title="面板设置"><i class="ic ic--14" data-ic="sliders"></i></button>
+      </div>
+
+      <nav class="inspector__tabs">
+        <button class="inspector__tab inspector__tab--on">内容</button>
+        <button class="inspector__tab">样式</button>
+        <button class="inspector__tab">布局</button>
+      </nav>
+
+      <div class="inspector__body">
+
+        <div class="field">
+          <label class="field__label">项目名称</label>
+          <input class="input" value="课表助手 · 多端日程管理">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label">开始时间</label>
+            <input class="input tnum" value="2024.09">
+          </div>
+          <div class="field">
+            <label class="field__label">结束时间</label>
+            <input class="input tnum" value="2024.12">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label">项目角色</label>
+          <select class="select">
+            <option>前端开发</option>
+            <option>前端负责人</option>
+            <option>全栈开发</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field__label">技术栈</label>
+          <input class="input" value="Vue 3 / Pinia / IndexedDB">
+        </div>
+
+        <div class="field">
+          <label class="field__label">
+            项目成果
+            <span class="muted" style="font-weight:400">建议 2-4 条</span>
+          </label>
+          <textarea class="textarea textarea--tall">构建课程导入与冲突检测，支持 6 类课表格式，导入成功率 96%。
+实现离线缓存及提醒设置，累计 800+ 用户，周活跃率 62%。</textarea>
+        </div>
+
+        <div class="inspector__divider"></div>
+
+        <div class="field-row field-row--tight">
+          <div class="field">
+            <label class="field__label">正文字号</label>
+            <div class="unit-input">
+              <input class="input tnum" value="10.5">
+              <span class="unit-input__unit">pt</span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field__label">行距</label>
+            <div class="unit-input">
+              <input class="input tnum" value="1.55">
+              <span class="unit-input__unit">倍</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label">强调色</label>
+          <div class="colorfield">
+            <span class="colorfield__chip dot-accent"></span>
+            <span class="colorfield__hex">#4B7168</span>
+          </div>
+        </div>
+
+        <div class="inspector__switchrow">
+          <span class="inspector__switchname">允许自动分页</span>
+          <span class="switch switch--on" role="switch" aria-checked="true"></span>
+        </div>
+
+        <div class="inspector__divider"></div>
+
+        <div class="field">
+          <label class="field__label">联系方式 · 邮箱草稿</label>
+          <input class="input input--invalid" value="zhangming.dev@">
+          <p class="field__error">
+            <i class="ic ic--12" data-ic="alert-circle" style="margin-top:2px"></i>
+            <span>邮箱格式不完整，未应用到纸面。</span>
+          </p>
+          <p class="field__hint">上次有效值：zhangming.dev@example.com</p>
+          <a class="field__restore" href="#">恢复上次有效值</a>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+  <!-- ================= 状态栏 ================= -->
+  <footer class="statusbar">
+    <div class="statusbar__group">
+      <span class="statusbar__item"><i class="ic ic--12" data-ic="check-circle"></i>已保存于 10:42</span>
+    </div>
+    <div class="statusbar__group">
+      <span class="statusbar__item statusbar__item--warn">
+        <span class="statusbar__dot"></span>3 处溢出
+      </span>
+    </div>
+  </footer>
+</div>
+
+<a class="navhint" href="index.html"><i class="ic ic--12" data-ic="chevron-left"></i>全部界面</a>
+<script src="icons.js"></script>
+</body>
+</html>

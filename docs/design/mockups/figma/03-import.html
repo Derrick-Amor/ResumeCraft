@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 导入向导 · 预览确认 · ResumeCraft</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body data-screen="03">
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <span class="brand__mark"><i class="ic ic--14" data-ic="file-text"></i></span>
+        <span class="brand__name">ResumeCraft</span>
+      </div>
+      <span class="topbar__divider"></span>
+      <div class="docmeta">
+        <span class="docmeta__name">张明的产品研发简历</span>
+        <span class="docmeta__sub">清晰 · 校园 / 自动排版</span>
+      </div>
+    </div>
+    <div class="topbar__mid">
+      <div class="segmented" role="group" aria-label="内容语言轨">
+        <button class="segmented__item segmented__item--on">中文</button>
+        <button class="segmented__item">English<span class="segmented__dot"></span></button>
+      </div>
+      <button class="iconbtn" title="撤销"><i class="ic ic--14" data-ic="undo"></i></button>
+      <button class="iconbtn" title="重做"><i class="ic ic--14" data-ic="redo"></i></button>
+    </div>
+    <div class="topbar__right">
+      <span class="statusbar__item muted" style="margin-right:6px">
+        <i class="ic ic--12" data-ic="check-circle"></i>已保存
+      </span>
+      <button class="btn"><i class="ic ic--14" data-ic="clipboard-check"></i>导出前检查</button>
+      <button class="btn btn--primary"><i class="ic ic--14" data-ic="download"></i>导出</button>
+      <span class="avatar">张</span>
+    </div>
+  </header>
+
+  <div class="sheet">
+    <div class="sheet__inner">
+
+      <div class="sheet__head">
+        <div>
+          <h1 class="h1">导入已有简历</h1>
+          <p class="h1__sub">张明_原始简历.docx · 128 KB · 原文件不会被修改</p>
+        </div>
+        <div class="stepper">
+          <span class="step step--done"><span class="step__no"><i class="ic" data-ic="check" style="width:10px;height:10px"></i></span>选择文件</span>
+          <span class="step__line step__line--done"></span>
+          <span class="step step--done"><span class="step__no"><i class="ic" data-ic="check" style="width:10px;height:10px"></i></span>解析中</span>
+          <span class="step__line step__line--done"></span>
+          <span class="step step--on"><span class="step__no">3</span>预览确认</span>
+        </div>
+      </div>
+
+      <div class="importgrid">
+
+        <!-- ---------- 左：原始文档 ---------- -->
+        <section class="panel">
+          <div class="panel__head">
+            <span class="panel__title"><i class="ic ic--14" data-ic="file-text"></i>原始文档</span>
+            <span>DOCX 渲染 · 第 1 / 1 页 · 87%</span>
+          </div>
+          <div class="panel__body" style="background:var(--rc-canvas)">
+            <div class="docpaper">
+              <div class="docpaper__photo"><i class="ic ic--14" data-ic="user"></i>照片占位</div>
+              <div class="docpaper__name">张明</div>
+              <p><b>求职意向：前端开发工程师</b></p>
+              <p>广州 · 138 0013 8000</p>
+              <p>zhangming.dev@example.com</p>
+
+              <h3>教育经历</h3>
+              <p><b>华南理工大学 · 软件工程 · 2022.09-2026.06</b></p>
+              <p>本科 · GPA 3.7/4.0 · 专业前 10%</p>
+
+              <h3>项目经历</h3>
+              <p><b>校招通 · 校园招聘协作平台</b>　　　　　　　　2025.03-2025.06</p>
+              <p>前端负责人 · React / TypeScript / Node.js</p>
+              <p>· 设计岗位检索与投递看板，覆盖 12 个学院、1,200 名试用用户。</p>
+              <p>· 采用虚拟列表与请求缓存，首屏加载 2.8s 降至 1.4s，重复请求减少 38%。</p>
+
+              <p style="margin-top:12px"><b>课表助手 · 多端日程管理</b>　　　　　　　　2024.09-2024.12</p>
+              <p>前端开发 · Vue 3 / Pinia / IndexedDB</p>
+              <p>· 构建课程导入与冲突检测，支持 6 类课表格式，导入成功率 96%。</p>
+              <p class="doc-hl">· 实现离线缓存及提醒设置，累计 800+ 用户，周活跃率 62%。</p>
+
+              <h3>技能与语言</h3>
+              <p>TypeScript / JavaScript、React / Vue、HTML / CSS、Git</p>
+              <p>基础可访问性与性能分析；CET-6 568。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- 右：结构化结果 ---------- -->
+        <section class="panel">
+          <div class="panel__head">
+            <span class="panel__title"><i class="ic ic--14" data-ic="layers"></i>识别到的结构化结果</span>
+            <span><b style="color:var(--rc-text)">已确认 4 / 6</b></span>
+          </div>
+          <div class="panel__body">
+
+            <p class="muted" style="font-size:var(--rc-fz-xs);line-height:1.6;margin:0 0 10px">
+              请逐项核对。表格、文本框与浮动图片需要人工确认。
+            </p>
+
+            <div class="rcard">
+              <div class="rcard__head">
+                <span class="rcard__name">基本信息</span>
+                <span class="badge badge--accent">已确认</span>
+                <span class="rcard__conf">98%</span>
+              </div>
+              <div class="rcard__text">
+                张明 · 前端开发工程师 · 广州<br>
+                138 0013 8000 · zhangming.dev@example.com
+              </div>
+              <div class="rcard__foot"><a class="rcard__link" href="#">修改</a></div>
+            </div>
+
+            <div class="rcard">
+              <div class="rcard__head">
+                <span class="rcard__name">教育经历</span>
+                <span class="badge badge--accent">已确认</span>
+                <span class="rcard__conf">98%</span>
+              </div>
+              <div class="rcard__text">
+                华南理工大学 · 软件工程 · 2022.09-2026.06<br>
+                GPA 3.7/4.0 · 专业前 10%
+              </div>
+              <div class="rcard__foot"><a class="rcard__link" href="#">修改</a></div>
+            </div>
+
+            <div class="rcard">
+              <div class="rcard__head">
+                <span class="rcard__name">校招通 · 校园招聘协作平台</span>
+                <span class="badge badge--accent">已确认</span>
+                <span class="rcard__conf">94%</span>
+              </div>
+              <div class="rcard__text">
+                2025.03-2025.06 · 前端负责人 · React / TypeScript / Node.js<br>
+                设计岗位检索与投递看板，覆盖 12 个学院、1,200 名试用用户。<br>
+                采用虚拟列表与请求缓存，首屏加载 2.8s 降至 1.4s，重复请求减少 38%。
+              </div>
+              <div class="rcard__foot"><a class="rcard__link" href="#">修改</a></div>
+            </div>
+
+            <div class="rcard rcard--pending">
+              <div class="rcard__head">
+                <span class="rcard__name">课表助手 · 多端日程管理</span>
+                <span class="badge badge--warn">待确认</span>
+                <span class="rcard__conf">68%</span>
+              </div>
+              <div class="rcard__text">
+                2024.09-2024.12 · 前端开发 · Vue 3 / Pinia / IndexedDB<br>
+                构建课程导入与冲突检测，支持 6 类课表格式，导入成功率 96%。<br>
+                实现离线缓存及提醒设置，累计 800+ 用户，周活跃率 62%。
+              </div>
+              <p class="rcard__hint">表格已转为项目，请核对行序。</p>
+              <div class="rcard__foot">
+                <button class="btn btn--sm">接受</button>
+                <button class="btn btn--sm">修改</button>
+                <button class="btn btn--sm btn--ghost">跳过</button>
+              </div>
+            </div>
+
+            <div class="rcard">
+              <div class="rcard__head">
+                <span class="rcard__name">技能与语言</span>
+                <span class="badge badge--accent">已确认</span>
+                <span class="rcard__conf">94%</span>
+              </div>
+              <div class="rcard__text">
+                TypeScript / JavaScript、React / Vue、HTML / CSS、Git<br>
+                基础可访问性与性能分析 · CET-6 568
+              </div>
+              <div class="rcard__foot"><a class="rcard__link" href="#">修改</a></div>
+            </div>
+
+            <div class="rcard rcard--pending">
+              <div class="rcard__head">
+                <span class="rcard__name">浮动图片 · 照片</span>
+                <span class="badge badge--warn">待确认</span>
+                <span class="rcard__conf">68%</span>
+              </div>
+              <div class="rcard__text">
+                已保留为照片占位，未识别人脸。文本中的联系方式已归入基本信息。
+              </div>
+              <p class="rcard__hint">请确认图片位置与用途。</p>
+              <div class="rcard__foot">
+                <button class="btn btn--sm">接受</button>
+                <button class="btn btn--sm">修改</button>
+                <button class="btn btn--sm btn--ghost">跳过</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="actionbar">
+    <div class="actionbar__sel">
+      <button class="btn btn--lg"><i class="ic ic--14" data-ic="chevron-left"></i>返回选择文件</button>
+    </div>
+    <div class="actionbar__actions">
+      <span class="actionbar__desc">还有 2 项待确认，确认后可导入</span>
+      <button class="btn btn--lg" aria-disabled="true">确认导入</button>
+    </div>
+  </div>
+</div>
+
+<a class="navhint" href="index.html"><i class="ic ic--12" data-ic="chevron-left"></i>全部界面</a>
+<script src="icons.js"></script>
+</body>
+</html>

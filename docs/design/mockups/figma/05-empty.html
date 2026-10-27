@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 空状态 · 首次引导 · ResumeCraft</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body data-screen="05">
+
+<div class="app">
+
+  <!-- 首次使用：顶栏收敛为「工作台」语义，不暴露导出动作 -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <span class="brand__mark"><i class="ic ic--14" data-ic="file-text"></i></span>
+        <span class="brand__name">ResumeCraft</span>
+      </div>
+      <span class="topbar__divider"></span>
+      <div class="docmeta">
+        <span class="docmeta__name">我的工作台</span>
+        <span class="docmeta__sub">开始你的第一份简历</span>
+      </div>
+    </div>
+    <div class="topbar__mid"></div>
+    <div class="topbar__right">
+      <button class="btn"><i class="ic ic--14" data-ic="info"></i>使用帮助</button>
+      <span class="avatar">张</span>
+    </div>
+  </header>
+
+  <div class="workspace">
+
+    <aside class="rail">
+      <button class="rail__item rail__item--on"><i class="ic ic--14" data-ic="file-text"></i>我的简历</button>
+      <button class="rail__item"><i class="ic ic--14" data-ic="layout-template"></i>模板库</button>
+      <div class="rail__divider"></div>
+      <p class="rail__empty">
+        <span class="rail__empty-t">还没有简历文档</span>
+        创建后，你的简历会显示在这里。
+      </p>
+    </aside>
+
+    <main class="sheet">
+      <div class="sheet__inner" style="max-width:1120px">
+
+        <p class="eyebrow">开始使用 / 01</p>
+        <h1 class="h1">创建你的第一份简历</h1>
+        <p class="h1__sub" style="max-width:560px">选择一种开始方式，先把经历写清楚，排版交给工作台。</p>
+
+        <div class="entrygrid">
+
+          <article class="entrycard entrycard--on">
+            <div class="entrycard__top">
+              <span class="entrycard__ico"><i class="ic ic--18" data-ic="layout-template"></i></span>
+              <span class="badge badge--accent">推荐</span>
+            </div>
+            <h2 class="entrycard__title">从模板开始</h2>
+            <p class="entrycard__desc">选择适合你的版式，按章节填写内容。系统自动对齐、分页与排版。</p>
+            <p class="entrycard__note">适合第一次制作简历</p>
+            <button class="btn btn--lg btn--primary entrycard__btn">
+              <i class="ic ic--14" data-ic="arrow-up-right"></i>选择模板
+            </button>
+          </article>
+
+          <article class="entrycard">
+            <div class="entrycard__top">
+              <span class="entrycard__ico"><i class="ic ic--18" data-ic="file-up"></i></span>
+            </div>
+            <h2 class="entrycard__title">导入已有简历</h2>
+            <p class="entrycard__desc">上传 DOCX 或 PDF，对照原文确认识别结果，保留你的经历与成果。</p>
+            <p class="entrycard__note">支持 DOCX / PDF · 最大 20 MB</p>
+            <button class="btn btn--lg entrycard__btn">选择文件</button>
+          </article>
+
+          <article class="entrycard">
+            <div class="entrycard__top">
+              <span class="entrycard__ico"><i class="ic ic--18" data-ic="square-plus"></i></span>
+            </div>
+            <h2 class="entrycard__title">空白画板</h2>
+            <p class="entrycard__desc">从一张 A4 白纸开始，自由添加简历组件，建立自己的内容顺序。</p>
+            <p class="entrycard__note">适合已有明确排版思路</p>
+            <button class="btn btn--lg entrycard__btn">新建空白简历</button>
+          </article>
+        </div>
+
+        <div class="progress3">
+          <div class="progress3__head">
+            <span class="progress3__title">三步骤完成一份可投递的简历</span>
+            <span class="progress3__count">0 / 3 完成</span>
+          </div>
+          <div class="progress3__item"><span class="progress3__no">1</span>选择版式或导入文件</div>
+          <div class="progress3__item"><span class="progress3__no">2</span>填写并核对个人经历</div>
+          <div class="progress3__item"><span class="progress3__no">3</span>检查后导出 PDF / Word</div>
+        </div>
+
+        <p class="footnote">
+          <i class="ic ic--12" data-ic="info" style="margin-top:3px"></i>
+          <span>PDF 保持最终版式；Word 可继续编辑。支持中文与 English 独立内容轨。</span>
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <footer class="statusbar">
+    <span>尚未创建文档</span>
+    <span>PDF · Word 可编辑导出</span>
+  </footer>
+</div>
+
+<a class="navhint" href="index.html"><i class="ic ic--12" data-ic="chevron-left"></i>全部界面</a>
+<script src="icons.js"></script>
+</body>
+</html>
