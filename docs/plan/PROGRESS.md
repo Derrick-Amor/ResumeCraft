@@ -1,35 +1,27 @@
 # PROGRESS — ResumeCraft 主控进度快照
 
 > 更新时机：每卡闭环时；出现遗忘信号时立即更新
-> 最近更新：2026-10-27 19:20
+> 最近更新：2026-10-28 12:16
 
-## 0. 最新状态（2026-10-27，覆盖下方 §1 的部分旧描述）
+## 0. 最新状态（2026-10-28，覆盖下方 §1 的部分旧描述）
 
-- **TC-016 已关闭**：视觉 v3「蓝玻璃 + 白纸」定稿，11 个稿在 `docs/design/mockups/figma/`；
-  生产 token 回灌 `src/design/tokens.css`（v3，纯增量 + 换值，变量名一个未改，桥接层零改动）
-- **TC-003 已关闭**：`src/model/` 7 文件 + `tests/model/model.test.ts`（33 条），契约 §2 五条不变量 + undo 四条全覆盖。
-  首轮挂 2 条真 bug（`validate` 不幂等），已修并补回归测试
-- **M1 已收官（2026-10-27 19:45）**：TC-016 / TC-003 / TC-004 三卡全部 `resolved`
-- **四门最后一次全绿：2026-10-27 19:43** —— lint 0 / vue-tsc 通过 / **94 tests passed（5 files）** / build 5.86s
-  —— 由 `scripts\gate.cmd` 执行，日志 `docs/verify/gate-latest.log`（每次覆盖）
-- v3 变更全文见 **`docs/design/V3-DELTA.md`**
-- **当前卡：TC-006（布局引擎·测量与单位 + 字体资产）**，TAPD `developing`
-  - 段① 单位换算层 `src/layout/units.ts` 已落盘（24 条测试）
-  - 段② `measure`、段③ `font-loader` 未做；**卡级验收 `pnpm test -- src/layout/measure` 现在会因无匹配文件失败，段② 落地前别跑**
-- **TAPD 已同步（2026-10-27 19:45）**：016 / 003 / 004 → `resolved`，006 → `developing`（owner 郭涛）
-- **环境限制**：shell 进程无法读取项目文件（ACL），git 提交仍需 Amor 侧执行；
-  跑检验请双击 `scripts\gate.cmd`，日志会写到 `docs/verify/gate-latest.log`，我能直接读
+- **M2 全部收官（2026-10-28 12:16）**：TC-006 / TC-007 / TC-005 / TC-017 四卡全部 `resolved`
+- **TC-017 已关闭**：`src/storage/` 9 文件 + `tests/storage/` 8 文件（84 条测试）
+  - StorageAdapter（memory/idb 双实现）/ FileAccessAdapter / QuotaInfo / SecurityCheck 四接口
+  - AutosaveController 防抖节流 + 失败绝不显示已保存
+  - FR-SEC-004 脱敏错误经 storageIssue 统一构造（cause 不落入 message）
+- **四门最后一次全绿：2026-10-28 12:11** —— lint 0 / vue-tsc 通过 / **333 tests passed（22 files）** / build 25.69s
+- **沙箱环境升级（2026-10-28 11:35）**：pnpm / git / vitest 均可直接执行
+  （HANDOFF §5 记录的限制已解除，四门可自行验证）
+- **当前里程碑：M2 → M3**。下一批：`013a → 010 → 011 → 008 → 009`
+- **未提交改动**：TC-005/006/007/017 全部交付物 + 清理的设计稿，共 42 文件待 Amor 提交
+  （`scripts/commit.cmd` 或 git add + commit）
 
 ## 1. 当前位置
 
-- 里程碑：M1（视觉与模型基座），M0 已关闭（TC-001、TC-002 resolved）
-- 当前卡：**TC-016 视觉返工中**——Amor 22:40 反馈"过于正式沉闷"，要求把整个前端 UI 交给设计师与前端工程师两人讨论后重定，TAPD 仍 `developing`
-- 中断原因：子 Agent 于 17:07 前后被 **API 429 频率限制**打断，产物已落盘但未自测、未提交、未写报告；主控已代写 `docs/handoff/TC-016.md`
-- 下一张卡：TC-003（文档模型）——TC-016 验收通过后
-- 当前 git 分支：`main`（远端 `7f79107`；TC-016 的 13 个新文件**尚未提交**）
-- 四门**已补跑并全绿**（2026-10-23 23:11：lint 0 error / vue-tsc 通过 / 16 tests passed / build 11.04s）；emoji 扫描与 mockups 硬编码色值扫描均命中 0
-- 卡点：等视觉语言 v2 拍板 → 落 token → 重出 8 张稿 → 提交
-- 换会话时：把 `docs/handoff/NEW-SESSION-BRIEF.md` 整段粘进新对话即可无损接手
+- 里程碑：M2 已收官，准备进入 M3
+- 下一张卡：**TC-013a 质量检查引擎**（`src/quality/`、`tests/quality/`）
+- TAPD：TC-017 `resolved`（M2 四卡全关）
 
 ## 2. 当前卡进度
 

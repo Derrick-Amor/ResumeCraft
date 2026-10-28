@@ -124,3 +124,46 @@ chrome --headless=new --virtual-time-budget=4000 --dump-dom \
 
 > 这条是自审出来的：上一轮我在 §5 写了"待补用例"，这一轮把它补成了可执行验证，
 > 结果证明原实现是错的。**"已知风险"如果只写在文档里不测，就等于没发现。**
+
+---
+
+## 8. 自托管字体到位后重跑（2026-10-27 21:50）
+
+按 §6 的规定，字体资产纳入后必须重跑。结果：
+
+| 项 | 系统回退字体（§4） | **自托管 RcSans 子集** |
+|---|---|---|
+| `RESULT` | PASS | **PASS** |
+| `WORST_PX` | 0.0156 | **0.0156** |
+| `LS_VERDICT` | CSS_USES_N | **CSS_USES_N** |
+| `WORST_N_PX` | 0.0093 | 0.0093 |
+| 字体证明 | 系统回退（Microsoft YaHei） | `FONT_CHECK=RcSans-loaded` |
+
+**结论不变，且证据更硬**：canvas 与 DOM 的宽度差 **约 0.0156px，与字体无关**——
+因为两侧用的是同一字体，差的是 `getBoundingClientRect()` 与 `measureText()` 的亚像素舍入。
+现在这个结论同时覆盖**系统回退字体**和**自托管 Noto 子集**两种情形。
+
+### 8.1 过程中踩到的坑（值得记住）
+
+前两次重跑得到**与旧值完全一致**的数字，可疑。排查后发现是 harness 的鸡生蛋问题：
+
+> `document.fonts.ready` **只等待「已在加载中」的字体**。
+> 而测量代码在它之后才创建元素——此时字体尚未发起请求，`ready` 立即 resolve，
+> 量到的仍是回退字体。
+
+**必须显式预加载**：
+
+```js
+Promise.all([
+  document.fonts.load('400 14px RcSans'),
+  document.fonts.load('500 14px RcSans'),
+  document.fonts.load('600 30px RcSans'),
+  document.fonts.load('700 17px RcSans')
+]).then(...)
+```
+
+并在输出里加 `FONT_CHECK=` 一行作为「字体到底加载了没有」的**可验证证据**——
+没有这行，结论无法与"没加载"区分开。
+
+另：`file://` 下 Chrome 默认限制跨源字体加载，本页用 `--allow-file-access-from-files` 打开。
+线上部署走同源静态服务，不受此限。

@@ -1,0 +1,4 @@
+SIL Open Font License 1.1
+本目录下的字体为 Google Noto / Adobe Source Han 系列，采用 SIL OFL 1.1 授权。
+完整许可文本见：https://scripts.sil.org/OFL
+字体名称与版本信息由 fontTools 保留于 name 表。
