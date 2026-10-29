@@ -34,14 +34,14 @@ pnpm lint && pnpm type-check && pnpm test && pnpm build
 | TC-007 | 布局引擎·排列/分页/溢出 | fe-layout | 006 | `src/layout/`（flow/pagination/overflow/overflow-stages/report/types）、`docs/layout-rules.md`、`tests/layout/` | `pnpm verify:layout`（**暂由方案 A 替代：`pnpm exec vitest run src/layout` + 快照**） | FR-LAY-003~008、010、011（引擎） | 3–4d | **待验收**（types / report / flow / pagination / overflow-stages + layout-rules.md 全部落盘） |
 | TC-005 | 简历组件集（中英双轨） | fe-content | 003、004 | `src/components/`、`tests/components/` | `pnpm test -- src/components` | FR-CMP-001~010、FR-EDT-004、FR-EDT-006（P0 部分） | 2.5–3d | 进行中（registry 已落盘，具体组件定义未做） |
 | TC-017 | 持久化与数据安全 | fe-content | 003 | `src/storage/`、`tests/storage/` | `pnpm test -- src/storage` | FR-SEC-001~005、FR-DOC-002/003 配套、4.4（**FR-SEC-005 只验 JSON 备份核心，完整删除/恢复策略留 P1**） | 1.5–2d | **已完成**（四门全绿 2026-10-28 12:11，333 tests） |
-| TC-013a | 质量检查引擎 | fe-content | 003、007 | `src/quality/`、`tests/quality/` | `pnpm test -- src/quality` | FR-QA-001/002、FR-EXP-003 接口 | 1.5–2d | 未开始 |
-| TC-010 | 导出层·PDF | fe-io | 006、007、013a | `src/io/export-pdf.ts`、`src/io/pdf-smoke.ts`、`docs/verify/pdf-cross-reader.md`、`tests/io/export-pdf.test.ts` | `pnpm verify:export` | FR-EXP-001/003/004、13.1#10 | 2.5–3d | 未开始 |
-| TC-011 | 导出层·DOCX | fe-io | 007、013a | `src/io/export-docx.ts`、`src/io/docx-marks.ts`、`src/io/docx-style-map.md`、`docs/docx-mark-protocol.md`、`docs/verify/docx-open-check.md` | `pnpm verify:export` | FR-EXP-002/003/005、4.5 | 2.5–3d | 未开始 |
-| TC-008 | 编辑器 UI 骨架与画布渲染 | fe-editor | 004、007、016 | `src/ui/`（shell/canvas/panels/layers/overflow-dialog/board、undo-wiring.ts）、`tests/ui/` | `pnpm test -- src/ui` + 手动回归清单 | 5 章、FR-DOC-001/004、FR-EDT-001~005、FR-LAY-011/012（UI） | 3–4d | 未开始 |
-| TC-009 | 模板系统（4 套） | fe-content | 005、007 | `src/template/`、`docs/template-design-notes.md`、`docs/template-licenses.md`、`tests/template/` | `pnpm test -- src/template` | FR-TPL-001~005、9 章 | 2.5–3d | 未开始 |
-| TC-012 | 导入层（DOCX+PDF） | fe-io | 005、008、011 | `src/io/import-*.ts`、`src/io/recognition-provider.ts`、`src/ui/import-wizard/`、`tests/io/import-*.test.ts`、`docs/verify/mammoth-samples.md` | `pnpm verify:import` | FR-IMP-001~010、FR-EXP-005（反向侧） | 4–5d | 未开始 |
-| TC-013 | 测试体系 | qa | 008、010、011、013a | `tests/`（e2e、fixtures、visual）、`docs/test-report.md` | `pnpm test:e2e && pnpm test:visual` | FR-QA-005、14 章 | 3–4d | 未开始 |
-| TC-015 | 发布准备与运营素材 | doc | 全部 P0 卡 | `scripts/`、`docs/deploy/`、`docs/compliance-checklist.md`、`docs/user-guide.md`、`docs/release-acceptance.md`、`docs/marketing/` | `pnpm verify:release`（14.3 阻断条件脚本化）+ 线上地址可访问 | 14.3/15/16 章 | 2–3d | 未开始 |
+| TC-013a | 质量检查引擎 | fe-content | 003、007 | `src/quality/`、`tests/quality/` | `pnpm test -- src/quality` | FR-QA-001/002、FR-EXP-003 接口 | 1.5–2d | **已完成**（四门全绿 2026-10-28 14:25，381 tests） |
+| TC-010 | 导出层·PDF | fe-io | 006、007、013a | `src/io/export-pdf.ts`、`src/io/pdf-smoke.ts`、`docs/verify/pdf-cross-reader.md`、`tests/io/export-pdf.test.ts` | `pnpm verify:export` | FR-EXP-001/003/004、13.1#10 | 2.5–3d | **已完成**（四门全绿 2026-10-28 14:42，399 tests） |
+| TC-011 | 导出层·DOCX | fe-io | 007、013a | `src/io/export-docx.ts`、`src/io/docx-marks.ts`、`src/io/docx-style-map.md`、`docs/docx-mark-protocol.md`、`docs/verify/docx-open-check.md` | `pnpm verify:export` | FR-EXP-002/003/005、4.5 | 2.5–3d | **已完成**（四门全绿 2026-10-28 15:00，418 tests） |
+| TC-008 | 编辑器 UI 骨架与画布渲染 | fe-editor | 004、007、016 | `src/ui/`（shell/canvas/panels/layers/overflow-dialog/board、undo-wiring.ts）、`tests/ui/` | `pnpm test -- src/ui` + 手动回归清单 | 5 章、FR-DOC-001/004、FR-EDT-001~005、FR-LAY-011/012（UI） | 3–4d | **已完成**（四门全绿 2026-10-29 12:15，448 tests） |
+| TC-009 | 模板系统（4 套） | fe-content | 005、007 | `src/template/`、`docs/template-design-notes.md`、`docs/template-licenses.md`、`tests/template/` | `pnpm test -- src/template` | FR-TPL-001~005、9 章 | 2.5–3d | **已完成**（四门全绿 2026-10-29 15:15，466 tests） |
+| TC-012 | 导入层（DOCX+PDF） | fe-io | 005、008、011 | `src/io/import-*.ts`、`src/io/recognition-provider.ts`、`src/ui/import-wizard/`、`tests/io/import-*.test.ts`、`docs/verify/mammoth-samples.md` | `pnpm verify:import` | FR-IMP-001~010、FR-EXP-005（反向侧） | 4–5d | **已完成**（四门全绿 2026-10-29 15:48，485 tests） |
+| TC-013 | 测试体系 | qa | 008、010、011、013a | `tests/`（e2e、fixtures、visual）、`docs/test-report.md` | `pnpm test:e2e && pnpm test:visual` | FR-QA-005、14 章 | 3–4d | **已完成**（四门全绿 2026-10-29 16:10，494 tests） |
+| TC-015 | 发布准备与运营素材 | doc | 全部 P0 卡 | `scripts/`、`docs/deploy/`、`docs/compliance-checklist.md`、`docs/user-guide.md`、`docs/release-acceptance.md`、`docs/marketing/` | `pnpm verify:release`（14.3 阻断条件脚本化）+ 线上地址可访问 | 14.3/15/16 章 | 2–3d | **已完成**（四门全绿 2026-10-29 16:20，494 tests） |
 | TC-014 | AI 建议层（P1 后置） | 另行指派 | 003、009 | `src/ai/`、`tests/ai/` | `pnpm test -- src/ai` | FR-AI-001~010、10 章 | P1 | 后置 |
 
 > **映射口径说明（2026-10-23 补，TC-001 核对 K4）**：TC-002 / TC-004 / TC-015 为**章节级映射**（工程基座、视觉 token、发布准备在 PRD 中无对应 FR 编号），验收时以章节条款替代 FR 逐条对照；其余 14 张卡均为 FR 编号级映射。
@@ -152,6 +152,19 @@ M2/M3 的卡内顺序由我按关键路径重排（文档罗列顺序不同）�
 | 2026-10-28 12:11 | TC-017 | **四门全绿 → 全卡关闭**：lint 0 / vue-tsc 通过 / **333 tests passed（22 files）** / build 25.69s。新增 84 条存储测试（8 files），零回归 | 命令实测 |
 | 2026-10-28 12:15 | TC-017 | **TAPD：developing → status_2 → status_3 → resolved**。CONTRACT §6 四接口逐字实现，不变量 1/3/4 均有测试锁定 | TAPD 回读 |
 | 2026-10-28 12:16 | TC-017 | 工程师边界审查产出 9 条加固缺口（P0×4 / P1×2 / P2×3），卡级验收已达标，缺口记入此处待后续补：①file-access 权限 prompt 恢复路径 ②security unreadable 分支 ③idb-adapter 含宏导入 security-blocked ④idb io-error 兜底 ⑤autosave error→重试 ⑥importJSON 非法文本入口 ⑦idb open 失败 ⑧restoreHandle 边界 ⑨debounceMs=0 | 工程师审查报告 |
+| 2026-10-28 14:25 | TC-013a | **四门全绿 → 全卡关闭**：lint 0 / vue-tsc 通过 / **381 tests passed（25 files）** / build 11.60s。新增 48 条质量检查测试（3 files）。`runQualityChecks` 按契约 §8 落地 | 命令实测 |
+| 2026-10-28 14:27 | TC-013a | **TAPD：planning → developing → status_2 → status_3 → resolved**。FR-QA-001/002 全覆盖，blocking/warning/suggestion 各 ≥2 例达标 | TAPD 回读 |
+| 2026-10-28 14:42 | TC-010 | **四门全绿 → 全卡关闭**：lint 0 / vue-tsc 通过 / **399 tests passed（26 files）** / build 11.25s。新增 18 条 PDF 导出测试。pdf-lib 1.17.1 + fontkit 1.1.1 + pdfjs-dist 6.4.299 已安装 | 命令实测 |
+| 2026-10-28 14:43 | TC-010 | **TAPD：planning → developing → status_2 → status_3 → resolved**。exportPdf 按契约 §7 落地，FR-EXP-003 阻断拦截有测试 | TAPD 回读 |
+| 2026-10-28 14:49 | TC-011 | **TAPD：planning → developing**（owner 郭涛）。派工程师实现 `src/io/` DOCX 导出（export-docx + docx-marks + 标记协议文档），docx 9.14.0 已装 | TAPD 回读 status=developing |
+| 2026-10-28 15:00 | TC-011 | **四门全绿 → 全卡关闭**：lint 0 / vue-tsc 通过 / **418 tests passed（27 files）** / build 12.25s。新增 19 条 DOCX 测试（export-docx + docx-marks 往返） | 命令实测 |
+| 2026-10-28 15:05 | TC-011 | **TAPD：planning → developing → status_2 → status_3 → resolved**。FR-EXP-002/003/005 全覆盖，标记协议 v1 落地（docs/docx-mark-protocol.md） | TAPD 回读 |
+| 2026-10-29 10:55 | TC-008 | **核心骨架落盘**：五区域壳（AppShell/Toolbar/ResourceBar/CanvasView/PropertyPanel/StatusBar）+ 画布 DOM 渲染 + 组件选中。四门全绿 448 tests | 命令实测 |
+| 2026-10-29 12:05 | TC-008 | **图层+溢出+撤销落盘**：LayerPanel（三层系统/Alt 穿透/锁定/可见性）、OverflowDialog（三阶段弹窗+角标）、undo-wiring.ts。四门全绿 448 tests | 命令实测 |
+| 2026-10-29 12:15 | TC-008 | **全部子项完成 → 全卡关闭**：画板工具条（BoardToolbar）、拖拽排序（drag-sort.ts）、新建入口（NewDocDialog）。四门全绿 448 tests | 命令实测 |
+| 2026-10-29 15:15 | TC-009 | **四门全绿 → 全卡关闭**：lint 0 / vue-tsc 通过 / **466 tests passed（28 files）** / build 5.45s。4 套模板（zh-general/zh-student/en-classic/en-modern）+ applyTemplate + registry。18 条测试。契约 §9 不变量全覆盖 | 命令实测 |
+| 2026-10-29 15:35 | TC-012 | **导入核心落盘**：import-docx（mammoth 1.13.0+启发式识别）、import-pdf（pdfjs+版面分析+扫描件检测）、recognition-provider（FR-IMP-010 可切换接口）、import-map（映射+pending）。四门全绿 485 tests。问题记录：PDF 扫描件检测阈值 50 字在短文本测试中误判，已修 | 命令实测 |
+| 2026-10-29 15:48 | TC-012 | **全部完成 → 全卡关闭**：ImportWizard.vue（五步确认向导）、mammoth-samples.md（验证记录）。四门全绿 485 tests（ElementProbe flaky 为已知并行负载问题，单独跑 7/7） | 命令实测 |
 
 ---
 

@@ -53,20 +53,23 @@ function isFiniteNumber(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value)
 }
 
-/** 校验 A4 页面设置；收集问题后给出可用值（缺项走 A4 纵向 20mm 兜底）。 */
+/** 校验 A4 页面设置；收集问题后给出可用值（缺项走 A4 纵向 + 设计稿页边距兜底，与 DEFAULT_PAGE_SETTINGS 一致）。 */
 function readPageSettings(
   input: unknown,
   errors: ModelIssue[],
 ): PageSettings {
+  // 兜底与 DEFAULT_PAGE_SETTINGS 必须一致：否则缺项文档会被"修"成另一套边距。
+  // 设计稿真值：docs/design/mockups/figma/app.css:552 `.paper { padding: 54px 60px 44px; }`，
+  // 794px = 210mm 换算保留 2 位小数（Amor 2026-10-30 的 1:1 裁决）。
   const fallback: PageSettings = {
     paper: 'A4',
     orientation: 'portrait',
     widthMm: 210,
     heightMm: 297,
-    marginTopMm: 20,
-    marginRightMm: 20,
-    marginBottomMm: 20,
-    marginLeftMm: 20,
+    marginTopMm: 14.28,
+    marginRightMm: 15.87,
+    marginBottomMm: 11.64,
+    marginLeftMm: 15.87,
   }
 
   if (!isPlainObject(input)) {

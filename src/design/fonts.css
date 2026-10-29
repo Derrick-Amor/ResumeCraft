@@ -1,0 +1,99 @@
+/*
+ * 简历字体 @font-face（设计 token 之外唯一允许出现字体资源的地方）
+ * ==================================================================
+ * 为什么单开这个文件而不是塞进 tokens.css：
+ *   tokens.css 是"数值唯一事实源"，只放变量；@font-face 是资源声明，
+ *   两者变更原因不同（换字体文件 vs 调色板），混在一起会让 diff 不可读。
+ *
+ * 为什么用 woff2 而不是 ttf：
+ *   同一份字形 woff2 约小 40%，界面只需要 woff2；PDF 嵌入走 ttf（见 src/io/font-assets.ts），
+ *   那是 pdf-lib 的字体解析要求，两条链路各取所需。
+ *
+ * font-display: swap —— 字体没就绪时先用系统字体渲染，避免整页白屏；
+ * 但**测量不能用"还在 swap 中"的字体**：布局层必须先 await fonts-ready.ts 的预热结果再量。
+ *
+ * 字形来源与许可见 src/assets/fonts/README.md 与 OFL.txt（SIL OFL 1.1）。
+ * ================================================================== */
+
+@font-face {
+  font-family: 'Rc Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/woff2/rc-sans-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Rc Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/woff2/rc-sans-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Rc Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/woff2/rc-sans-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Rc Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/woff2/rc-serif-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Rc Serif';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/woff2/rc-serif-600.woff2') format('woff2');
+}
+
+/* ============================================================
+ * 设计稿族名别名（2026-10-29 补）
+ *
+ * 为什么需要这一段：设计稿 tokens.css 的 `--rc-font` 写的是
+ *   'Inter', 'Noto Sans SC', -apple-system, 'Segoe UI', sans-serif
+ * 其中 Inter / Noto Sans SC 是靠第 17 行的 Google Fonts @import 拉的。
+ * 我们删了那个 @import（离线可用 + 不依赖第三方），于是这两个族名在本地
+ * **一个都不存在** → 界面会静默回退到 Segoe UI / 微软雅黑，
+ * 而 PDF 嵌入的是 rc-sans(TTF)，测量层又是第三个栈 ——
+ * 三者不同字体，"预览即所得"直接不成立。
+ *
+ * 做法：把设计稿用到的两个族名**指向本项目自己的字库**（Noto Sans SC 子集）。
+ * 这样 tokens.css 的取值与设计稿逐字一致，渲染却走本地文件。
+ *
+ * 诚实声明：族名叫 'Inter' 的那份**不是 Inter**，是 Noto Sans SC 子集的西文部分。
+ * 本项目没有 Inter 字库。若将来要真正的 Inter，替换下面 trio 的 src 即可，
+ * token 与组件一行都不用改。
+ * ============================================================ */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/woff2/rc-sans-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/woff2/rc-sans-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/woff2/rc-sans-700.woff2') format('woff2');
+}

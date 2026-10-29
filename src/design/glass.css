@@ -1,0 +1,300 @@
+/*
+ * ResumeCraft · 材质层
+ * ============================================================
+ * 加载顺序：tokens.css（值） → app.css（结构与组件） → glass.css（材质与互动）
+ *
+ * 原则（2026-10-27 第三轮修正，Amor 定）：
+ *   **只做透明色 + 背景模糊。** 不画镜面高光、不做色散彩边、不叠多重内阴影。
+ *   那些「渲染」是模拟出来的，看起来假；界面上的玻璃就应该是
+ *   「一层半透明的颜色 + 背后的东西被柔化」。
+ *
+ *   唯一保留的装饰是「蓝色呼吸环」—— 那是 Amor 明确要的交互反馈，且只在 hover 出现。
+ *
+ * 分工：蓝色 = 外壳（chrome），墨绿 = 纸面内容（content）。
+ * ============================================================ */
+
+/* ---- 1. 极光底 ---- */
+body { background: var(--rc-canvas); }
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: var(--rc-aurora);
+}
+.app { position: relative; z-index: 1; }
+.app { background: transparent; }
+.canvas, .sheet, .page { background: transparent; }
+
+/* ---- 2. 外壳：半透明白 + 模糊，边线走蓝 ---- */
+.topbar, .statusbar, .actionbar, .side, .inspector {
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+.canvas__bar {
+  background: rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+}
+.topbar { border-bottom: 1px solid var(--rc-border); }
+.side { border-right: 1px solid var(--rc-border); }
+.inspector { border-left: 1px solid var(--rc-border); }
+.statusbar { border-top: 1px solid var(--rc-border); }
+.actionbar { border-top: 1px solid var(--rc-border); }
+.canvas__bar { border-bottom: 1px solid var(--rc-border-soft); }
+
+/* ---- 3. 面板内的浮层与卡槽：同一套透明色 ---- */
+.card, .panel, .hintbar, .progress3, .bg-locked, .searchbox, .filterbtn,
+.colorfield, .segmented, .popover, .ovfpreview, .altcard {
+  background: rgba(255, 255, 255, 0.52);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid var(--rc-border);
+  box-shadow: none;
+}
+.docpaper, .mini, .tplcard__stage .mini {
+  background: var(--rc-paper);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.docpaper { box-shadow: none; border: 1px solid var(--rc-border-soft); }
+
+/* ---- 4. 按钮：一层透明色，仅此而已 ---- */
+.btn {
+  position: relative;
+  background: rgba(255, 255, 255, 0.42);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid var(--rc-border);
+  border-radius: var(--rc-r-ctl);
+  color: var(--rc-text);
+  box-shadow: none;
+  transition: background var(--rc-dur) var(--rc-ease),
+              border-color var(--rc-dur) var(--rc-ease),
+              color var(--rc-dur) var(--rc-ease);
+}
+.btn:hover {
+  background: rgba(255, 255, 255, 0.66);
+  border-color: var(--rc-border-strong);
+}
+.btn:active { background: rgba(47, 118, 210, 0.1); }
+
+/* 导出 / 确认：透明色换成蓝的，仍是同一层透明，不加任何光效 */
+.btn--primary {
+  background: rgba(47, 118, 210, 0.14);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(47, 118, 210, 0.42);
+  color: var(--rc-accent-ink);
+  box-shadow: none;
+}
+.btn--primary:hover {
+  background: rgba(47, 118, 210, 0.22);
+  border-color: var(--rc-accent);
+}
+.btn--primary:active { background: rgba(47, 118, 210, 0.3); }
+.btn--primary .ic { color: currentColor; }
+
+.btn--ghost {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+.btn--ghost:hover { background: rgba(47, 118, 210, 0.08); border-color: transparent; }
+
+.btn:disabled, .btn[aria-disabled='true'] {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: var(--rc-border-soft);
+  color: var(--rc-text-4);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.btn:disabled:hover, .btn[aria-disabled='true']:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: var(--rc-border-soft);
+}
+
+/* ---- 5. 输入类 ---- */
+.input, .select, .textarea {
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--rc-border);
+  box-shadow: none;
+}
+.input:hover, .select:hover, .textarea:hover { border-color: var(--rc-border-strong); }
+.input:focus, .select:focus, .textarea:focus {
+  border-color: var(--rc-accent);
+  box-shadow: 0 0 0 2px rgba(47, 118, 210, 0.16);
+}
+.input--invalid { border-color: var(--rc-danger); }
+.input--invalid:focus { box-shadow: 0 0 0 2px rgba(182, 84, 79, 0.14); }
+.input:disabled, .select:disabled { background: rgba(255, 255, 255, 0.3); }
+
+.switch { background: var(--rc-border-strong); }
+.switch--on { background: var(--rc-accent); }
+.checkbox { border-color: var(--rc-border-strong); }
+.checkbox--on { background: var(--rc-accent); border-color: var(--rc-accent); }
+
+/* ---- 6. 卡片：透明色 + 悬停上浮 + 蓝色呼吸环 ---- */
+.compcard, .tplcard, .entrycard, .idxcard, .rcard, .optcard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--rc-border);
+  border-radius: var(--rc-r-card);
+  box-shadow: none;
+  transition: transform var(--rc-dur-slow) var(--rc-ease-spring),
+              background var(--rc-dur) var(--rc-ease),
+              border-color var(--rc-dur) var(--rc-ease);
+}
+
+/* 呼吸环：只有 hover 才出现，只淡入淡出，不加外发光 */
+.compcard::after, .tplcard::after, .entrycard::after, .idxcard::after {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid var(--rc-accent);
+  opacity: 0;
+  transition: opacity var(--rc-dur) var(--rc-ease);
+  z-index: 3;
+}
+
+.compcard:hover, .tplcard:hover, .entrycard:hover, .idxcard:hover {
+  transform: translateY(-6px) scale(1.008);
+  background: rgba(255, 255, 255, 0.72);
+  border-color: transparent;
+  z-index: 5;
+}
+.tplcard:hover, .idxcard:hover { transform: translateY(-8px) scale(1.012); }
+
+.compcard:hover::after, .tplcard:hover::after,
+.entrycard:hover::after, .idxcard:hover::after {
+  animation: rcBreath var(--rc-breathe) ease-in-out infinite;
+}
+
+@keyframes rcBreath {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 1; }
+}
+
+/* 呼吸环要外扩，卡片不能裁切 */
+.tplcard { overflow: visible; }
+.tplcard__stage { border-radius: var(--rc-r-card) var(--rc-r-card) 0 0; }
+.tplcard__info { border-radius: 0 0 var(--rc-r-card) var(--rc-r-card); }
+
+/* 当前态：边框常亮，不参与呼吸 */
+.tplcard--on, .entrycard--on { border-color: var(--rc-accent); }
+.optcard--on { background: rgba(47, 118, 210, 0.1); border-color: var(--rc-accent); }
+
+/* ---- 7. 组件市场：面板内两列卡片 ---- */
+.compgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--rc-s2);
+}
+.compcard {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--rc-s2);
+  padding: 11px 10px 10px;
+  min-height: 104px;
+  text-align: left;
+}
+.compcard + .compcard { margin-top: 0; }
+.compcard__text { gap: 3px; }
+.compcard__name { font-size: var(--rc-fz-sm); }
+.compcard__desc {
+  font-size: var(--rc-fz-2xs);
+  line-height: 1.5;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.compcard__grip {
+  position: absolute; top: 8px; right: 8px;
+  opacity: 0;
+  transition: opacity var(--rc-dur) var(--rc-ease);
+}
+.compcard:hover .compcard__grip { opacity: 1; }
+.compcard__ico { background: rgba(255, 255, 255, 0.6); }
+.compcard:hover .compcard__ico { background: rgba(255, 255, 255, 0.9); }
+/* 奇数个组件时最后一张横跨两列，避免右下留空 */
+.compcard:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  min-height: 0;
+  padding: 10px;
+}
+.compcard:last-child:nth-child(odd) .compcard__desc { -webkit-line-clamp: 1; }
+
+/* ---- 8. 弹窗与浮层（唯一保留阴影的地方：需要与遮罩分离）---- */
+.dialog {
+  background: rgba(255, 255, 255, 0.86);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--rc-border);
+  border-radius: var(--rc-r-dlg);
+  box-shadow: 0 24px 60px -20px rgba(16, 38, 72, 0.4);
+}
+.popover {
+  background: rgba(255, 255, 255, 0.86);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--rc-border);
+  box-shadow: 0 12px 32px -12px rgba(16, 38, 72, 0.3);
+}
+.scrim { -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+
+/* ---- 9. 细部 ---- */
+.badge--accent { background: rgba(47, 118, 210, 0.1); color: var(--rc-accent-ink); border: 1px solid var(--rc-border); }
+.badge--ok { background: var(--rc-ok-soft); color: var(--rc-ok); border: 1px solid var(--rc-ok-border); }
+.badge--warn { border: 1px solid var(--rc-warn-border); }
+.badge--danger { border: 1px solid var(--rc-danger-border); }
+.badge--outline { border: 1px solid var(--rc-border); }
+
+.segmented { background: rgba(255, 255, 255, 0.45); }
+.segmented__item--on { background: var(--rc-surface); box-shadow: 0 0 0 1px var(--rc-border-soft); }
+
+.avatar { background: rgba(47, 118, 210, 0.12); border-color: var(--rc-border); color: var(--rc-accent-ink); }
+.step__no { border-color: var(--rc-border-strong); }
+.step__line { background: var(--rc-border); }
+.layerrow--on, .pagerow--on, .rail__item--on { background: rgba(47, 118, 210, 0.1); color: var(--rc-accent-ink); }
+.layerrow--on::before { background: var(--rc-accent); }
+.layerrow--on .layerrow__ico, .compcard:hover .compcard__ico { color: var(--rc-accent); }
+
+/* 纸面：一圈极淡蓝边与外壳同族，但纸不做玻璃 */
+.paper { box-shadow: 0 0 0 1px var(--rc-border-soft), 0 10px 30px -18px rgba(16, 38, 72, 0.25); }
+
+/* ---- 10. 纸面墨绿（chrome 转蓝后，纸内容仍是墨绿）---- */
+.dot-paper { background: var(--rc-paper-accent); }
+.dot-border-strong { background: var(--rc-border-strong); }
+.dot-accent-soft { background: var(--rc-accent-soft); }
+.p-intent { color: var(--rc-paper-accent); }
+.p-sec__title::before { background: var(--rc-paper-accent); }
+.p-em { color: var(--rc-paper-accent); }
+.docpaper h3::before { background: var(--rc-paper-accent); }
+.mini__sub { color: var(--rc-paper-accent); }
+.mini__sec::before { background: var(--rc-paper-accent); }
+.mini__b::before { background: var(--rc-text-2); }
+
+/* 纸内分隔线与占位块必须中性灰 —— 界面转蓝后，纸面不能被染蓝 */
+.p-photo, .docpaper__photo, .mini__photo {
+  border-color: var(--rc-paper-border);
+  background: var(--rc-paper-neutral);
+}
+.mini__rule { background: var(--rc-paper-border); }
+.p-sec__rule { background: var(--rc-paper-border); }
+
+/* ---- 11. 降级 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .compcard:hover::after, .tplcard:hover::after,
+  .entrycard:hover::after, .idxcard:hover::after { animation: none; opacity: 1; }
+  .compcard:hover, .tplcard:hover, .entrycard:hover, .idxcard:hover { transform: none; }
+}

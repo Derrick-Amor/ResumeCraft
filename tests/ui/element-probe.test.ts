@@ -48,7 +48,10 @@ vi.stubGlobal(
  * 不用固定 sleep，避免机器快慢造成假失败。
  */
 async function waitFor(check: () => void) {
-  await vi.waitFor(check, { timeout: 3000, interval: 20 })
+  // timeout 从 3s 提到 8s：async-validator 的异步校验在全量并行负载下
+  // 偶发被 jsdom 定时器挤占，表现为"偶发红、单跑绿"。
+  // 只放宽等待时间，不放宽断言内容 —— 校验文案与弹窗不出现仍必须成立。
+  await vi.waitFor(check, { timeout: 8000, interval: 20 })
 }
 
 describe('ElementProbe（Element Plus 接入验证组件）', () => {
@@ -68,10 +71,15 @@ describe('ElementProbe（Element Plus 接入验证组件）', () => {
     const wrapper = mount(ElementProbe)
 
     await wrapper.find('[data-testid="probe-submit"]').trigger('click')
-    await waitFor(() => expect(wrapper.text()).toContain('请输入姓名'))
+    // 三条校验文案必须**一起**等：async-validator 逐字段异步校验，
+    // 只等第一条就断言后两条，会在并行负载下竞态（表现为"偶发红、单跑绿"）。
+    // 等待时间放宽到 8s 仍在包装器内；断言内容一字未松。
+    await waitFor(() => {
+      expect(wrapper.text()).toContain('请输入姓名')
+      expect(wrapper.text()).toContain('请输入邮箱')
+      expect(wrapper.text()).toContain('请输入意向岗位')
+    })
 
-    expect(wrapper.text()).toContain('请输入邮箱')
-    expect(wrapper.text()).toContain('请输入意向岗位')
     expect(document.querySelector('.el-dialog')).toBeNull()
   })
 
@@ -132,18 +140,11 @@ describe('接入方式约束（防止悄悄退回全量引入）', () => {
     expect(mainTs).not.toMatch(/from ['"]element-plus['"]/)
   })
 
-  it('App.vue 只挂了 ElementProbe（没有顺手加业务组件）', () => {
+  it('App.vue 挂载了 TC-008 编辑器壳（TC-002 占位已替换）', () => {
     const appVue = readFileSync(join(SRC, 'App.vue'), 'utf8')
 
-    expect(appVue.match(/<ElementProbe\b/g)).toHaveLength(1)
-
-    // 只允许一个 .vue 组件导入，且必须是 ElementProbe
-    const componentImports = [...appVue.matchAll(/^import\s+\w+\s+from\s+['"](.+\.vue)['"]$/gm)].map(
-      (m) => m[1],
-    )
-    expect(componentImports).toEqual(['./ui/controls/ElementProbe.vue'])
-
-    // 不许出现业务组件关键词
-    expect(appVue).not.toMatch(/Canvas|Panel|Inspector|Sidebar|Toolbar|Outline/)
+    // TC-008 起 App.vue 挂 AppShell，不再是 ElementProbe 占位
+    expect(appVue).toContain('AppShell')
+    expect(appVue.match(/<AppShell\b/g)).toHaveLength(1)
   })
 })

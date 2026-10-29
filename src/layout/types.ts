@@ -56,6 +56,15 @@ export interface LayoutWarning {
   cause: string
   /** 面向用户的处理建议。禁止写「请调整」这种废话 */
   suggestion: string
+  /**
+   * 2026-10-30 补：仅 `overflow-page` 时给出，为被裁掉的文本行原文。
+   * 其他警告类型**不填**。取不到就不填（undefined），禁止空数组冒充"没有溢出"——
+   * undefined 与 [] 语义不同：前者是"不知道"，后者是"知道但一行都没裁"。
+   *
+   * 粒度是 run 级（`TextRunSpec.text`）：一个 run 折成两行、只有下半被裁时，
+   * 整条 run 进来。不拆半行——那要引入行偏移，成本不抵（team-lead 2026-10-30 裁决）。
+   */
+  overLines?: string[]
 }
 
 /**

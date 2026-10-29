@@ -8,7 +8,7 @@
  */
 
 import type { LayoutResult, LayoutWarningType } from '../layout/types'
-import type { Issue, QualityIssueType, QualitySeverity } from './types'
+import type { Issue, QualityIssueType } from './types'
 import { QUALITY_ISSUE_TYPES } from './types'
 
 /**

@@ -9,8 +9,11 @@
 /** 按钮类型。主按钮每屏只允许一个（PRD 6.4）。 */
 export type RcButtonVariant = 'primary' | 'default' | 'ghost' | 'danger'
 
-/** 按钮高度只有 28 / 32 两档（PRD 6.4），不给中间值。 */
-export type RcButtonSize = 'md' | 'sm'
+/**
+ * 按钮高度档。`sm/md` 是常规控件档（26/30px），`lg` 是动作条与入口卡的大按钮（36px）。
+ * 三档都对应设计稿已有类（`.btn--sm` / 无修饰 / `.btn--lg`），不新增中间值。
+ */
+export type RcButtonSize = 'md' | 'sm' | 'lg'
 
 /** 标签语气。success 与 accent 分开：前者表示「已确认」，后者是品牌色。 */
 export type RcBadgeTone = 'accent' | 'success' | 'warning' | 'danger' | 'neutral'

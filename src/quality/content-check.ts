@@ -8,13 +8,17 @@
  *  3. 内容丢失：layout.boxes 中出现但文档中已不存在的组件（数据不一致）
  */
 
-import type { ResumeDocument } from '../model/types'
+import type { ResumeDocument, ResumeComponent, UnknownComponent } from '../model/types'
 import type { LayoutResult } from '../layout/types'
 import { QUALITY_ISSUE_TYPES } from './types'
 import type { Issue } from './types'
 
-function isUnknownComponent(c: { unknown?: boolean }): boolean {
-  return c.unknown === true
+function isUnknownComponent(c: ResumeComponent | UnknownComponent): c is UnknownComponent {
+  return 'unknown' in c && c.unknown === true
+}
+
+function isKnownComponent(c: ResumeComponent | UnknownComponent): c is ResumeComponent {
+  return !isUnknownComponent(c)
 }
 
 /** 检查文档组件是否都在布局中被放置（FR-QA-001 核心）。 */
@@ -55,7 +59,7 @@ export function checkRequiredFields(
   const issues: Issue[] = []
 
   for (const component of doc.components) {
-    if (isUnknownComponent(component)) continue
+    if (!isKnownComponent(component)) continue
     if (!component.visible) continue
 
     const required = requiredFields[component.type]

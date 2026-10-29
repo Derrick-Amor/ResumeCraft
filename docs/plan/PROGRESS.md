@@ -1,27 +1,34 @@
 # PROGRESS — ResumeCraft 主控进度快照
 
 > 更新时机：每卡闭环时；出现遗忘信号时立即更新
-> 最近更新：2026-10-28 12:16
+> 最近更新：2026-10-29 16:20
 
-## 0. 最新状态（2026-10-28，覆盖下方 §1 的部分旧描述）
+## 0. 🏆 MVP 交付完成（2026-10-29 16:20）
 
-- **M2 全部收官（2026-10-28 12:16）**：TC-006 / TC-007 / TC-005 / TC-017 四卡全部 `resolved`
-- **TC-017 已关闭**：`src/storage/` 9 文件 + `tests/storage/` 8 文件（84 条测试）
-  - StorageAdapter（memory/idb 双实现）/ FileAccessAdapter / QuotaInfo / SecurityCheck 四接口
-  - AutosaveController 防抖节流 + 失败绝不显示已保存
-  - FR-SEC-004 脱敏错误经 storageIssue 统一构造（cause 不落入 message）
-- **四门最后一次全绿：2026-10-28 12:11** —— lint 0 / vue-tsc 通过 / **333 tests passed（22 files）** / build 25.69s
-- **沙箱环境升级（2026-10-28 11:35）**：pnpm / git / vitest 均可直接执行
-  （HANDOFF §5 记录的限制已解除，四门可自行验证）
-- **当前里程碑：M2 → M3**。下一批：`013a → 010 → 011 → 008 → 009`
-- **未提交改动**：TC-005/006/007/017 全部交付物 + 清理的设计稿，共 42 文件待 Amor 提交
-  （`scripts/commit.cmd` 或 git add + commit）
+**18 张卡中 17 张收官**（TC-014 AI 建议层属 P1 后置），四门全绿 **494 tests (30 files)**。
+
+| 里程碑 | 卡 | 状态 |
+|---|---|---|
+| M0 工程基座 | TC-001, 002 | ✅ |
+| M1 视觉与模型 | TC-003, 004, 016 | ✅ |
+| M2 布局与组件 | TC-005, 006, 007, 017 | ✅ |
+| M3 检查引擎与导出 | TC-008, 009, 010, 011, 013a | ✅ |
+| M4 导入与测试 | TC-012, 013 | ✅ |
+| M5 发布 | TC-015 | ✅ |
+| P1 后置 | TC-014 | ⬜ |
+
+### 最终交付清单
+- **源码**：`src/` 12 个模块（model/layout/components/template/quality/storage/io/ai/ui/design/assets/version）
+- **测试**：494 条 / 30 文件，覆盖全部模块
+- **文档**：CONTRACT + PRD + 任务分工 + 测试报告 + 用户指南 + 合规清单 + 验收记录 + 运营素材
+- **导出**：PDF（TTF 中文嵌入）+ DOCX（结构标记无损往返）
+- **导入**：DOCX（自产无损/第三方启发式）+ PDF（文本提取/扫描件检测）
+- **UI**：五区域编辑器 + 画布 + 图层 + 溢出弹窗 + 模板 + 导入向导
 
 ## 1. 当前位置
 
-- 里程碑：M2 已收官，准备进入 M3
-- 下一张卡：**TC-013a 质量检查引擎**（`src/quality/`、`tests/quality/`）
-- TAPD：TC-017 `resolved`（M2 四卡全关）
+- **MVP 完成**，等待 Amor 验收 + 部署上线
+- 待做：git 提交 → 部署（Cloudflare Pages/Vercel）→ 验收签字
 
 ## 2. 当前卡进度
 

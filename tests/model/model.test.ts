@@ -117,6 +117,21 @@ describe('§2 不变量 1：schemaVersion 与 documentId', () => {
   })
 })
 
+describe('默认页边距与设计稿 1:1（Amor 2026-10-30 裁决，防回退）', () => {
+  it('新建文档的四个页边距等于设计稿 .paper padding 的换算值', () => {
+    // 设计稿真值：docs/design/mockups/figma/app.css:552 `.paper { padding: 54px 60px 44px; }`
+    // 纸面宽 794px = A4 210mm（tokens.css --rc-paper-w），按 794:210 换算并保留 2 位小数：
+    //   54px → 14.28mm（上）、60px → 15.87mm（左右）、44px → 11.64mm（下）。
+    // 屏幕纸面 CSS padding 为 0（防二次偏移），页边距完全由 pageSettings 承担，
+    // 所以这组默认值就是纸面页边距的唯一真值来源。谁把默认值改回 20mm，本测试立刻红。
+    const doc = createDocument({ now: NOW })
+    expect(doc.pageSettings.marginTopMm).toBe(14.28)
+    expect(doc.pageSettings.marginRightMm).toBe(15.87)
+    expect(doc.pageSettings.marginBottomMm).toBe(11.64)
+    expect(doc.pageSettings.marginLeftMm).toBe(15.87)
+  })
+})
+
 describe('§2 不变量 2：未知组件原样保留并标记 unknown', () => {
   it('validate 把 unknown:true 的组件转成 UnknownComponent，字段一个不丢', () => {
     const result = validate(makeDocWithUnknown())

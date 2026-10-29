@@ -1,0 +1,5 @@
+{
+  "description": "字体子集字符集（scripts/subset-fonts.py 生成）",
+  "charCount": 7054,
+  "note": "新增生僻中文后必须重跑 subset-fonts.py，否则守卫测试会红"
+}
