@@ -16,21 +16,21 @@
   /* .docrow__name   文档名                                                */
   /* .docrow__meta   模板 · 语言 · 页数 · 更新于                            */
   /* .docrow__acts   右侧操作区                                            */
-  .doclist { display: flex; flex-direction: column; gap: var(--rc-s3); }
+  .doclist { display: flex; flex-direction: column; gap: var(--rc-s1); }
 
-  .docrow { display: flex; align-items: center; gap: var(--rc-s4); padding: var(--rc-s3) var(--rc-s4); }
+  .docrow { display: flex; align-items: center; gap: var(--rc-s4); padding: var(--rc-s1) var(--rc-s4); }
 
   .docrow__thumb {
-    width: 92px; height: 130px; flex: none;
+    width: 59px; height: 84px; flex: none;
     border-radius: var(--rc-r-ctl);
     overflow: hidden;
     background: var(--rc-canvas);
     border: 1px solid var(--rc-border-soft);
   }
-  /* mini 按 168×238 设计稿等比缩小到 92×130（scale ≈ .546），手法同 02 */
+  /* mini 按 168×238 设计稿等比缩小到 59×84（scale ≈ .351），手法同 02 */
   .docrow__thumb .mini {
     width: 168px; height: 238px;
-    transform: scale(.546); transform-origin: top left;
+    transform: scale(.351); transform-origin: top left;
     position: relative; border: 0; box-shadow: none;
   }
 
@@ -76,7 +76,7 @@
         <button class="btn btn--lg btn--primary"><i class="ic ic--14" data-ic="plus"></i>新建简历</button>
       </div>
 
-      <div class="filters">
+      <div class="filters" style="margin-bottom:var(--rc-s3)">
         <label class="searchbox">
           <i class="ic ic--14 muted" data-ic="search"></i>
           <input placeholder="搜索文档名">
@@ -156,18 +156,10 @@
 
       </div>
 
-      <p class="footnote">
+      <p class="footnote" style="margin-top:var(--rc-s2)">
         <i class="ic ic--12" data-ic="info" style="margin-top:3px"></i>
-        <span>文档仅保存在本机浏览器。更换设备或清理数据前，请先在编辑器内导出 JSON 备份。</span>
+        <span>文档仅保存在本机浏览器（已用 2.1 MB）。更换设备或清理数据前，请先在编辑器内导出 JSON 备份；备份包含全部文档与素材引用。</span>
       </p>
-
-      <div class="hintbar" style="margin-top:18px">
-        <i class="ic ic--18 hintbar__ico" data-ic="info"></i>
-        <span>
-          <span class="hintbar__t">本机存储已用 2.1 MB</span><br>
-          备份文件包含全部文档与素材引用。
-        </span>
-      </div>
     </div>
   </div>
 
