@@ -41,7 +41,7 @@ const TYPE_ALIASES: Record<string, string> = {
   honor: 'awards',
 }
 
-function canonicalType(type: string): string {
+export function canonicalType(type: string): string {
   return TYPE_ALIASES[type] ?? type
 }
 

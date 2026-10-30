@@ -25,7 +25,7 @@
 |---|---|---|---|---|
 | **01 主编辑器** | `01-editor.html` | ✅ 完成 | `pnpm exec vitest run tests/design/fidelity.test.ts` | — |
 | **02 模板库整屏** | `02-templates.html` | ✅ 完成 | `grep -c "tpl-grid\|tplcard\|searchbox\|filterbtn\|actionbar\|mini__" src/ui/templates/TemplatesView.vue`（2026-10-30 实测分项 2/15/2/3/8/113） | 四张 `.tplcard` + 纯 DOM `.mini` 缩略图 + 筛选 + 两段式动作条。显示名走 UI 侧常量（不改契约） |
-| **03 导入向导** | `03-import.html` | 🟡 部分 | `grep -c "docpaper\|rcard" src/ui/import-wizard/ImportWizard.vue` | 五步流程在；缺 `.docpaper`（原文档左右对照预览）与 `.rcard`（识别结果卡） |
+| **03 导入向导** | `03-import.html` | ✅ 完成 | `grep -c "docpaper\|rcard" src/ui/import-wizard/ImportWizard.vue`（2026-10-30 实测 25） | `.importgrid` 左右对照重建：左 `.docpaper` 原文（含 pending 原文 + 低置信度行 `.doc-hl`）/ 右 `.rcard` 识别结果卡（已确认/待确认徽标 + 接受/修改/跳过）；确认导入门控（待确认含低置信度块，清空才放行）；stepper 收敛为设计稿 3 步；6 条测试（QA 审计 PASS） |
 | **04 导出前检查** | `04-export-check.html` | ✅ 完成 | `grep -c "checkitem\|optcard" src/ui/shell/AppShell.vue` | 弹窗 + `.checkitem` + `.optcard`（radio 语义）齐 |
 | **05 空状态/工作台** | `05-empty.html` | ✅ 完成 | `grep -c "entrycard\|rail__item\|progress3\|entrygrid" src/ui/workbench/Workbench.vue`（2026-10-30 实测 22/2/8/3） | 屏幕切换机制已加（`screen: 'workbench' \| 'editor'`，UI 态不落盘） |
 | **06a 图层** | `06a-layers.html` | ✅ 完成 | `pnpm exec vitest run tests/ui/layer-lock.test.ts` | 树结构齐；**锁定按钮已补**（2026-10-30 Amor 裁决按 06b 模式渲染）：纯 UI 态（不进文档模型、不进 undo），锁定行禁拖拽 + 禁上下移；背景行恒锁定。容器类已对齐设计稿 `.layerrow__acts`（hover 显隐 + `iconbtn--lock` 配色规则生效） |
@@ -89,11 +89,10 @@
 
 前置纪律：每格开工前先读对应设计稿 HTML 原文（`docs/design/mockups/figma/`），1:1 铁律下不做"差不多"。
 
-1. **03 导入对照预览**（🟡）：补 `.docpaper`（原文档左右对照）+ `.rcard`（识别结果卡），类名照 `03-import.html` 原文
-2. **素材库**（⬜）：Tab 在，内容是占位。设计稿 `10-material.html`
-3. **画板模式**（⬜）：`NewDocDialog` 有入口，`BoardToolbar` 全 disabled
-4. **多文档管理**（⬜）：无文档列表，单文档
-5. **语言轨英轨独立排版档**（🟡）
-6. **收尾**：PRD 与实际对版（TAPD TC-019）+ git 覆盖提交
+1. **素材库**（⬜）：Tab 在，内容是占位。设计稿 `10-material.html`
+2. **画板模式**（⬜）：`NewDocDialog` 有入口，`BoardToolbar` 全 disabled
+3. **多文档管理**（⬜）：无文档列表，单文档
+4. **语言轨英轨独立排版档**（🟡）
+5. **收尾**：PRD 与实际对版（TAPD TC-019）
 
 每完成一格，跑对应验收命令 → 绿了才改本表状态。
