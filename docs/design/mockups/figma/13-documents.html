@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>13 多文档管理 · ResumeCraft</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="glass.css">
+<style>
+  /* ---- 本页专用新类（仅本屏引入，供将来移植到 src/design/app.css）---- */
+  /* .doclist        文档列表容器：纵向排列，行间距 var(--rc-s3)            */
+  /* .docrow         单行文档卡：与 .card 组合获得玻璃底，仅补布局细节      */
+  /* .docrow__thumb  左侧缩略图槽位：复用 .mini，按 02 的等比缩小手法       */
+  /* .docrow__main   中部信息区：名称 + 元信息                              */
+  /* .docrow__name   文档名                                                */
+  /* .docrow__meta   模板 · 语言 · 页数 · 更新于                            */
+  /* .docrow__acts   右侧操作区                                            */
+  .doclist { display: flex; flex-direction: column; gap: var(--rc-s3); }
+
+  .docrow { display: flex; align-items: center; gap: var(--rc-s4); padding: var(--rc-s3) var(--rc-s4); }
+
+  .docrow__thumb {
+    width: 92px; height: 130px; flex: none;
+    border-radius: var(--rc-r-ctl);
+    overflow: hidden;
+    background: var(--rc-canvas);
+    border: 1px solid var(--rc-border-soft);
+  }
+  /* mini 按 168×238 设计稿等比缩小到 92×130（scale ≈ .546），手法同 02 */
+  .docrow__thumb .mini {
+    width: 168px; height: 238px;
+    transform: scale(.546); transform-origin: top left;
+    position: relative; border: 0; box-shadow: none;
+  }
+
+  .docrow__main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+  .docrow__name { font-size: var(--rc-fz-h3); font-weight: 600; color: var(--rc-text); letter-spacing: -0.01em; }
+  .docrow__meta { font-size: var(--rc-fz-xs); color: var(--rc-text-3); line-height: 1.6; }
+
+  .docrow__acts { display: flex; align-items: center; gap: var(--rc-s2); flex: none; }
+</style>
+</head>
+<body data-screen="13">
+
+<div class="app">
+
+  <!-- 多文档管理：sheet 屏结构（照 05 的顶栏 / sheet / 状态栏，无三栏） -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <span class="brand__mark"><i class="ic ic--14" data-ic="file-text"></i></span>
+        <span class="brand__name">ResumeCraft</span>
+      </div>
+      <span class="topbar__divider"></span>
+      <div class="docmeta">
+        <span class="docmeta__name">我的工作台</span>
+        <span class="docmeta__sub">管理本机简历文档</span>
+      </div>
+    </div>
+    <div class="topbar__mid"></div>
+    <div class="topbar__right">
+      <button class="btn"><i class="ic ic--14" data-ic="info"></i>使用帮助</button>
+      <span class="avatar">张</span>
+    </div>
+  </header>
+
+  <div class="sheet">
+    <div class="sheet__inner" style="max-width:1120px">
+
+      <div class="sheet__head">
+        <div>
+          <h1 class="h1">我的简历</h1>
+          <p class="h1__sub">3 份文档 · 仅保存在本机浏览器</p>
+        </div>
+        <button class="btn btn--lg btn--primary"><i class="ic ic--14" data-ic="plus"></i>新建简历</button>
+      </div>
+
+      <div class="filters">
+        <label class="searchbox">
+          <i class="ic ic--14 muted" data-ic="search"></i>
+          <input placeholder="搜索文档名">
+        </label>
+        <button class="filterbtn">语言：<span class="filterbtn__v">全部</span><i class="ic ic--12" data-ic="chevron-down"></i></button>
+        <button class="filterbtn">模板：<span class="filterbtn__v">全部</span><i class="ic ic--12" data-ic="chevron-down"></i></button>
+        <span class="filters__count">3 份</span>
+      </div>
+
+      <div class="doclist">
+
+        <!-- ---------- 1 张明的产品研发简历 ---------- -->
+        <article class="card docrow">
+          <div class="docrow__thumb">
+            <div class="mini">
+              <div class="mini__name">张明</div>
+              <div class="mini__sub">前端开发工程师</div>
+              <div class="mini__sec">教育经历</div><div class="mini__rule"></div>
+              <div class="mini__sec">项目经历</div><div class="mini__rule"></div>
+            </div>
+          </div>
+          <div class="docrow__main">
+            <span class="docrow__name">张明的产品研发简历</span>
+            <span class="docrow__meta">清晰 · 校园 · 中文 · 2 页 · 更新于 10-29 21:14</span>
+          </div>
+          <div class="docrow__acts">
+            <button class="btn btn--sm btn--primary">打开</button>
+            <button class="btn btn--sm btn--ghost">重命名</button>
+            <button class="btn btn--sm btn--ghost">复制</button>
+            <button class="btn btn--sm btn--ghost">删除</button>
+          </div>
+        </article>
+
+        <!-- ---------- 2 张明-英文 CV ---------- -->
+        <article class="card docrow">
+          <div class="docrow__thumb">
+            <div class="mini mini--latin">
+              <div class="mini__name">ZHANG MING</div>
+              <div class="mini__sub">Frontend Engineer</div>
+              <div class="mini__sec">EDUCATION</div><div class="mini__rule"></div>
+              <div class="mini__sec">PROJECTS</div><div class="mini__rule"></div>
+            </div>
+          </div>
+          <div class="docrow__main">
+            <span class="docrow__name">张明-英文 CV</span>
+            <span class="docrow__meta">留白 · 双语 · English · 1 页 · 更新于 10-27 09:02</span>
+          </div>
+          <div class="docrow__acts">
+            <button class="btn btn--sm btn--primary">打开</button>
+            <button class="btn btn--sm btn--ghost">重命名</button>
+            <button class="btn btn--sm btn--ghost">复制</button>
+            <button class="btn btn--sm btn--ghost">删除</button>
+          </div>
+        </article>
+
+        <!-- ---------- 3 产品运营岗-定制版 ---------- -->
+        <article class="card docrow">
+          <div class="docrow__thumb">
+            <div class="mini">
+              <div class="mini__name">张明</div>
+              <div class="mini__sub">产品运营</div>
+              <div class="mini__sec">项目经历</div><div class="mini__rule"></div>
+              <div class="mini__sec">专业技能</div><div class="mini__rule"></div>
+            </div>
+          </div>
+          <div class="docrow__main">
+            <span class="docrow__name">产品运营岗-定制版</span>
+            <span class="docrow__meta">秩序 · 专业 · 中文 · 1 页 · 更新于 10-22 16:40</span>
+          </div>
+          <div class="docrow__acts">
+            <button class="btn btn--sm btn--primary">打开</button>
+            <button class="btn btn--sm btn--ghost">重命名</button>
+            <button class="btn btn--sm btn--ghost">复制</button>
+            <button class="btn btn--sm btn--ghost">删除</button>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="footnote">
+        <i class="ic ic--12" data-ic="info" style="margin-top:3px"></i>
+        <span>文档仅保存在本机浏览器。更换设备或清理数据前，请先在编辑器内导出 JSON 备份。</span>
+      </p>
+
+      <div class="hintbar" style="margin-top:18px">
+        <i class="ic ic--18 hintbar__ico" data-ic="info"></i>
+        <span>
+          <span class="hintbar__t">本机存储已用 2.1 MB</span><br>
+          备份文件包含全部文档与素材引用。
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="statusbar">
+    <span>3 份文档 · 仅保存在本机浏览器</span>
+    <span>JSON 备份 · PDF / Word 导出</span>
+  </footer>
+</div>
+
+<a class="navhint" href="index.html"><i class="ic ic--12" data-ic="chevron-left"></i>全部界面</a>
+<script src="icons.js"></script>
+</body>
+</html>

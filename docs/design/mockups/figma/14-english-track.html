@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14 英文 CV 轨 · ResumeCraft</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="glass.css">
+</head>
+<body data-screen="14">
+
+<div class="app">
+
+  <!-- ================= 顶栏 ================= -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <span class="brand__mark"><i class="ic ic--14" data-ic="file-text"></i></span>
+        <span class="brand__name">ResumeCraft</span>
+      </div>
+      <span class="topbar__divider"></span>
+      <div class="docmeta">
+        <span class="docmeta__name">Zhang Ming's Product Resume</span>
+        <span class="docmeta__sub">English CV 轨 · 自动排版</span>
+      </div>
+    </div>
+
+    <div class="topbar__mid">
+      <div class="segmented" role="group" aria-label="内容语言轨">
+        <button class="segmented__item segmented__item--on">English</button>
+      </div>
+      <button class="iconbtn" title="撤销"><i class="ic ic--14" data-ic="undo"></i></button>
+      <button class="iconbtn" title="重做"><i class="ic ic--14" data-ic="redo"></i></button>
+    </div>
+
+    <div class="topbar__right">
+      <span class="statusbar__item muted" style="margin-right:6px">
+        <i class="ic ic--12" data-ic="check-circle"></i>已保存
+      </span>
+      <button class="btn"><i class="ic ic--14" data-ic="clipboard-check"></i>导出前检查</button>
+      <button class="btn btn--primary"><i class="ic ic--14" data-ic="download"></i>导出</button>
+      <span class="avatar">张</span>
+    </div>
+  </header>
+
+  <!-- ================= 三栏 ================= -->
+  <div class="workspace">
+
+    <!-- ---------- 左栏 ---------- -->
+    <aside class="side">
+      <nav class="side__tabs">
+        <button class="side__tab">模板</button>
+        <button class="side__tab side__tab--on">组件</button>
+        <button class="side__tab">素材</button>
+        <button class="side__tab">页面</button>
+      </nav>
+
+      <div class="side__body">
+        <div class="side__section">
+          <span class="side__section-title">简历组件</span>
+          <span class="side__section-hint">拖入画布</span>
+        </div>
+
+        <div class="compgrid">
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="user"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">基本信息</span>
+            <span class="compcard__desc">姓名、意向与联系方式</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="graduation-cap"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">教育经历</span>
+            <span class="compcard__desc">学校、专业与学业表现</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="briefcase"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">项目经历</span>
+            <span class="compcard__desc">职责、技术栈与量化成果</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="code"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">技能</span>
+            <span class="compcard__desc">专业能力与语言水平</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="quote"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">自我评价</span>
+            <span class="compcard__desc">优势与个人特点</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+        </div>
+
+        <p class="side__note">内容自动参与排版与分页。拖动组件可调整顺序。</p>
+
+        <div class="side__section" style="margin-top:18px">
+          <span class="side__section-title">文档页面</span>
+        </div>
+        <button class="pagerow pagerow--on">
+          <span class="pagerow__no">1</span>
+          <span class="pagerow__name">第 1 页 · 简历正文</span>
+          <span class="pagerow__count">3</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ---------- 画布：英文简历（无照片位） ---------- -->
+    <main class="canvas">
+      <div class="canvas__bar">
+        <div class="canvas__meta">
+          <span class="canvas__pageno">第 1 / 1 页</span>
+          <span class="canvas__meta-sep"></span>
+          <span class="canvas__size">A4 · 210 × 297 mm</span>
+        </div>
+        <div class="canvas__tools">
+          <div class="canvas__zoom">
+            <button class="iconbtn iconbtn--sm" title="缩小"><i class="ic ic--12" data-ic="minus"></i></button>
+            <span class="canvas__pct">60%</span>
+            <button class="iconbtn iconbtn--sm" title="放大"><i class="ic ic--12" data-ic="plus"></i></button>
+          </div>
+          <button class="iconbtn iconbtn--sm" title="适合页面"><i class="ic ic--14" data-ic="maximize"></i></button>
+        </div>
+      </div>
+
+      <div class="canvas__scroll">
+
+        <!-- A4 纸：内部 794×1123 真值，整体按 --rc-zoom 缩放 -->
+        <div class="paper-slot">
+          <article class="paper">
+
+            <!-- 英文轨无照片位：header 仅保留 main -->
+            <header class="p-header">
+              <div class="p-header__main">
+                <h1 class="p-name">Zhang Ming</h1>
+                <p class="p-intent">Frontend Engineer</p>
+                <p class="p-contact">Guangzhou · +86 138 0013 8000<br>zhangming.dev@example.com · linkedin.com/in/zhangming</p>
+              </div>
+            </header>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">EDUCATION</h2>
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">South China University of Technology — Software Engineering</span>
+                  <span class="p-item__date">Sep 2022 – Jun 2026</span>
+                </div>
+                <div class="p-item__role">B.Eng. · GPA 3.7/4.0 · Top 10%</div>
+              </div>
+            </section>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">PROJECTS</h2>
+
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">Campus Recruitment Collaboration Platform</span>
+                  <span class="p-item__date">Mar 2025 – Jun 2025</span>
+                </div>
+                <div class="p-item__role">Frontend Lead · React / TypeScript / Node.js</div>
+                <ul class="p-bullets">
+                  <li>Designed a job search and application dashboard covering 12 schools and 1,200 trial users.</li>
+                  <li>Cut first-screen load from 2.8s to 1.4s via virtualized lists and request caching.</li>
+                </ul>
+              </div>
+
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">Class Schedule Assistant</span>
+                  <span class="p-item__date">Sep 2024 – Dec 2024</span>
+                </div>
+                <div class="p-item__role">Frontend Developer · Vue 3 / Pinia / IndexedDB</div>
+                <ul class="p-bullets">
+                  <li>Implemented schedule import and conflict detection for six class formats.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">SKILLS</h2>
+              <p class="p-plain">TypeScript / JavaScript · React / Vue · HTML / CSS · Git</p>
+            </section>
+
+            <div class="paper-foot">1 / 1</div>
+          </article>
+        </div>
+
+        <div class="paper-next"></div>
+      </div>
+    </main>
+
+    <!-- ---------- 右栏：英文轨字段差异 ---------- -->
+    <aside class="inspector">
+      <div class="inspector__head">
+        <span class="inspector__title">基本信息</span>
+        <button class="iconbtn iconbtn--sm" title="面板设置"><i class="ic ic--14" data-ic="sliders"></i></button>
+      </div>
+
+      <nav class="inspector__tabs">
+        <button class="inspector__tab inspector__tab--on">内容</button>
+        <button class="inspector__tab">样式</button>
+        <button class="inspector__tab">布局</button>
+      </nav>
+
+      <div class="inspector__body">
+
+        <div class="field">
+          <label class="field__label">Portfolio / LinkedIn</label>
+          <input class="input" value="linkedin.com/in/zhangming">
+          <p class="field__hint">英文轨以链接代替照片位。</p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label">开始时间</label>
+            <input class="input tnum" value="Sep 2022">
+          </div>
+          <div class="field">
+            <label class="field__label">结束时间</label>
+            <input class="input tnum" value="Jun 2026">
+          </div>
+        </div>
+        <p class="field__hint">英文轨日期格式：Mon YYYY。</p>
+
+        <div class="inspector__divider"></div>
+
+        <p class="field__hint">英文轨无照片与政治面貌字段；bullet 建议动词开头。</p>
+
+      </div>
+    </aside>
+  </div>
+
+  <!-- ================= 状态栏 ================= -->
+  <footer class="statusbar">
+    <div class="statusbar__group">
+      <span class="statusbar__item"><i class="ic ic--12" data-ic="check-circle"></i>已保存于 10:42</span>
+    </div>
+    <div class="statusbar__group">
+      <span class="statusbar__item"><i class="ic ic--12" data-ic="type"></i>English CV 轨</span>
+    </div>
+  </footer>
+</div>
+
+<a class="navhint" href="index.html"><i class="ic ic--12" data-ic="chevron-left"></i>全部界面</a>
+<script src="icons.js"></script>
+</body>
+</html>

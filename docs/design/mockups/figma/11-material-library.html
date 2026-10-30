@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11 素材库 · ResumeCraft</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="glass.css">
+</head>
+<body data-screen="11">
+
+<div class="app">
+
+  <!-- ================= 顶栏 ================= -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <span class="brand__mark"><i class="ic ic--14" data-ic="file-text"></i></span>
+        <span class="brand__name">ResumeCraft</span>
+      </div>
+      <span class="topbar__divider"></span>
+      <div class="docmeta">
+        <span class="docmeta__name">张明的产品研发简历</span>
+        <span class="docmeta__sub">清晰 · 校园 / 自动排版</span>
+      </div>
+    </div>
+
+    <div class="topbar__mid">
+      <div class="segmented" role="group" aria-label="内容语言轨">
+        <button class="segmented__item segmented__item--on">中文</button>
+        <button class="segmented__item">English<span class="segmented__dot" title="英文轨未完成"></span></button>
+      </div>
+      <button class="iconbtn" title="撤销"><i class="ic ic--14" data-ic="undo"></i></button>
+      <button class="iconbtn" title="重做"><i class="ic ic--14" data-ic="redo"></i></button>
+    </div>
+
+    <div class="topbar__right">
+      <span class="statusbar__item muted" style="margin-right:6px">
+        <i class="ic ic--12" data-ic="check-circle"></i>已保存
+      </span>
+      <button class="btn"><i class="ic ic--14" data-ic="clipboard-check"></i>导出前检查</button>
+      <button class="btn btn--primary"><i class="ic ic--14" data-ic="download"></i>导出</button>
+      <span class="avatar">张</span>
+    </div>
+  </header>
+
+  <!-- ================= 三栏 ================= -->
+  <div class="workspace">
+
+    <!-- ---------- 左栏：素材 Tab ---------- -->
+    <aside class="side">
+      <nav class="side__tabs">
+        <button class="side__tab">模板</button>
+        <button class="side__tab">组件</button>
+        <button class="side__tab side__tab--on">素材</button>
+        <button class="side__tab">页面</button>
+      </nav>
+
+      <div class="side__body">
+
+        <!-- 上传入口：沿用 03 / 07 的 optcard 结构 -->
+        <div class="optcard">
+          <div class="optcard__body">
+            <div class="optcard__head">
+              <span class="optcard__name"><i class="ic ic--14" data-ic="upload" style="margin-right:6px;color:var(--rc-accent)"></i>上传素材</span>
+              <span class="optcard__tag">本机处理</span>
+            </div>
+            <div class="optcard__desc">PNG / JPG / SVG · 单个不超过 5 MB<br>文件仅保存在本机浏览器，不上传服务器。</div>
+          </div>
+        </div>
+
+        <div class="side__section">
+          <span class="side__section-title">我的素材</span>
+          <span class="side__section-hint">6 个</span>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-bottom:var(--rc-s3)">
+          <label class="searchbox">
+            <i class="ic ic--14 muted" data-ic="search"></i>
+            <input placeholder="搜索素材名称">
+          </label>
+          <button class="filterbtn">类型：<span class="filterbtn__v">全部</span><i class="ic ic--12" data-ic="chevron-down"></i></button>
+        </div>
+
+        <div class="compgrid">
+
+        <button class="compcard" style="border-color:var(--rc-accent)" title="当前选中：头像-张明.jpg">
+          <span class="compcard__ico"><i class="ic" data-ic="image"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">头像-张明.jpg</span>
+            <span class="compcard__desc">240 × 320 · 86 KB</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="image"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">校徽.png</span>
+            <span class="compcard__desc">512 × 512 · 124 KB</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="square-dashed"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">分隔线-实线.svg</span>
+            <span class="compcard__desc">800 × 8 · 2 KB</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="layers"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">图标集-线性.svg</span>
+            <span class="compcard__desc">240 × 240 · 6 KB</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="image"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">作品截图-校招通.png</span>
+            <span class="compcard__desc">1280 × 800 · 340 KB</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="palette"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">页脚装饰-渐变.svg</span>
+            <span class="compcard__desc">800 × 120 · 4 KB</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+        </div>
+
+        <p class="side__note">素材随文档保存在本机。清理浏览器数据前，请先导出备份。</p>
+
+      </div>
+    </aside>
+
+    <!-- ---------- 画布 ---------- -->
+    <main class="canvas">
+      <div class="canvas__bar">
+        <div class="canvas__meta">
+          <span class="canvas__pageno">第 1 / 2 页</span>
+          <span class="canvas__meta-sep"></span>
+          <span class="canvas__size">A4 · 210 × 297 mm</span>
+        </div>
+        <div class="canvas__tools">
+          <div class="canvas__zoom">
+            <button class="iconbtn iconbtn--sm" title="缩小"><i class="ic ic--12" data-ic="minus"></i></button>
+            <span class="canvas__pct">60%</span>
+            <button class="iconbtn iconbtn--sm" title="放大"><i class="ic ic--12" data-ic="plus"></i></button>
+          </div>
+          <button class="iconbtn iconbtn--sm" title="适合页面"><i class="ic ic--14" data-ic="maximize"></i></button>
+        </div>
+      </div>
+
+      <div class="canvas__scroll">
+
+        <!-- A4 纸：内部 794×1123 真值，整体按 --rc-zoom 缩放 -->
+        <div class="paper-slot">
+          <article class="paper">
+
+            <header class="p-header">
+              <div class="p-header__main">
+                <h1 class="p-name">张明</h1>
+                <p class="p-intent">求职意向 · 前端开发工程师</p>
+                <p class="p-contact">广州 · 138 0013 8000<br>zhangming.dev@example.com</p>
+              </div>
+              <div class="p-photo">
+                <i class="ic ic--18" data-ic="user"></i>
+                <span>照片</span>
+              </div>
+            </header>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">教育经历</h2>
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">华南理工大学 · 软件工程</span>
+                  <span class="p-item__date">2022.09-2026.06</span>
+                </div>
+                <div class="p-item__role">本科 · GPA 3.7/4.0 · 专业前 10%</div>
+              </div>
+            </section>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">项目经历</h2>
+
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">校招通 · 校园招聘协作平台</span>
+                  <span class="p-item__date">2025.03-2025.06</span>
+                </div>
+                <div class="p-item__role">前端负责人 | React / TypeScript / Node.js</div>
+                <ul class="p-bullets">
+                  <li>设计岗位检索与投递看板，覆盖 12 个学院、1,200 名试用用户。</li>
+                  <li>采用虚拟列表与请求缓存，首屏加载 2.8s 降至 1.4s，重复请求减少 38%。</li>
+                </ul>
+              </div>
+
+              <!-- 选中态：与右栏属性面板、06A 图层树保持同一对象 -->
+              <div class="p-item" style="position:relative">
+                <div class="selbox selbox--bare" style="inset:-6px -8px">
+                  <span class="selbox__h selbox__h--tl"></span>
+                  <span class="selbox__h selbox__h--tc"></span>
+                  <span class="selbox__h selbox__h--tr"></span>
+                  <span class="selbox__h selbox__h--ml"></span>
+                  <span class="selbox__h selbox__h--mr"></span>
+                  <span class="selbox__h selbox__h--bl"></span>
+                  <span class="selbox__h selbox__h--bc"></span>
+                  <span class="selbox__h selbox__h--br"></span>
+                </div>
+                <div class="p-item__head">
+                  <span class="p-item__name">课表助手 · 多端日程管理</span>
+                  <span class="p-item__date">2024.09-2024.12</span>
+                </div>
+                <div class="p-item__role">前端开发 | Vue 3 / Pinia / IndexedDB</div>
+                <ul class="p-bullets">
+                  <li>构建课程导入与冲突检测，支持 6 类课表格式，导入成功率 96%。</li>
+                  <li class="is-over">实现离线缓存及提醒设置，累计 800+ 用户，周活跃率 62%。<span class="p-ovf__tag">超出 3 行</span></li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">专业技能</h2>
+              <p class="p-plain">TypeScript / JavaScript · React / Vue · HTML / CSS</p>
+              <p class="p-plain">Git · 基础可访问性与性能分析 · CET-6 568</p>
+            </section>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">自我评价</h2>
+              <p class="p-plain">关注用户体验与工程质量，能独立拆解前端需求；重视协作与复盘，持续通过数据验证产品改进。</p>
+            </section>
+
+            <div class="paper-foot">1 / 2</div>
+          </article>
+        </div>
+
+        <div class="paper-next"></div>
+      </div>
+    </main>
+
+    <!-- ---------- 右栏：素材详情 ---------- -->
+    <aside class="inspector">
+      <div class="inspector__head">
+        <span class="inspector__title">素材详情</span>
+        <button class="iconbtn iconbtn--sm" title="更多操作"><i class="ic ic--14" data-ic="more-vertical"></i></button>
+      </div>
+
+      <div class="inspector__body">
+
+        <div class="field">
+          <label class="field__label">文件名</label>
+          <input class="input" value="头像-张明.jpg">
+        </div>
+
+        <div class="field">
+          <label class="field__label">文件信息</label>
+          <p class="muted" style="font-size:var(--rc-fz-xs);line-height:1.8;margin:0">
+            类型 · JPG 图片<br>
+            尺寸 · 240 × 320 px<br>
+            大小 · 86 KB
+          </p>
+        </div>
+
+        <div class="field">
+          <label class="field__label">用途</label>
+          <select class="select">
+            <option>照片占位</option>
+            <option>插图</option>
+            <option>图标</option>
+          </select>
+        </div>
+
+        <div class="inspector__divider"></div>
+
+        <button class="btn btn--sm btn--primary" style="width:100%">
+          <i class="ic ic--14" data-ic="square-plus"></i>插入到画布
+        </button>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn--sm btn--ghost" style="flex:1"><i class="ic ic--12" data-ic="refresh"></i>替换</button>
+          <button class="btn btn--sm btn--danger" style="flex:1"><i class="ic ic--12" data-ic="x"></i>删除</button>
+        </div>
+
+        <p class="field__hint">删除后可从本机重新上传；已插入纸面的图片不会自动移除。</p>
+
+      </div>
+    </aside>
+  </div>
+
+  <!-- ================= 状态栏 ================= -->
+  <footer class="statusbar">
+    <div class="statusbar__group">
+      <span class="statusbar__item"><i class="ic ic--12" data-ic="check-circle"></i>已保存于 10:42</span>
+    </div>
+  </footer>
+</div>
+
+<a class="navhint" href="index.html"><i class="ic ic--12" data-ic="chevron-left"></i>全部界面</a>
+<script src="icons.js"></script>
+</body>
+</html>

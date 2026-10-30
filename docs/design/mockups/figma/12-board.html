@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12 画板编辑态 · ResumeCraft</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="glass.css">
+</head>
+<body data-screen="12">
+
+<div class="app">
+
+  <!-- ================= 顶栏 ================= -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <span class="brand__mark"><i class="ic ic--14" data-ic="file-text"></i></span>
+        <span class="brand__name">ResumeCraft</span>
+      </div>
+      <span class="topbar__divider"></span>
+      <div class="docmeta">
+        <span class="docmeta__name">张明的产品研发简历</span>
+        <span class="docmeta__sub">画板模式 · 自动排版</span>
+      </div>
+    </div>
+
+    <div class="topbar__mid">
+      <div class="segmented" role="group" aria-label="内容语言轨">
+        <button class="segmented__item segmented__item--on">中文</button>
+        <button class="segmented__item">English<span class="segmented__dot" title="英文轨未完成"></span></button>
+      </div>
+      <button class="iconbtn" title="撤销"><i class="ic ic--14" data-ic="undo"></i></button>
+      <button class="iconbtn" title="重做"><i class="ic ic--14" data-ic="redo"></i></button>
+    </div>
+
+    <div class="topbar__right">
+      <span class="statusbar__item muted" style="margin-right:6px">
+        <i class="ic ic--12" data-ic="check-circle"></i>已保存
+      </span>
+      <button class="btn"><i class="ic ic--14" data-ic="clipboard-check"></i>导出前检查</button>
+      <button class="btn btn--primary"><i class="ic ic--14" data-ic="download"></i>导出</button>
+      <span class="avatar">张</span>
+    </div>
+  </header>
+
+  <!-- ================= 三栏 ================= -->
+  <div class="workspace">
+
+    <!-- ---------- 左栏：组件 Tab + 装饰模块 ---------- -->
+    <aside class="side">
+      <nav class="side__tabs">
+        <button class="side__tab">模板</button>
+        <button class="side__tab side__tab--on">组件</button>
+        <button class="side__tab">素材</button>
+        <button class="side__tab">页面</button>
+      </nav>
+
+      <div class="side__body">
+        <div class="side__section">
+          <span class="side__section-title">简历组件</span>
+          <span class="side__section-hint">拖入画布</span>
+        </div>
+
+        <div class="compgrid">
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="user"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">基本信息</span>
+            <span class="compcard__desc">姓名、意向与联系方式</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="graduation-cap"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">教育经历</span>
+            <span class="compcard__desc">学校、专业与学业表现</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="briefcase"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">项目经历</span>
+            <span class="compcard__desc">职责、技术栈与量化成果</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="code"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">技能</span>
+            <span class="compcard__desc">专业能力与语言水平</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard">
+          <span class="compcard__ico"><i class="ic" data-ic="quote"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">自我评价</span>
+            <span class="compcard__desc">优势与个人特点</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+        </div>
+
+        <p class="side__note">内容自动参与排版与分页。拖动组件可调整顺序。</p>
+
+        <div class="side__section" style="margin-top:18px">
+          <span class="side__section-title">装饰模块</span>
+          <span class="side__section-hint">画板元素</span>
+        </div>
+
+        <div class="compgrid">
+
+        <button class="compcard" title="插入到画布">
+          <span class="compcard__ico"><i class="ic" data-ic="sliders"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">分隔线</span>
+            <span class="compcard__desc">可自由摆放的画布元素</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard" title="插入到画布">
+          <span class="compcard__ico"><i class="ic" data-ic="calendar"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">时间轴</span>
+            <span class="compcard__desc">可自由摆放的画布元素</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+
+        <button class="compcard" title="插入到画布">
+          <span class="compcard__ico"><i class="ic" data-ic="sparkle"></i></span>
+          <span class="compcard__text">
+            <span class="compcard__name">标签</span>
+            <span class="compcard__desc">可自由摆放的画布元素</span>
+          </span>
+          <span class="compcard__grip"><i class="ic ic--14" data-ic="grip-vertical"></i></span>
+        </button>
+        </div>
+
+        <p class="side__note">装饰元素不参与自动排版，可自由拖动摆放。</p>
+
+      </div>
+    </aside>
+
+    <!-- ---------- 画布 ---------- -->
+    <main class="canvas">
+      <div class="canvas__bar">
+        <div class="canvas__meta">
+          <button class="btn btn--sm btn--ghost"><i class="ic ic--12" data-ic="upload"></i>上传背景</button>
+          <button class="btn btn--sm btn--ghost"><i class="ic ic--12" data-ic="palette"></i>背景色</button>
+          <button class="btn btn--sm btn--ghost" style="color:var(--rc-text-4);cursor:not-allowed"><i class="ic ic--12" data-ic="image"></i>纹理</button>
+          <button class="btn btn--sm btn--ghost"><i class="ic ic--12" data-ic="square-plus"></i>插入插图</button>
+        </div>
+        <div class="canvas__tools">
+          <button class="btn btn--sm btn--primary"><i class="ic ic--12" data-ic="file-up"></i>保存为背景模板</button>
+          <div class="canvas__zoom">
+            <button class="iconbtn iconbtn--sm" title="缩小"><i class="ic ic--12" data-ic="minus"></i></button>
+            <span class="canvas__pct">60%</span>
+            <button class="iconbtn iconbtn--sm" title="放大"><i class="ic ic--12" data-ic="plus"></i></button>
+          </div>
+          <button class="iconbtn iconbtn--sm" title="适合页面"><i class="ic ic--14" data-ic="maximize"></i></button>
+        </div>
+      </div>
+
+      <div class="canvas__scroll">
+
+        <!-- A4 纸：内部 794×1123 真值，整体按 --rc-zoom 缩放 -->
+        <div class="paper-slot">
+          <span class="artboard-sel">
+            <span class="artboard-sel__tag"><i class="ic ic--12" data-ic="lock"></i>背景 · 渐变底板</span>
+            <span class="artboard-sel__h artboard-sel__h--tl"></span>
+            <span class="artboard-sel__h artboard-sel__h--tr"></span>
+            <span class="artboard-sel__h artboard-sel__h--bl"></span>
+            <span class="artboard-sel__h artboard-sel__h--br"></span>
+          </span>
+          <article class="paper" style="background:linear-gradient(135deg, var(--rc-canvas), var(--rc-surface-sunk))">
+
+            <header class="p-header">
+              <div class="p-header__main">
+                <h1 class="p-name">张明</h1>
+                <p class="p-intent">求职意向 · 前端开发工程师</p>
+                <p class="p-contact">广州 · 138 0013 8000<br>zhangming.dev@example.com</p>
+              </div>
+              <div class="p-photo">
+                <i class="ic ic--18" data-ic="user"></i>
+                <span>照片</span>
+              </div>
+            </header>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">教育经历</h2>
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">华南理工大学 · 软件工程</span>
+                  <span class="p-item__date">2022.09-2026.06</span>
+                </div>
+                <div class="p-item__role">本科 · GPA 3.7/4.0 · 专业前 10%</div>
+              </div>
+            </section>
+
+            <!-- 自由摆放的装饰元素：选中态与右栏「背景」面板同属画板层 -->
+            <div style="position:relative;margin:14px 0 16px" title="装饰元素 · 分隔线（画板模式可自由拖动）">
+              <div class="selbox" style="inset:-7px -9px">
+                <span class="selbox__h selbox__h--tl"></span>
+                <span class="selbox__h selbox__h--tc"></span>
+                <span class="selbox__h selbox__h--tr"></span>
+                <span class="selbox__h selbox__h--ml"></span>
+                <span class="selbox__h selbox__h--mr"></span>
+                <span class="selbox__h selbox__h--bl"></span>
+                <span class="selbox__h selbox__h--bc"></span>
+                <span class="selbox__h selbox__h--br"></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="p-sec__rule" style="flex:1;margin:0"></span>
+                <i class="ic ic--14" data-ic="sparkle" style="color:var(--rc-accent)"></i>
+                <span class="p-sec__rule" style="flex:1;margin:0"></span>
+              </div>
+            </div>
+
+            <section class="p-sec">
+              <h2 class="p-sec__title">项目经历</h2>
+
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">校招通 · 校园招聘协作平台</span>
+                  <span class="p-item__date">2025.03-2025.06</span>
+                </div>
+                <div class="p-item__role">前端负责人 | React / TypeScript / Node.js</div>
+                <ul class="p-bullets">
+                  <li>设计岗位检索与投递看板，覆盖 12 个学院、1,200 名试用用户。</li>
+                  <li>采用虚拟列表与请求缓存，首屏加载 2.8s 降至 1.4s，重复请求减少 38%。</li>
+                </ul>
+              </div>
+
+              <div class="p-item">
+                <div class="p-item__head">
+                  <span class="p-item__name">课表助手 · 多端日程管理</span>
+                  <span class="p-item__date">2024.09-2024.12</span>
+                </div>
+                <div class="p-item__role">前端开发 | Vue 3 / Pinia / IndexedDB</div>
+                <ul class="p-bullets">
+                  <li>构建课程导入与冲突检测，支持 6 类课表格式，导入成功率 96%。</li>
+                  <li>实现离线缓存及提醒设置，累计 800+ 用户，周活跃率 62%。</li>
+                </ul>
+              </div>
+            </section>
+
+            <div class="paper-foot">1 / 2</div>
+          </article>
+        </div>
+
+        <div class="paper-next"></div>
+      </div>
+    </main>
+
+    <!-- ---------- 右栏：背景属性（可编辑态，与 06B 锁定态互补） ---------- -->
+    <aside class="inspector">
+      <div class="inspector__head">
+        <span class="inspector__title">背景</span>
+        <button class="iconbtn iconbtn--sm" title="锁定背景"><i class="ic ic--14" data-ic="unlock"></i></button>
+      </div>
+
+      <div class="inspector__body" style="gap:12px">
+
+        <div class="field">
+          <label class="field__label">背景类型</label>
+          <select class="select">
+            <option>渐变</option>
+            <option>纯色</option>
+            <option>图片上传</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field__label">颜色</label>
+          <div class="colorfield">
+            <span class="colorfield__chip dot-paper"></span>
+            <span class="colorfield__hex">#4B7168</span>
+          </div>
+        </div>
+
+        <div class="field-row field-row--tight">
+          <div class="field">
+            <label class="field__label">透明度</label>
+            <div class="unit-input">
+              <input class="input tnum" value="100">
+              <span class="unit-input__unit">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="inspector__switchrow">
+          <span class="inspector__switchname">应用到所有页面</span>
+          <span class="switch switch--on" role="switch" aria-checked="true"></span>
+        </div>
+
+        <p class="field__hint">装饰元素与背景不参与内容分页；渐变仅作用于纸面底层，不改变文字排版。</p>
+
+      </div>
+    </aside>
+  </div>
+
+  <!-- ================= 状态栏 ================= -->
+  <footer class="statusbar">
+    <div class="statusbar__group">
+      <span class="statusbar__item"><i class="ic ic--12" data-ic="check-circle"></i>已保存于 10:47</span>
+    </div>
+    <div class="statusbar__group">
+      <span class="statusbar__item"><i class="ic ic--12" data-ic="square-dashed"></i>画板模式</span>
+    </div>
+  </footer>
+</div>
+
+<a class="navhint" href="index.html"><i class="ic ic--12" data-ic="chevron-left"></i>全部界面</a>
+<script src="icons.js"></script>
+</body>
+</html>
